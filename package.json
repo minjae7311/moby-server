@@ -1,0 +1,16 @@
+{
+  "name": "moby-server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/minjae7311/moby-client.git",
+  "author": "alswnd0427@gmail.com",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "@types/node": "^14.0.22",
+    "nodemon": "^2.0.4",
+    "ts-node": "^8.10.2",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^3.9.6"
+  }
+}
