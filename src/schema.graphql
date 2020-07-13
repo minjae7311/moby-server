@@ -10,7 +10,7 @@ type Query {
 
 type User {
   id: Int!
-  fistName: String!
+  firstName: String!
   lastName: String!
   fullName: String
   profilePhotoUrl: String
@@ -30,5 +30,5 @@ type SignUpResponse {
 }
 
 type Mutation {
-  SignUp(fistName: String!, lastName: String!, profilePhotoUrl: String, phoneNumber: String!, gender: String!, birthDate: String!, job: String!, password: String!): SignUpResponse!
+  SignUp(firstName: String!, lastName: String!, profilePhotoUrl: String, phoneNumber: String!, gender: String!, birthDate: String!, job: String!, password: String!): SignUpResponse!
 }

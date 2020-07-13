@@ -5,7 +5,7 @@ type SignUpResponse {
 
 type Mutation {
   SignUp(
-    fistName: String!
+    firstName: String!
     lastName: String!
     profilePhotoUrl: String
     phoneNumber: String!
