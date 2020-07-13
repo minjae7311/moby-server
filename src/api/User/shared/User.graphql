@@ -1,6 +1,6 @@
 type User {
   id: Int!
-  fistName: String!
+  firstName: String!
   lastName: String!
   fullName: String
   profilePhotoUrl: String
