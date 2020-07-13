@@ -1,0 +1,15 @@
+type User {
+  id: Int!
+  fistName: String!
+  lastName: String!
+  fullName: String
+  profilePhotoUrl: String
+  phoneNumber: String!
+  verifiedPhoneNumber: Boolean!
+  gender: String!
+  birthDate: String!
+  job: String!
+  password: String!
+  createdAt: String!
+  updatedAt: String
+}

@@ -1,0 +1,17 @@
+type SignUpResponse {
+  ok: Boolean!
+  error: String
+}
+
+type Mutation {
+  SignUp(
+    fistName: String!
+    lastName: String!
+    profilePhotoUrl: String
+    phoneNumber: String!
+    gender: String!
+    birthDate: String!
+    job: String!
+    password: String!
+  ): SignUpResponse!
+}
