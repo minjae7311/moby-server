@@ -1,13 +1,27 @@
+type CreateInterestsResponse {
+  ok: Boolean!
+  error: String
+}
+
+type Mutation {
+  CreateInterests(name: String!): CreateInterestsResponse
+  CompletPhoneNumberVerification(phoneNumber: String!, key: String!): CompletPhoneNumberVerificationResponse!
+  SignUp(firstName: String!, lastName: String!, profilePhotoUrl: String!, phoneNumber: String!, gender: String!, birthDate: String!, job: String!, password: String!): SignUpResponse!
+  StartPhoneVerification(phoneNumber: String!): StartPhoneVerificationResponse!
+}
+
+type Interests {
+  id: Int!
+  name: String!
+  user: User
+  createdAt: String!
+  updatedAt: String
+}
+
 type CompletPhoneNumberVerificationResponse {
   ok: Boolean!
   error: String
   token: String
-}
-
-type Mutation {
-  CompletPhoneNumberVerification(phoneNumber: String!, key: String!): CompletPhoneNumberVerificationResponse!
-  SignUp(firstName: String!, lastName: String!, profilePhotoUrl: String!, phoneNumber: String!, gender: String!, birthDate: String!, job: String!, password: String!): SignUpResponse!
-  StartPhoneVerification(phoneNumber: String!): StartPhoneVerificationResponse!
 }
 
 type GetUserProfileResponse {
@@ -32,6 +46,7 @@ type User {
   birthDate: String!
   job: String!
   password: String!
+  interests: [Interests]
   createdAt: String!
   updatedAt: String
 }
