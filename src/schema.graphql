@@ -1,3 +1,14 @@
+type CompletPhoneNumberVerificationResponse {
+  ok: Boolean!
+  error: String
+}
+
+type Mutation {
+  CompletPhoneNumberVerification(phoneNumber: String!, key: String!): CompletPhoneNumberVerificationResponse!
+  SignUp(firstName: String!, lastName: String!, profilePhotoUrl: String, phoneNumber: String!, gender: String!, birthDate: String!, job: String!, password: String!): SignUpResponse!
+  StartPhoneVerification(phoneNumber: String!): StartPhoneVerificationResponse!
+}
+
 type GetUserProfileResponse {
   ok: Boolean!
   error: String
@@ -29,6 +40,7 @@ type SignUpResponse {
   error: String
 }
 
-type Mutation {
-  SignUp(firstName: String!, lastName: String!, profilePhotoUrl: String, phoneNumber: String!, gender: String!, birthDate: String!, job: String!, password: String!): SignUpResponse!
+type StartPhoneVerificationResponse {
+  ok: Boolean!
+  error: String
 }
