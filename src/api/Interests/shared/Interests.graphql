@@ -1,0 +1,7 @@
+enum InterestsOptions {
+    AAAAA
+    BBBBB
+    CCCCC
+    DDDDD
+    EEEEE
+}

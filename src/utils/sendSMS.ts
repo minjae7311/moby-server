@@ -10,14 +10,11 @@ const twilioClient = Twilio(
 
 /**
  * send any messages
+ * 
  * @param {string} to receiver
  * @param {string} body body
  */
 export const sendSMS = (to: string, body: string) => {
-  /**
-   * @method create()
-   * @returns Promise
-   */
   return twilioClient.messages.create({
     body,
     to,
@@ -27,6 +24,7 @@ export const sendSMS = (to: string, body: string) => {
 
 /**
  * send verification key with @function sendSMS()
+ * 
  * @param {string} to
  * @param {string} key
  */

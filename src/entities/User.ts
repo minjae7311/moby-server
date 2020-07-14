@@ -8,8 +8,10 @@ import {
   UpdateDateColumn,
   BeforeInsert,
   BeforeUpdate,
+  OneToMany,
 } from "typeorm";
 import bcrypt from "bcrypt";
+import Interests from "./Interests";
 
 const BCRYPT_ROUNDS = 10;
 
@@ -47,6 +49,9 @@ class User extends BaseEntity {
 
   @Column({ type: "text" })
   password: string;
+
+  @OneToMany((type) => Interests, (interests) => interests.user)
+  interests: Interests;
 
   @CreateDateColumn()
   createdAt: string;
