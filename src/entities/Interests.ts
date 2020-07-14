@@ -4,10 +4,8 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  OneToMany,
   ManyToOne,
   Column,
-  OneToOne,
 } from "typeorm";
 import User from "./User";
 

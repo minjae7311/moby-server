@@ -1,7 +1,6 @@
-enum InterestsOptions {
-    AAAAA
-    BBBBB
-    CCCCC
-    DDDDD
-    EEEEE
+type Interests {
+  id: Int!
+  name: String!
+  createdAt: String!
+  updatedAt: String
 }
