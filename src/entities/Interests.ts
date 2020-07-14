@@ -4,8 +4,8 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  ManyToOne,
   Column,
+  ManyToMany,
 } from "typeorm";
 import User from "./User";
 
@@ -17,8 +17,8 @@ class Interests extends BaseEntity {
   @Column()
   name: string;
 
-  @ManyToOne((type) => User, (user) => user.interests)
-  user: User;
+  @ManyToMany((type) => User, (user) => user.interests)
+  user: User[];
 
   @CreateDateColumn()
   createdAt: string;

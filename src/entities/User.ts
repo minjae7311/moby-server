@@ -8,7 +8,7 @@ import {
   UpdateDateColumn,
   BeforeInsert,
   BeforeUpdate,
-  OneToMany,
+  ManyToMany,
 } from "typeorm";
 import bcrypt from "bcrypt";
 import Interests from "./Interests";
@@ -50,8 +50,8 @@ class User extends BaseEntity {
   @Column({ type: "text" })
   password: string;
 
-  @OneToMany((type) => Interests, (interests) => interests.user)
-  interests: Interests;
+  @ManyToMany((type) => Interests, (interests) => interests.user)
+  interests: Interests[];
 
   @CreateDateColumn()
   createdAt: string;
