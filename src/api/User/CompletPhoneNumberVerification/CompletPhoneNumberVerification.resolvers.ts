@@ -22,55 +22,41 @@ const resolvers: Resolvers = {
           key,
         });
 
-        // if verification not exists
-        if (!verification) {
+        // if verification already verified
+        if (verification) {
+          const user = await User.findOne({ phoneNumber });
+          const token = createJWT(user!.id);
+
+          if (verification.verified) {
+            return {
+              ok: false,
+              error: "verified_already",
+              token,
+            };
+          } else {
+            verification.verified = true;
+            verification.save();
+
+            user!.verifiedPhoneNumber = true;
+            user!.save();
+
+            return {
+              ok: true,
+              error: null,
+              token,
+            };
+          }
+        } else {
           return {
             ok: false,
-            error: "Verification key not valid",
-            token: null,
-          };
-        } else {
-          verification.verified = true;
-          verification.save();
-        }
-
-        // if verification exists, return nothing so continue at below try{}
-      } catch (error) {
-        return {
-          ok: false,
-          error: error.message,
-          token: null,
-        };
-      }
-
-      //if verification exists
-      try {
-        const user = await User.findOne({ phoneNumber });
-
-        if (user) {
-          // when user exists
-          user.verifiedPhoneNumber = true;
-          user.save();
-
-          const token = createJWT(user.id);
-
-          return {
-            ok: true,
-            error: null,
-            token,
-          };
-        } else {
-          // phonenumber verified and user not exists
-          return {
-            ok: true,
-            error: null,
+            error: "verification_not_found",
             token: null,
           };
         }
-      } catch (error) {
+      } catch (e) {
         return {
           ok: false,
-          error: error.message,
+          error: e.message,
           token: null,
         };
       }
