@@ -10,6 +10,7 @@ type User {
   birthDate: String!
   job: String!
   password: String!
+  interests: [Interests]
   createdAt: String!
   updatedAt: String
 }
