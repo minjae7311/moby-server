@@ -50,6 +50,10 @@ const resolvers: Resolvers = {
           } else {
             // start phone verification
 
+            /**
+             * @todo this should be here or to go sign in
+             */
+
             const phoneVerification = await Verification.create({
               payload: args.phoneNumber,
               target: "PHONE",
