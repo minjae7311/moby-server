@@ -11,6 +11,8 @@ const resolvers: Resolvers = {
       try {
         const user = await User.findOne({ phoneNumber });
 
+        console.log(user);
+
         if (!user) {
           return {
             ok: false,
@@ -20,22 +22,31 @@ const resolvers: Resolvers = {
         }
 
         const isValidPw = await user.comparePassword(password);
+        console.log(isValidPw);
 
-        if (!isValidPw) {
+        if (isValidPw) {
+          if (!user.verifiedPhoneNumber) {
+            return {
+              ok: false,
+              error: "not_verified_phone",
+              token: null
+            };
+          }
+
+          const token = createJWT(user.id);
+
+          return {
+            ok: true,
+            error: null,
+            token,
+          };
+        } else {
           return {
             ok: false,
             error: "wrong_password",
             token: null,
           };
         }
-
-        const token = createJWT(user.id);
-
-        return {
-          ok: true,
-          error: null,
-          token,
-        };
       } catch (e) {
         return {
           ok: false,

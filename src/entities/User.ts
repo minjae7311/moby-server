@@ -7,7 +7,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   BeforeInsert,
-  BeforeUpdate,
+  // BeforeUpdate,
   ManyToMany,
 } from "typeorm";
 import bcrypt from "bcrypt";
@@ -68,12 +68,8 @@ class User extends BaseEntity {
     return `${this.firstName} ${this.lastName}`;
   }
 
-  private hashPassword(password: string): Promise<string> {
-    return bcrypt.hash(password, BCRYPT_ROUNDS);
-  }
-
   @BeforeInsert()
-  @BeforeUpdate()
+  // @BeforeUpdate()
   async savePassword(): Promise<void> {
     if (this.password) {
       const hashedPassword = await this.hashPassword(this.password);
@@ -82,7 +78,11 @@ class User extends BaseEntity {
   }
 
   public comparePassword(password: string): Promise<boolean> {
-    return bcrypt.compare(password, this.password);
+    return bcrypt.compare(password, this.password, null);
+  }
+
+  private hashPassword(password: string): Promise<string> {
+    return bcrypt.hash(password, BCRYPT_ROUNDS);
   }
 }
 
