@@ -27,7 +27,10 @@ class User extends BaseEntity {
   @Column({ type: "text" })
   profilePhotoUrl: string;
 
-  @Column({ type: "text" })
+  /**
+   * @todo default photoUrl
+   */
+  @Column({ type: "text" ,default:"DEFAULT_PHOTO_URL"})
   phoneNumber: string;
 
   @Column({ type: "boolean", default: false })

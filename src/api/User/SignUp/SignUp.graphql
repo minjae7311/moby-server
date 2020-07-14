@@ -1,13 +1,14 @@
 type SignUpResponse {
   ok: Boolean!
   error: String
+  token: String
 }
 
 type Mutation {
   SignUp(
     firstName: String!
     lastName: String!
-    profilePhotoUrl: String
+    profilePhotoUrl: String!
     phoneNumber: String!
     gender: String!
     birthDate: String!

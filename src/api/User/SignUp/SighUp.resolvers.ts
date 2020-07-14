@@ -25,7 +25,7 @@ const resolvers: Resolvers = {
               error: "login",
             };
           } else {
-            // redirect to phone verification
+            // start phone verification
             return {
               ok: false,
               error: "verify",
@@ -36,6 +36,7 @@ const resolvers: Resolvers = {
         return {
           ok: false,
           error: e.message,
+          token: null
         };
       }
     },

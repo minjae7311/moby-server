@@ -5,7 +5,7 @@ type CompletPhoneNumberVerificationResponse {
 
 type Mutation {
   CompletPhoneNumberVerification(phoneNumber: String!, key: String!): CompletPhoneNumberVerificationResponse!
-  SignUp(firstName: String!, lastName: String!, profilePhotoUrl: String, phoneNumber: String!, gender: String!, birthDate: String!, job: String!, password: String!): SignUpResponse!
+  SignUp(firstName: String!, lastName: String!, profilePhotoUrl: String!, phoneNumber: String!, gender: String!, birthDate: String!, job: String!, password: String!): SignUpResponse!
   StartPhoneVerification(phoneNumber: String!): StartPhoneVerificationResponse!
 }
 
@@ -38,9 +38,20 @@ type User {
 type SignUpResponse {
   ok: Boolean!
   error: String
+  token: String
 }
 
 type StartPhoneVerificationResponse {
   ok: Boolean!
   error: String
+}
+
+type Verification {
+  id: Int!
+  target: String!
+  payload: String!
+  key: String!
+  verified: Boolean!
+  createdAt: String!
+  updatedAt: String
 }
