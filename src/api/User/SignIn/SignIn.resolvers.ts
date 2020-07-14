@@ -22,10 +22,15 @@ const resolvers: Resolvers = {
         }
 
         const isValidPw = await user.comparePassword(password);
-        console.log(isValidPw);
 
         if (isValidPw) {
           if (!user.verifiedPhoneNumber) {
+            /**
+             * @todo start verification
+             * what is view look like?
+             */
+
+
             return {
               ok: false,
               error: "not_verified_phone",
