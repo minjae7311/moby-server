@@ -6,14 +6,14 @@ type CreateInterestsResponse {
 type Mutation {
   CreateInterests(name: String!): CreateInterestsResponse
   CompletPhoneNumberVerification(phoneNumber: String!, key: String!): CompletPhoneNumberVerificationResponse!
+  SignIn(phoneNumber: String!, password: String!): SignInResponse
   SignUp(firstName: String!, lastName: String!, profilePhotoUrl: String!, phoneNumber: String!, gender: String!, birthDate: String!, job: String!, password: String!): SignUpResponse!
-  StartPhoneVerification(phoneNumber: String!): StartPhoneVerificationResponse!
 }
 
 type Interests {
   id: Int!
   name: String!
-  user: User
+  user: [User]
   createdAt: String!
   updatedAt: String
 }
@@ -51,15 +51,16 @@ type User {
   updatedAt: String
 }
 
-type SignUpResponse {
+type SignInResponse {
   ok: Boolean!
   error: String
   token: String
 }
 
-type StartPhoneVerificationResponse {
+type SignUpResponse {
   ok: Boolean!
   error: String
+  token: String
 }
 
 type Verification {
