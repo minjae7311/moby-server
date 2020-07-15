@@ -5,9 +5,10 @@ type CreateInterestsResponse {
 
 type Mutation {
   CreateInterests(name: String!): CreateInterestsResponse
-  CompletPhoneNumberVerification(phoneNumber: String!, key: String!): CompletPhoneNumberVerificationResponse!
+  CompletPhoneNumberVerification(phoneNumber: String!, key: String!, deviceId: String!): CompletPhoneNumberVerificationResponse!
+  InputUserInfo(firstName: String!, lastName: String!, profilePhotoUrl: String!, phoneNumber: String!, gender: String!, birthDate: String!, job: String!, password: String!): InputUserInfoResponse!
   SignIn(phoneNumber: String!, password: String!): SignInResponse
-  SignUp(firstName: String!, lastName: String!, profilePhotoUrl: String!, phoneNumber: String!, gender: String!, birthDate: String!, job: String!, password: String!): SignUpResponse!
+  StartPhoneNumberVerification(phoneNumber: String!): StartPhoneNumberVerificationResponse
 }
 
 type Interests {
@@ -34,19 +35,25 @@ type Query {
   GetUserProfile: GetUserProfileResponse!
 }
 
+type InputUserInfoResponse {
+  ok: Boolean!
+  error: String
+}
+
 type User {
   id: Int!
-  firstName: String!
-  lastName: String!
+  firstName: String
+  lastName: String
   fullName: String
   profilePhotoUrl: String
   phoneNumber: String!
   verifiedPhoneNumber: Boolean!
-  gender: String!
-  birthDate: String!
-  job: String!
-  password: String!
+  gender: String
+  birthDate: String
+  job: String
+  deviceId: String!
   interests: [Interests]
+  verification: Verification
   createdAt: String!
   updatedAt: String
 }
@@ -57,10 +64,9 @@ type SignInResponse {
   token: String
 }
 
-type SignUpResponse {
+type StartPhoneNumberVerificationResponse {
   ok: Boolean!
   error: String
-  token: String
 }
 
 type Verification {
@@ -69,6 +75,7 @@ type Verification {
   payload: String!
   key: String!
   verified: Boolean!
+  user: User
   createdAt: String!
   updatedAt: String
 }

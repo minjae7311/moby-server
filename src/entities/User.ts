@@ -6,14 +6,14 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
-  BeforeInsert,
   // BeforeUpdate,
   ManyToMany,
+  OneToOne,
 } from "typeorm";
-import bcrypt from "bcrypt";
 import Interests from "./Interests";
+import Verification from "./Verification";
 
-const BCRYPT_ROUNDS = 10;
+// const BCRYPT_ROUNDS = 10;
 
 @Entity()
 class User extends BaseEntity {
@@ -26,13 +26,13 @@ class User extends BaseEntity {
   @Column({ type: "text" })
   lastName: string;
 
-  @Column({ type: "text" })
+  @Column({ type: "text", default: "DEFAULT_PHOTO_URL" })
   profilePhotoUrl: string;
 
   /**
    * @todo default photoUrl
    */
-  @Column({ type: "text", default: "DEFAULT_PHOTO_URL" })
+  @Column({ type: "text" })
   phoneNumber: string;
 
   @Column({ type: "boolean", default: false })
@@ -50,8 +50,14 @@ class User extends BaseEntity {
   @Column({ type: "text" })
   password: string;
 
+  @Column({ type: "text" })
+  deviceId: string;
+
   @ManyToMany((type) => Interests, (interests) => interests.user)
   interests: Interests[];
+
+  @OneToOne((type) => Verification, (verification) => verification.user)
+  verification: Verification;
 
   @CreateDateColumn()
   createdAt: string;
@@ -68,22 +74,22 @@ class User extends BaseEntity {
     return `${this.firstName} ${this.lastName}`;
   }
 
-  @BeforeInsert()
-  // @BeforeUpdate()
-  async savePassword(): Promise<void> {
-    if (this.password) {
-      const hashedPassword = await this.hashPassword(this.password);
-      this.password = hashedPassword;
-    }
-  }
+  // @BeforeInsert()
+  // // @BeforeUpdate()
+  // async savePassword(): Promise<void> {
+  //   if (this.password) {
+  //     const hashedPassword = await this.hashPassword(this.password);
+  //     this.password = hashedPassword;
+  //   }
+  // }
 
-  public comparePassword(password: string): Promise<boolean> {
-    return bcrypt.compare(password, this.password, null);
-  }
+  // public comparePassword(password: string): Promise<boolean> {
+  //   return bcrypt.compare(password, this.password, null);
+  // }
 
-  private hashPassword(password: string): Promise<string> {
-    return bcrypt.hash(password, BCRYPT_ROUNDS);
-  }
+  // private hashPassword(password: string): Promise<string> {
+  //   return bcrypt.hash(password, BCRYPT_ROUNDS);
+  // }
 }
 
 export default User;

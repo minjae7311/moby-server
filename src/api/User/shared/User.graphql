@@ -1,16 +1,17 @@
 type User {
   id: Int!
-  firstName: String!
-  lastName: String!
+  firstName: String
+  lastName: String
   fullName: String
   profilePhotoUrl: String
   phoneNumber: String!
   verifiedPhoneNumber: Boolean!
-  gender: String!
-  birthDate: String!
-  job: String!
-  password: String!
+  gender: String
+  birthDate: String
+  job: String
+  deviceId: String!
   interests: [Interests]
+  verification: Verification
   createdAt: String!
   updatedAt: String
 }

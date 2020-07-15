@@ -4,8 +4,8 @@ import {
   CompletPhoneNumberVerificationMutationArgs,
 } from "../../../types/graph";
 import Verification from "../../../entities/Verification";
-import User from "../../../entities/User";
 import createJWT from "../../../utils/create.JWT";
+import User from "../../../entities/User";
 
 const resolvers: Resolvers = {
   Mutation: {
@@ -13,43 +13,53 @@ const resolvers: Resolvers = {
       _,
       args: CompletPhoneNumberVerificationMutationArgs
     ): Promise<CompletPhoneNumberVerificationResponse> => {
-      const { phoneNumber, key } = args;
+      const { phoneNumber, key, deviceId } = args;
 
       try {
-        // find verification with phone number
-        const verification = await Verification.findOne({
+        // find verifications with phone number
+        const verifications = await Verification.find({
           payload: phoneNumber,
-          key,
+          // key,
         });
 
-        // if verification already verified
-        if (verification) {
-          const user = await User.findOne({ phoneNumber });
-          const token = createJWT(user!.id);
+        var verified = false;
+        var userId;
+        verifications.forEach(async (verification) => {
+          if (verification.key == key) {
+            verified = true;
 
-          if (verification.verified) {
-            return {
-              ok: false,
-              error: "verified_already",
-              token,
-            };
+            if (verification.user) {
+              verification.user.deviceId = deviceId;
+              verification.user.verifiedPhoneNumber = true;
+              userId = verification.user.id;
+
+              await verification.user.save();
+            } else {
+              const newUser = await User.create({
+                phoneNumber,
+                verifiedPhoneNumber: true,
+                deviceId,
+              }).save();
+
+              userId = newUser.id;
+            }
           } else {
-            verification.verified = true;
-            verification.save();
-
-            user!.verifiedPhoneNumber = true;
-            user!.save();
-
-            return {
-              ok: true,
-              error: null,
-              token,
-            };
+            await verification.remove();
           }
+        });
+
+        if (verified) {
+          const token = createJWT(userId);
+
+          return {
+            ok: true,
+            error: null,
+            token,
+          };
         } else {
           return {
             ok: false,
-            error: "verification_not_found",
+            error: "invalid-code",
             token: null,
           };
         }

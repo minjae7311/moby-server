@@ -6,7 +6,7 @@ import createJWT from "../../../utils/create.JWT";
 const resolvers: Resolvers = {
   Mutation: {
     SignIn: async (_, args: SignInMutationArgs): Promise<SignInResponse> => {
-      const { phoneNumber, password } = args;
+      const { phoneNumber } = args;
 
       try {
         const user = await User.findOne({ phoneNumber });
@@ -21,37 +21,26 @@ const resolvers: Resolvers = {
           };
         }
 
-        const isValidPw = await user.comparePassword(password);
+        if (!user.verifiedPhoneNumber) {
+          /**
+           * @todo start verification
+           * what is view look like?
+           */
 
-        if (isValidPw) {
-          if (!user.verifiedPhoneNumber) {
-            /**
-             * @todo start verification
-             * what is view look like?
-             */
-
-
-            return {
-              ok: false,
-              error: "not_verified_phone",
-              token: null
-            };
-          }
-
-          const token = createJWT(user.id);
-
-          return {
-            ok: true,
-            error: null,
-            token,
-          };
-        } else {
           return {
             ok: false,
-            error: "wrong_password",
+            error: "not_verified_phone",
             token: null,
           };
         }
+
+        const token = createJWT(user.id);
+
+        return {
+          ok: true,
+          error: null,
+          token,
+        };
       } catch (e) {
         return {
           ok: false,
