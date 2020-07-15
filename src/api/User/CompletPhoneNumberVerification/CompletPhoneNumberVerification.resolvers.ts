@@ -17,41 +17,36 @@ const resolvers: Resolvers = {
 
       try {
         // find verifications with phone number
-        const verifications = await Verification.find({
+        const verification = await Verification.findOne({
           payload: phoneNumber,
-          // key,
+          key,
         });
 
-        var verified = false;
         var userId;
-        verifications.forEach(async (verification) => {
-          if (verification.key == key) {
-            verified = true;
+        if (verification) {
+          verification.verified = true;
+          verification.save();
 
-            verification.verified = true;
+          if (verification.user !== undefined) {
+            verification.user.deviceId = deviceId;
+            verification.user.verifiedPhoneNumber = true;
+            userId = verification.user.id;
+
+            verification.user.save();
+          } else {
+            const newUser = await User.create({
+              phoneNumber,
+              verifiedPhoneNumber: true,
+              deviceId,
+              verification,
+            }).save();
+
+            verification.user = newUser;
             verification.save();
 
-            if (verification.user) {
-              verification.user.deviceId = deviceId;
-              verification.user.verifiedPhoneNumber = true;
-              userId = verification.user.id;
-
-              await verification.user.save();
-            } else {
-              const newUser = await User.create({
-                phoneNumber,
-                verifiedPhoneNumber: true,
-                deviceId,
-              }).save();
-
-              userId = newUser.id;
-            }
-          } else {
-            await verification.remove();
+            userId = newUser.id;
           }
-        });
 
-        if (verified) {
           const token = createJWT(userId, deviceId);
 
           return {

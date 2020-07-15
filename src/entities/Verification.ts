@@ -7,6 +7,7 @@ import {
   UpdateDateColumn,
   BeforeInsert,
   OneToOne,
+  JoinColumn,
 } from "typeorm";
 import { VerificationTarget } from "src/types/types";
 import User from "./User";
@@ -31,8 +32,9 @@ class Verification extends BaseEntity {
   @Column({ type: "boolean", default: false })
   verified: boolean;
 
-  @OneToOne((type)=> User, user => user.verification)
-  user: User
+  @OneToOne((type) => User, (user) => user.verification)
+  @JoinColumn()
+  user: User;
 
   @CreateDateColumn()
   createdAt: string;
