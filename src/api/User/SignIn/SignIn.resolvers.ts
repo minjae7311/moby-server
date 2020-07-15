@@ -1,7 +1,7 @@
 import { Resolvers } from "../../../types/resolvers";
 import { SignInMutationArgs, SignInResponse } from "../../../types/graph";
 import User from "../../../entities/User";
-import createJWT from "../../../utils/create.JWT";
+// import createJWT from "../../../utils/create.JWT";
 
 const resolvers: Resolvers = {
   Mutation: {
@@ -34,12 +34,12 @@ const resolvers: Resolvers = {
           };
         }
 
-        const token = createJWT(user.id);
+        // const token = createJWT(user.id);
 
         return {
           ok: true,
           error: null,
-          token,
+          token: "testing",
         };
       } catch (e) {
         return {

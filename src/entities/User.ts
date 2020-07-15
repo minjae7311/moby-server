@@ -50,7 +50,7 @@ class User extends BaseEntity {
   @Column({ type: "text" })
   password: string;
 
-  @Column({ type: "text" })
+  @Column({ type: "text", nullable: false, default: "" })
   deviceId: string;
 
   @ManyToMany((type) => Interests, (interests) => interests.user)

@@ -49,7 +49,7 @@ const resolvers: Resolvers = {
         });
 
         if (verified) {
-          const token = createJWT(userId);
+          const token = createJWT(userId, deviceId);
 
           return {
             ok: true,
