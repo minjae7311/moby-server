@@ -28,6 +28,9 @@ const resolvers: Resolvers = {
           if (verification.key == key) {
             verified = true;
 
+            verification.verified = true;
+            verification.save();
+
             if (verification.user) {
               verification.user.deviceId = deviceId;
               verification.user.verifiedPhoneNumber = true;

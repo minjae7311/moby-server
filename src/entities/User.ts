@@ -20,35 +20,32 @@ class User extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: "text" })
+  @Column({ type: "text", nullable: true })
   firstName: string;
 
-  @Column({ type: "text" })
+  @Column({ type: "text", nullable: true })
   lastName: string;
-
-  @Column({ type: "text", default: "DEFAULT_PHOTO_URL" })
-  profilePhotoUrl: string;
 
   /**
    * @todo default photoUrl
    */
+  @Column({ type: "text", default: "DEFAULT_PHOTO_URL" })
+  profilePhotoUrl: string;
+
   @Column({ type: "text" })
   phoneNumber: string;
 
   @Column({ type: "boolean", default: false })
   verifiedPhoneNumber: boolean;
 
-  @Column({ type: "text" })
+  @Column({ type: "text", nullable: true })
   gender: string;
 
-  @Column({ type: "text" })
+  @Column({ type: "text", nullable: true })
   birthDate: string;
 
-  @Column({ type: "text" })
+  @Column({ type: "text", nullable: true })
   job: string;
-
-  @Column({ type: "text" })
-  password: string;
 
   @Column({ type: "text", nullable: false, default: "" })
   deviceId: string;

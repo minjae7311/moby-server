@@ -11,8 +11,6 @@ const resolvers: Resolvers = {
       try {
         const user = await User.findOne({ phoneNumber });
 
-        console.log(user);
-
         if (!user) {
           return {
             ok: false,
