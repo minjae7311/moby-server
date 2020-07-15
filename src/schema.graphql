@@ -6,7 +6,7 @@ type CreateInterestsResponse {
 type Mutation {
   CreateInterests(name: String!): CreateInterestsResponse
   CompletPhoneNumberVerification(phoneNumber: String!, key: String!, deviceId: String!): CompletPhoneNumberVerificationResponse!
-  InputUserInfo(firstName: String!, lastName: String!, profilePhotoUrl: String!, phoneNumber: String!, gender: String!, birthDate: String!, job: String!, password: String!): InputUserInfoResponse!
+  InputUserInfo(firstName: String!, lastName: String!, profilePhotoUrl: String!, gender: String!, birthDate: String!, job: String!): InputUserInfoResponse!
   SignIn(phoneNumber: String!, password: String!): SignInResponse
   StartPhoneNumberVerification(phoneNumber: String!): StartPhoneNumberVerificationResponse
 }

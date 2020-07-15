@@ -8,7 +8,7 @@ import privateResolver from "../../../utils/privateResolver";
 
 const resolvers: Resolvers = {
   Mutation: {
-    SignUp: privateResolver(
+    InputUserInfo: privateResolver(
       async (
         _,
         args: InputUserInfoMutationArgs,
