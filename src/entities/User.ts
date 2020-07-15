@@ -9,6 +9,7 @@ import {
   // BeforeUpdate,
   ManyToMany,
   OneToOne,
+  JoinColumn,
 } from "typeorm";
 import Interests from "./Interests";
 import Verification from "./Verification";
@@ -54,6 +55,7 @@ class User extends BaseEntity {
   interests: Interests[];
 
   @OneToOne((type) => Verification, (verification) => verification.user)
+  @JoinColumn()
   verification: Verification;
 
   @CreateDateColumn()

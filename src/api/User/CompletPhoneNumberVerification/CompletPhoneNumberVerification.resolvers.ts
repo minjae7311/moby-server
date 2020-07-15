@@ -6,6 +6,7 @@ import {
 import Verification from "../../../entities/Verification";
 import createJWT from "../../../utils/create.JWT";
 import User from "../../../entities/User";
+import { getRepository } from "typeorm";
 
 const resolvers: Resolvers = {
   Mutation: {
@@ -17,22 +18,29 @@ const resolvers: Resolvers = {
 
       try {
         // find verifications with phone number
-        const verification = await Verification.findOne({
-          payload: phoneNumber,
-          key,
-        });
+        const verification = await getRepository(Verification).findOne(
+          {
+            payload: phoneNumber,
+            key,
+          },
+          { relations: ["user"] }
+        );
 
-        var userId;
         if (verification) {
-          verification.verified = true;
-          verification.save();
-
-          if (verification.user !== undefined) {
+          if (verification.user) {
+            console.log("\n\n\n\n", verification, verification.user);
             verification.user.deviceId = deviceId;
             verification.user.verifiedPhoneNumber = true;
-            userId = verification.user.id;
 
             verification.user.save();
+
+            const token = createJWT(verification.user.id, deviceId);
+
+            return {
+              ok: true,
+              error: null,
+              token,
+            };
           } else {
             const newUser = await User.create({
               phoneNumber,
@@ -41,19 +49,18 @@ const resolvers: Resolvers = {
               verification,
             }).save();
 
+            verification.verified = true;
             verification.user = newUser;
             verification.save();
 
-            userId = newUser.id;
+            const token = createJWT(newUser.id, deviceId);
+
+            return {
+              ok: true,
+              error: null,
+              token,
+            };
           }
-
-          const token = createJWT(userId, deviceId);
-
-          return {
-            ok: true,
-            error: null,
-            token,
-          };
         } else {
           return {
             ok: false,
