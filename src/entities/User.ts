@@ -6,10 +6,9 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
-  // BeforeUpdate,
   ManyToMany,
   OneToOne,
-  JoinColumn,
+  // JoinColumn,
 } from "typeorm";
 import Interests from "./Interests";
 import Verification from "./Verification";
@@ -55,7 +54,6 @@ class User extends BaseEntity {
   interests: Interests[];
 
   @OneToOne((type) => Verification, (verification) => verification.user)
-  @JoinColumn()
   verification: Verification;
 
   @CreateDateColumn()
@@ -72,23 +70,6 @@ class User extends BaseEntity {
   get fullName(): string {
     return `${this.firstName} ${this.lastName}`;
   }
-
-  // @BeforeInsert()
-  // // @BeforeUpdate()
-  // async savePassword(): Promise<void> {
-  //   if (this.password) {
-  //     const hashedPassword = await this.hashPassword(this.password);
-  //     this.password = hashedPassword;
-  //   }
-  // }
-
-  // public comparePassword(password: string): Promise<boolean> {
-  //   return bcrypt.compare(password, this.password, null);
-  // }
-
-  // private hashPassword(password: string): Promise<string> {
-  //   return bcrypt.hash(password, BCRYPT_ROUNDS);
-  // }
 }
 
 export default User;

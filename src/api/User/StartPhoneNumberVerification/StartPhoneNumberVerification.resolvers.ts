@@ -16,18 +16,28 @@ const resolvers: Resolvers = {
       const { phoneNumber } = args;
 
       try {
-        const existingVerification = await Verification.findOne({
-          payload: phoneNumber,
-        });
+        const existingVerification = await Verification.findOne(
+          {
+            payload: phoneNumber,
+          },
+          { relations: ["user"] }
+        );
 
         const newVerification = await Verification.create({
           payload: phoneNumber,
           target: "PHONE",
         }).save();
 
-        if (existingVerification!.user) {
-          newVerification.user = existingVerification!.user;
-          await newVerification.save();
+        if (existingVerification) {
+          if (existingVerification.user) {
+            newVerification.user = existingVerification.user;
+            /**
+             * @todo not need to save old verification??
+             * make "OldVerifications" table?
+             */
+            await existingVerification.remove();
+            await newVerification.save();
+          }
         }
 
         await sendVerificationSMS(newVerification.payload, newVerification.key);

@@ -28,13 +28,18 @@ const resolvers: Resolvers = {
 
         // valid key
         if (verification) {
+          verification.verified = true;
 
           // user exists
           if (verification.user) {
             verification.user.deviceId = deviceId;
             verification.user.verifiedPhoneNumber = true;
 
+            verification.save();
+
             await verification.user.save();
+            
+            console.log(verification.user.verification);
 
             const token = createJWT(verification.user.id, deviceId);
 
@@ -43,7 +48,8 @@ const resolvers: Resolvers = {
               error: null,
               token,
             };
-          } else { // new user
+          } else {
+            // new user
             const newUser = await User.create({
               phoneNumber,
               verifiedPhoneNumber: true,
@@ -51,9 +57,8 @@ const resolvers: Resolvers = {
               verification,
             }).save();
 
-            verification.verified = true;
             verification.user = newUser;
-            await verification.save();
+            verification.save();
 
             const token = createJWT(newUser.id, deviceId);
 
@@ -63,7 +68,8 @@ const resolvers: Resolvers = {
               token,
             };
           }
-        } else { // invalid key
+        } else {
+          // invalid key
           return {
             ok: false,
             error: "invalid-code",
