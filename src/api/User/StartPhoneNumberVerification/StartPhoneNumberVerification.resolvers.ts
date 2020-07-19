@@ -16,22 +16,19 @@ const resolvers: Resolvers = {
       const { phoneNumber } = args;
 
       try {
-        const existingVerifications = await Verification.find({
+        const existingVerification = await Verification.findOne({
           payload: phoneNumber,
         });
-
-        if (existingVerifications) {
-          existingVerifications.forEach(async (verification) => {
-            if (!verification.verified) {
-              await verification.remove();
-            }
-          });
-        }
 
         const newVerification = await Verification.create({
           payload: phoneNumber,
           target: "PHONE",
         }).save();
+
+        if (existingVerification!.user) {
+          newVerification.user = existingVerification!.user;
+          await newVerification.save();
+        }
 
         await sendVerificationSMS(newVerification.payload, newVerification.key);
 
