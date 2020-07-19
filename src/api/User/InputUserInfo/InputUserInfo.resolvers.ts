@@ -16,8 +16,6 @@ const resolvers: Resolvers = {
       ): Promise<InputUserInfoResponse> => {
         const user: User = req.user;
 
-        console.log("\n\n", user);
-
         try {
           user.firstName = args.firstName;
           user.lastName = args.lastName;

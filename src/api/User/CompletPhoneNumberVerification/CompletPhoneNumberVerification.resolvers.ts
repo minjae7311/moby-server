@@ -39,8 +39,6 @@ const resolvers: Resolvers = {
 
             await verification.user.save();
             
-            console.log(verification.user.verification);
-
             const token = createJWT(verification.user.id, deviceId);
 
             return {
