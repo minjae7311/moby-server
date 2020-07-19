@@ -8,6 +8,7 @@ import {
   UpdateDateColumn,
   ManyToMany,
   OneToOne,
+  Unique,
   // JoinColumn,
 } from "typeorm";
 import Interests from "./Interests";
@@ -32,6 +33,7 @@ class User extends BaseEntity {
   @Column({ type: "text", default: "DEFAULT_PHOTO_URL" })
   profilePhotoUrl: string;
 
+  @Unique(["phoneNumber"])
   @Column({ type: "text" })
   phoneNumber: string;
 
