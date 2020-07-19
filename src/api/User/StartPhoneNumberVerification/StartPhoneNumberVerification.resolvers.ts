@@ -26,6 +26,7 @@ const resolvers: Resolvers = {
         const newVerification = await Verification.create({
           payload: phoneNumber,
           target: "PHONE",
+          expired: false
         }).save();
 
         if (existingVerification) {

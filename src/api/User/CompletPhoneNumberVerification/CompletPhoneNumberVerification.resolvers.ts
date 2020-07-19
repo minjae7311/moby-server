@@ -6,7 +6,6 @@ import {
 import Verification from "../../../entities/Verification";
 import createJWT from "../../../utils/create.JWT";
 import User from "../../../entities/User";
-import { getRepository } from "typeorm";
 
 const resolvers: Resolvers = {
   Mutation: {
@@ -18,7 +17,7 @@ const resolvers: Resolvers = {
 
       try {
         // find verifications with phone number
-        const verification = await getRepository(Verification).findOne(
+        const verification = await Verification.findOne(
           {
             payload: phoneNumber,
             key,
@@ -28,7 +27,16 @@ const resolvers: Resolvers = {
 
         // valid key
         if (verification) {
+          if (verification.expired) {
+            return {
+              ok: false,
+              error: "verification-expired",
+              token: null,
+            };
+          }
+
           verification.verified = true;
+          verification.expired = true;
 
           // user exists
           if (verification.user) {
@@ -38,7 +46,7 @@ const resolvers: Resolvers = {
             verification.save();
 
             await verification.user.save();
-            
+
             const token = createJWT(verification.user.id, deviceId);
 
             return {
