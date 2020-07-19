@@ -11,6 +11,13 @@ class App {
   constructor() {
     this.app = new GraphQLServer({
       schema,
+      context: (req) => {
+        const { connection: { context = null } = {} } = req;
+        return {
+          req: req.request,
+          context,
+        };
+      },
     });
     this.middlewares();
   }
@@ -27,7 +34,7 @@ class App {
 
   private jwt = async (
     req,
-    res: Response,
+    _res: Response,
     next: NextFunction
   ): Promise<void> => {
     const token = req.get("X-JWT");

@@ -14,6 +14,7 @@ const resolvers: Resolvers = {
         args: InputUserInfoMutationArgs,
         { req }
       ): Promise<InputUserInfoResponse> => {
+
         const user: User = req.user;
 
         try {
