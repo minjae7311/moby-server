@@ -36,7 +36,7 @@ const resolvers: Resolvers = {
              * make "OldVerifications" table?
              */
             await existingVerification.remove();
-            await newVerification.save();
+            newVerification.save();
           }
         }
 
