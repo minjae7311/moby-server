@@ -3,7 +3,7 @@ type Payment {
   ride: Ride!
   credit: Credit
   price: Float!
-  is_cancelled: Boolean!
+  isCancelled: Boolean!
   reason: String
   date: String!
   createdAt: String!

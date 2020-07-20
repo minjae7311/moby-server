@@ -5,7 +5,7 @@ type Ride {
   from: Place!
   to: Place!
   payment: [Payment]
-  final_fee: Float
+  finalFee: Float
   discount: [Discount]
   createdAt: String!
   updatedAt: String
