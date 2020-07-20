@@ -9,10 +9,12 @@ import {
   ManyToMany,
   OneToOne,
   Unique,
+  OneToMany,
   // JoinColumn,
 } from "typeorm";
 import Interests from "./Interests";
 import Verification from "./Verification";
+import Credit from "./Credit";
 
 // const BCRYPT_ROUNDS = 10;
 
@@ -54,6 +56,9 @@ class User extends BaseEntity {
 
   @ManyToMany((type) => Interests, (interests) => interests.user)
   interests: Interests[];
+
+  @OneToMany(() => Credit, (credit) => credit.user)
+  credit: Credit[];
 
   @OneToOne((type) => Verification, (verification) => verification.user)
   verification: Verification;
