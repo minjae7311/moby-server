@@ -1,0 +1,10 @@
+type Credit {
+  id: Int!
+  user: User
+  company: String
+  number: String
+  expiringDate: String
+  cvv: String
+  createdAt: String!
+  updatedAt: String
+}
