@@ -1,3 +1,23 @@
+type Credit {
+  id: Int!
+  user: User
+  company: String
+  number: String
+  expiringDate: String
+  cvv: String
+  createdAt: String!
+  updatedAt: String
+}
+
+type Discount {
+  id: Int!
+  ride: Ride!
+  price: Float!
+  reason: String!
+  createdAt: String!
+  updatedAt: String
+}
+
 type CreateInterestsResponse {
   ok: Boolean!
   error: String
@@ -6,15 +26,39 @@ type CreateInterestsResponse {
 type Mutation {
   CreateInterests(name: String!): CreateInterestsResponse
   CompletPhoneNumberVerification(phoneNumber: String!, key: String!, deviceId: String!): CompletPhoneNumberVerificationResponse!
-  UpdateUserProfile(firstName: String!, lastName: String!, profilePhotoUrl: String!, gender: String!, birthDate: String!, job: String!): UpdateUserProfileResponse!
-  SignIn(phoneNumber: String!, password: String!): SignInResponse
   StartPhoneNumberVerification(phoneNumber: String!): StartPhoneNumberVerificationResponse
+  UpdateUserProfile(firstName: String!, lastName: String!, profilePhotoUrl: String!, gender: String!, birthDate: String!, job: String!): UpdateUserProfileResponse!
 }
 
 type Interests {
   id: Int!
   name: String!
   user: [User]
+  createdAt: String!
+  updatedAt: String
+}
+
+type Payment {
+  id: Int!
+  ride: Ride!
+  credit: Credit
+  price: Float!
+  isCancelled: Boolean!
+  reason: String
+  date: String!
+  createdAt: String!
+  updatedAt: String
+}
+
+type Ride {
+  id: Int!
+  user: User!
+  # driver:Driver!
+  # from: Place!
+  # to: Place!
+  payment: [Payment]
+  finalFee: Float
+  discount: [Discount]
   createdAt: String!
   updatedAt: String
 }
@@ -35,11 +79,6 @@ type Query {
   GetUserProfile: GetUserProfileResponse!
 }
 
-type UpdateUserProfileResponse {
-  ok: Boolean!
-  error: String
-}
-
 type User {
   id: Int!
   firstName: String
@@ -52,19 +91,19 @@ type User {
   birthDate: String
   job: String
   deviceId: String!
+  credit: [Credit]
   interests: [Interests]
   verification: Verification
   createdAt: String!
   updatedAt: String
 }
 
-type SignInResponse {
+type StartPhoneNumberVerificationResponse {
   ok: Boolean!
   error: String
-  token: String
 }
 
-type StartPhoneNumberVerificationResponse {
+type UpdateUserProfileResponse {
   ok: Boolean!
   error: String
 }

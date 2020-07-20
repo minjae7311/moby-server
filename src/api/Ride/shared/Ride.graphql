@@ -2,8 +2,8 @@ type Ride {
   id: Int!
   user: User!
   # driver:Driver!
-  from: Place!
-  to: Place!
+  # from: Place!
+  # to: Place!
   payment: [Payment]
   finalFee: Float
   discount: [Discount]

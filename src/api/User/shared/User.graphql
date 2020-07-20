@@ -11,6 +11,7 @@ type User {
   job: String
   deviceId: String!
   credit: [Credit]
+  # mainCredit: Credit
   interests: [Interests]
   verification: Verification
   createdAt: String!
