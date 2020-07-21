@@ -31,6 +31,9 @@ class Credit extends BaseEntity {
   @Column({ type: "text", nullable: false })
   cvv: string;
 
+  @Column({ type: "boolean", default: true })
+  first: Boolean;
+
   @OneToMany(() => Payment, (payment) => payment.credit)
   payment: Payment[];
 

@@ -5,6 +5,7 @@ type Credit {
   number: String
   expiringDate: String
   cvv: String
+  first: Boolean!
   createdAt: String!
   updatedAt: String
 }
@@ -25,6 +26,7 @@ type CreateInterestsResponse {
 
 type Mutation {
   CreateInterests(name: String!): CreateInterestsResponse
+  StartPayment: StartPaymentResponse!
   CompletPhoneNumberVerification(phoneNumber: String!, key: String!, deviceId: String!): CompletPhoneNumberVerificationResponse!
   StartPhoneNumberVerification(phoneNumber: String!): StartPhoneNumberVerificationResponse
   UpdateUserProfile(firstName: String!, lastName: String!, profilePhotoUrl: String!, gender: String!, birthDate: String!, job: String!): UpdateUserProfileResponse!
@@ -50,12 +52,14 @@ type Payment {
   updatedAt: String
 }
 
+type StartPaymentResponse {
+  ok: Boolean!
+  error: String
+}
+
 type Ride {
   id: Int!
   user: User!
-  # driver:Driver!
-  # from: Place!
-  # to: Place!
   payment: [Payment]
   finalFee: Float
   discount: [Discount]
@@ -92,6 +96,7 @@ type User {
   job: String
   deviceId: String!
   credit: [Credit]
+  # mainCredit: Credit
   interests: [Interests]
   verification: Verification
   createdAt: String!

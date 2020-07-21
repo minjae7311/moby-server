@@ -1,4 +1,4 @@
-export const typeDefs = ["type CreateInterestsResponse {\n  ok: Boolean!\n  error: String\n}\n\ntype Mutation {\n  CreateInterests(name: String!): CreateInterestsResponse\n  CompletPhoneNumberVerification(phoneNumber: String!, key: String!, deviceId: String!): CompletPhoneNumberVerificationResponse!\n  UpdateUserProfile(firstName: String!, lastName: String!, profilePhotoUrl: String!, gender: String!, birthDate: String!, job: String!): UpdateUserProfileResponse!\n  SignIn(phoneNumber: String!, password: String!): SignInResponse\n  StartPhoneNumberVerification(phoneNumber: String!): StartPhoneNumberVerificationResponse\n}\n\ntype Interests {\n  id: Int!\n  name: String!\n  user: [User]\n  createdAt: String!\n  updatedAt: String\n}\n\ntype CompletPhoneNumberVerificationResponse {\n  ok: Boolean!\n  error: String\n  token: String\n}\n\ntype GetUserProfileResponse {\n  ok: Boolean!\n  error: String\n  user: User\n}\n\ntype Query {\n  GetUserProfile: GetUserProfileResponse!\n}\n\ntype UpdateUserProfileResponse {\n  ok: Boolean!\n  error: String\n}\n\ntype User {\n  id: Int!\n  firstName: String\n  lastName: String\n  fullName: String\n  profilePhotoUrl: String\n  phoneNumber: String!\n  verifiedPhoneNumber: Boolean!\n  gender: String\n  birthDate: String\n  job: String\n  deviceId: String!\n  interests: [Interests]\n  verification: Verification\n  createdAt: String!\n  updatedAt: String\n}\n\ntype SignInResponse {\n  ok: Boolean!\n  error: String\n  token: String\n}\n\ntype StartPhoneNumberVerificationResponse {\n  ok: Boolean!\n  error: String\n}\n\ntype Verification {\n  id: Int!\n  target: String!\n  payload: String!\n  key: String!\n  verified: Boolean!\n  user: User\n  expired: Boolean!\n  createdAt: String!\n  updatedAt: String\n}\n"];
+export const typeDefs = ["type Credit {\n  id: Int!\n  user: User\n  company: String\n  number: String\n  expiringDate: String\n  cvv: String\n  first: Boolean!\n  createdAt: String!\n  updatedAt: String\n}\n\ntype Discount {\n  id: Int!\n  ride: Ride!\n  price: Float!\n  reason: String!\n  createdAt: String!\n  updatedAt: String\n}\n\ntype CreateInterestsResponse {\n  ok: Boolean!\n  error: String\n}\n\ntype Mutation {\n  CreateInterests(name: String!): CreateInterestsResponse\n  StartPayment: StartPaymentResponse!\n  CompletPhoneNumberVerification(phoneNumber: String!, key: String!, deviceId: String!): CompletPhoneNumberVerificationResponse!\n  StartPhoneNumberVerification(phoneNumber: String!): StartPhoneNumberVerificationResponse\n  UpdateUserProfile(firstName: String!, lastName: String!, profilePhotoUrl: String!, gender: String!, birthDate: String!, job: String!): UpdateUserProfileResponse!\n}\n\ntype Interests {\n  id: Int!\n  name: String!\n  user: [User]\n  createdAt: String!\n  updatedAt: String\n}\n\ntype Payment {\n  id: Int!\n  ride: Ride!\n  credit: Credit\n  price: Float!\n  isCancelled: Boolean!\n  reason: String\n  date: String!\n  createdAt: String!\n  updatedAt: String\n}\n\ntype StartPaymentResponse {\n  ok: Boolean!\n  error: String\n}\n\ntype Ride {\n  id: Int!\n  user: User!\n  payment: [Payment]\n  finalFee: Float\n  discount: [Discount]\n  createdAt: String!\n  updatedAt: String\n}\n\ntype CompletPhoneNumberVerificationResponse {\n  ok: Boolean!\n  error: String\n  token: String\n}\n\ntype GetUserProfileResponse {\n  ok: Boolean!\n  error: String\n  user: User\n}\n\ntype Query {\n  GetUserProfile: GetUserProfileResponse!\n}\n\ntype User {\n  id: Int!\n  firstName: String\n  lastName: String\n  fullName: String\n  profilePhotoUrl: String\n  phoneNumber: String!\n  verifiedPhoneNumber: Boolean!\n  gender: String\n  birthDate: String\n  job: String\n  deviceId: String!\n  credit: [Credit]\n  # mainCredit: Credit\n  interests: [Interests]\n  verification: Verification\n  createdAt: String!\n  updatedAt: String\n}\n\ntype StartPhoneNumberVerificationResponse {\n  ok: Boolean!\n  error: String\n}\n\ntype UpdateUserProfileResponse {\n  ok: Boolean!\n  error: String\n}\n\ntype Verification {\n  id: Int!\n  target: String!\n  payload: String!\n  key: String!\n  verified: Boolean!\n  user: User\n  expired: Boolean!\n  createdAt: String!\n  updatedAt: String\n}\n"];
 /* tslint:disable */
 
 export interface Query {
@@ -23,8 +23,21 @@ export interface User {
   birthDate: string | null;
   job: string | null;
   deviceId: string;
+  credit: Array<Credit> | null;
   interests: Array<Interests> | null;
   verification: Verification | null;
+  createdAt: string;
+  updatedAt: string | null;
+}
+
+export interface Credit {
+  id: number;
+  user: User | null;
+  company: string | null;
+  number: string | null;
+  expiringDate: string | null;
+  cvv: string | null;
+  first: boolean;
   createdAt: string;
   updatedAt: string | null;
 }
@@ -51,10 +64,10 @@ export interface Verification {
 
 export interface Mutation {
   CreateInterests: CreateInterestsResponse | null;
+  StartPayment: StartPaymentResponse;
   CompletPhoneNumberVerification: CompletPhoneNumberVerificationResponse;
-  UpdateUserProfile: UpdateUserProfileResponse;
-  SignIn: SignInResponse | null;
   StartPhoneNumberVerification: StartPhoneNumberVerificationResponse | null;
+  UpdateUserProfile: UpdateUserProfileResponse;
 }
 
 export interface CreateInterestsMutationArgs {
@@ -67,6 +80,10 @@ export interface CompletPhoneNumberVerificationMutationArgs {
   deviceId: string;
 }
 
+export interface StartPhoneNumberVerificationMutationArgs {
+  phoneNumber: string;
+}
+
 export interface UpdateUserProfileMutationArgs {
   firstName: string;
   lastName: string;
@@ -76,16 +93,12 @@ export interface UpdateUserProfileMutationArgs {
   job: string;
 }
 
-export interface SignInMutationArgs {
-  phoneNumber: string;
-  password: string;
-}
-
-export interface StartPhoneNumberVerificationMutationArgs {
-  phoneNumber: string;
-}
-
 export interface CreateInterestsResponse {
+  ok: boolean;
+  error: string | null;
+}
+
+export interface StartPaymentResponse {
   ok: boolean;
   error: string | null;
 }
@@ -96,18 +109,43 @@ export interface CompletPhoneNumberVerificationResponse {
   token: string | null;
 }
 
+export interface StartPhoneNumberVerificationResponse {
+  ok: boolean;
+  error: string | null;
+}
+
 export interface UpdateUserProfileResponse {
   ok: boolean;
   error: string | null;
 }
 
-export interface SignInResponse {
-  ok: boolean;
-  error: string | null;
-  token: string | null;
+export interface Discount {
+  id: number;
+  ride: Ride;
+  price: number;
+  reason: string;
+  createdAt: string;
+  updatedAt: string | null;
 }
 
-export interface StartPhoneNumberVerificationResponse {
-  ok: boolean;
-  error: string | null;
+export interface Ride {
+  id: number;
+  user: User;
+  payment: Array<Payment> | null;
+  finalFee: number | null;
+  discount: Array<Discount> | null;
+  createdAt: string;
+  updatedAt: string | null;
+}
+
+export interface Payment {
+  id: number;
+  ride: Ride;
+  credit: Credit | null;
+  price: number;
+  isCancelled: boolean;
+  reason: string | null;
+  date: string;
+  createdAt: string;
+  updatedAt: string | null;
 }

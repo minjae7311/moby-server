@@ -4,5 +4,5 @@ type StartPaymentResponse {
 }
 
 type Mutation {
-    StartPayment(): StartPaymentResponse!
+    StartPayment: StartPaymentResponse!
 }
