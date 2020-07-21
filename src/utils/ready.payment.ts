@@ -70,6 +70,10 @@ export const readyPayment = async () => {
     };
     request.post(approve_options, (err, res) => {
       console.log("\n\n\n\n\n\n", err, res.body, "\n\n\n\n\n");
+
+      // {"msg":"authentication doesn't complete!","code":-701,"extras":{"method_result_code":"9999","method_result_message":"결제 실패. 잠시 후 재시도 바랍니다."}} 
+      // 해당에러는 사용자가 정상승인처리하지 않고, approval처리를 하여 발생한 오류로 보입니다.
+
     });
   });
 };
