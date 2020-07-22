@@ -17,23 +17,40 @@ const resolvers: Resolvers = {
       ): Promise<EnrollCreditResponse> => {
         const user: User = req.user;
 
-        try {
-          await Credit.create({
-            user: user,
-            ...args,
-          }).save();
+        const existingCredit = await Credit.findOne({
+          number: args.number,
+          company: args.company,
+          cvv: args.cvv,
+          expiringDate: args.expiringDate,
+        });
 
-          console.log("\n\n\n\n\nUser's credit:::",user.credit);
-
-          return {
-            ok: true,
-            error: null,
-          };
-        } catch (e) {
+        if (existingCredit) {
           return {
             ok: false,
-            error: e.message,
+            error: "card-existing",
           };
+        } else {
+          try {
+            const newCredit = await Credit.create({
+              user: user,
+              ...args,
+            }).save();
+
+            if (!user.mainCredit) {
+              user.mainCredit = newCredit;
+              user.save();
+            }
+
+            return {
+              ok: true,
+              error: null,
+            };
+          } catch (e) {
+            return {
+              ok: false,
+              error: e.message,
+            };
+          }
         }
       }
     ),

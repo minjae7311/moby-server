@@ -10,7 +10,6 @@ import {
   OneToOne,
   Unique,
   OneToMany,
-  // JoinColumn,
 } from "typeorm";
 import Interests from "./Interests";
 import Verification from "./Verification";
