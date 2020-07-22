@@ -15,6 +15,8 @@ import User from "./User";
 const PHONE = "PHONE";
 const EMAIL = "EMAIL";
 
+const PHONE_VERFICATION_KEY_LENGTH = 5;
+
 @Entity()
 class Verification extends BaseEntity {
   @PrimaryGeneratedColumn()
@@ -32,6 +34,9 @@ class Verification extends BaseEntity {
   @Column({ type: "boolean", default: false })
   verified: boolean;
 
+  @Column({ type: "boolean", default: false })
+  expired: boolean;
+
   @OneToOne((type) => User, (user) => user.verification)
   @JoinColumn()
   user: User;
@@ -47,6 +52,10 @@ class Verification extends BaseEntity {
     if (this.target === PHONE) {
       // short key
       this.key = Math.floor(Math.random() * 100000).toString();
+
+      while (this.key.length != PHONE_VERFICATION_KEY_LENGTH) {
+        this.key = Math.floor(Math.random() * 100000).toString();
+      }
     } else if (this.target === EMAIL) {
       // long key
       this.key = Math.random().toString(36).substr(2);

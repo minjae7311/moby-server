@@ -1,15 +1,15 @@
-type InputUserInfoResponse {
+type UpdateUserProfileResponse {
   ok: Boolean!
   error: String
 }
 
 type Mutation {
-  InputUserInfo(
+  UpdateUserProfile(
     firstName: String!
     lastName: String!
     profilePhotoUrl: String!
     gender: String!
     birthDate: String!
     job: String!
-  ): InputUserInfoResponse!
+  ): UpdateUserProfileResponse!
 }

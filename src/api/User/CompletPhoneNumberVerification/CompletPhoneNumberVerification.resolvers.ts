@@ -6,7 +6,6 @@ import {
 import Verification from "../../../entities/Verification";
 import createJWT from "../../../utils/create.JWT";
 import User from "../../../entities/User";
-import { getRepository } from "typeorm";
 
 const resolvers: Resolvers = {
   Mutation: {
@@ -18,7 +17,7 @@ const resolvers: Resolvers = {
 
       try {
         // find verifications with phone number
-        const verification = await getRepository(Verification).findOne(
+        const verification = await Verification.findOne(
           {
             payload: phoneNumber,
             key,
@@ -26,13 +25,27 @@ const resolvers: Resolvers = {
           { relations: ["user"] }
         );
 
+        // valid key
         if (verification) {
+          if (verification.expired) {
+            return {
+              ok: false,
+              error: "verification-expired",
+              token: null,
+            };
+          }
+
+          verification.verified = true;
+          verification.expired = true;
+
+          // user exists
           if (verification.user) {
-            console.log("\n\n\n\n", verification, verification.user);
             verification.user.deviceId = deviceId;
             verification.user.verifiedPhoneNumber = true;
 
-            verification.user.save();
+            verification.save();
+
+            await verification.user.save();
 
             const token = createJWT(verification.user.id, deviceId);
 
@@ -42,6 +55,7 @@ const resolvers: Resolvers = {
               token,
             };
           } else {
+            // new user
             const newUser = await User.create({
               phoneNumber,
               verifiedPhoneNumber: true,
@@ -49,7 +63,6 @@ const resolvers: Resolvers = {
               verification,
             }).save();
 
-            verification.verified = true;
             verification.user = newUser;
             verification.save();
 
@@ -62,6 +75,7 @@ const resolvers: Resolvers = {
             };
           }
         } else {
+          // invalid key
           return {
             ok: false,
             error: "invalid-code",

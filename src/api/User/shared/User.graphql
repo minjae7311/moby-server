@@ -10,6 +10,8 @@ type User {
   birthDate: String
   job: String
   deviceId: String!
+  credit: [Credit]
+  # mainCredit: Credit
   interests: [Interests]
   verification: Verification
   createdAt: String!

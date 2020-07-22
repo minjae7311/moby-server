@@ -1,0 +1,9 @@
+type Ride {
+  id: Int!
+  user: User!
+  payment: [Payment]
+  finalFee: Float
+  discount: [Discount]
+  createdAt: String!
+  updatedAt: String
+}

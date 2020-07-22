@@ -1,22 +1,20 @@
 import User from "../../../entities/User";
 import { Resolvers } from "../../../types/resolvers";
 import {
-  InputUserInfoMutationArgs,
-  InputUserInfoResponse,
+  UpdateUserProfileMutationArgs,
+  UpdateUserProfileResponse,
 } from "../../../types/graph";
 import privateResolver from "../../../utils/privateResolver";
 
 const resolvers: Resolvers = {
   Mutation: {
-    InputUserInfo: privateResolver(
+    UpdateUserProfile: privateResolver(
       async (
         _,
-        args: InputUserInfoMutationArgs,
+        args: UpdateUserProfileMutationArgs,
         { req }
-      ): Promise<InputUserInfoResponse> => {
+      ): Promise<UpdateUserProfileResponse> => {
         const user: User = req.user;
-
-        console.log("\n\n", user);
 
         try {
           user.firstName = args.firstName;

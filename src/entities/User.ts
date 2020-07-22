@@ -6,13 +6,15 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
-  // BeforeUpdate,
   ManyToMany,
   OneToOne,
-  JoinColumn,
+  Unique,
+  OneToMany,
+  // JoinColumn,
 } from "typeorm";
 import Interests from "./Interests";
 import Verification from "./Verification";
+import Credit from "./Credit";
 
 // const BCRYPT_ROUNDS = 10;
 
@@ -33,6 +35,7 @@ class User extends BaseEntity {
   @Column({ type: "text", default: "DEFAULT_PHOTO_URL" })
   profilePhotoUrl: string;
 
+  @Unique(["phoneNumber"])
   @Column({ type: "text" })
   phoneNumber: string;
 
@@ -54,8 +57,13 @@ class User extends BaseEntity {
   @ManyToMany((type) => Interests, (interests) => interests.user)
   interests: Interests[];
 
+  @OneToMany(() => Credit, (credit) => credit.user)
+  credit: Credit[];
+
+  @OneToOne(() => Credit, (credit) => credit.user)
+  mainCredit: Credit;
+
   @OneToOne((type) => Verification, (verification) => verification.user)
-  @JoinColumn()
   verification: Verification;
 
   @CreateDateColumn()
@@ -72,23 +80,6 @@ class User extends BaseEntity {
   get fullName(): string {
     return `${this.firstName} ${this.lastName}`;
   }
-
-  // @BeforeInsert()
-  // // @BeforeUpdate()
-  // async savePassword(): Promise<void> {
-  //   if (this.password) {
-  //     const hashedPassword = await this.hashPassword(this.password);
-  //     this.password = hashedPassword;
-  //   }
-  // }
-
-  // public comparePassword(password: string): Promise<boolean> {
-  //   return bcrypt.compare(password, this.password, null);
-  // }
-
-  // private hashPassword(password: string): Promise<string> {
-  //   return bcrypt.hash(password, BCRYPT_ROUNDS);
-  // }
 }
 
 export default User;

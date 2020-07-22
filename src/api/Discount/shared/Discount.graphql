@@ -1,0 +1,8 @@
+type Discount {
+  id: Int!
+  ride: Ride!
+  price: Float!
+  reason: String!
+  createdAt: String!
+  updatedAt: String
+}
