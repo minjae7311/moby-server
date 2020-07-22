@@ -1,11 +1,25 @@
+type EnrollCreditResponse {
+  ok: Boolean!
+  error: String
+}
+
+type Mutation {
+  EnrollCredit(company: String!, number: String!, expiringDate: String!, cvv: String!, sid: String!): EnrollCreditResponse!
+  CreateInterests(name: String!): CreateInterestsResponse
+  StartPayment: StartPaymentResponse!
+  CompletPhoneNumberVerification(phoneNumber: String!, key: String!, deviceId: String!): CompletPhoneNumberVerificationResponse!
+  StartPhoneNumberVerification(phoneNumber: String!): StartPhoneNumberVerificationResponse
+  UpdateUserProfile(firstName: String!, lastName: String!, profilePhotoUrl: String!, gender: String!, birthDate: String!, job: String!): UpdateUserProfileResponse!
+}
+
 type Credit {
   id: Int!
   user: User
-  company: String
-  number: String
-  expiringDate: String
-  cvv: String
-  first: Boolean!
+  company: String!
+  number: String!
+  expiringDate: String!
+  cvv: String!
+  sid: String!
   createdAt: String!
   updatedAt: String
 }
@@ -22,14 +36,6 @@ type Discount {
 type CreateInterestsResponse {
   ok: Boolean!
   error: String
-}
-
-type Mutation {
-  CreateInterests(name: String!): CreateInterestsResponse
-  StartPayment: StartPaymentResponse!
-  CompletPhoneNumberVerification(phoneNumber: String!, key: String!, deviceId: String!): CompletPhoneNumberVerificationResponse!
-  StartPhoneNumberVerification(phoneNumber: String!): StartPhoneNumberVerificationResponse
-  UpdateUserProfile(firstName: String!, lastName: String!, profilePhotoUrl: String!, gender: String!, birthDate: String!, job: String!): UpdateUserProfileResponse!
 }
 
 type Interests {

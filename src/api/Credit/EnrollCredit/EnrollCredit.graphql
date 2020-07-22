@@ -1,0 +1,14 @@
+type EnrollCreditResponse {
+  ok: Boolean!
+  error: String
+}
+
+type Mutation {
+  EnrollCredit(
+    company: String!
+    number: String!
+    expiringDate: String!
+    cvv: String!
+    sid: String!
+  ): EnrollCreditResponse!
+}
