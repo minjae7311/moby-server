@@ -70,6 +70,10 @@ type Payment {
   updatedAt: String
 }
 
+type PaymentResult {
+  ok: Boolean!
+}
+
 type StartPaymentResponse {
   ok: Boolean!
   error: String
