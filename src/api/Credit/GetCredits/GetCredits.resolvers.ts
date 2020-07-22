@@ -1,24 +1,26 @@
 import { Resolvers } from "../../../types/resolvers";
 import privateResolver from "../../../utils/privateResolver";
-import { GetUserProfileResponse } from "../../../types/graph";
+import { GetCreditsResponse } from "../../../types/graph";
 
 const resolvers: Resolvers = {
   Query: {
-    GetUserProfile: privateResolver(
-      async (_res, _args, { req }): Promise<GetUserProfileResponse> => {
+    GetCredits: privateResolver(
+      async (_res, _args, { req }): Promise<GetCreditsResponse> => {
         const { user } = req;
 
         if (user) {
           return {
             ok: true,
             error: null,
-            user,
+            credit: user.credit,
+            mainCredit: user.mainCredit,
           };
         } else {
           return {
-            ok: true,
+            ok: false,
             error: "user-not-found",
-            user: null,
+            credit: null,
+            mainCredit: null,
           };
         }
       }

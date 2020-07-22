@@ -12,6 +12,18 @@ type Mutation {
   UpdateUserProfile(firstName: String!, lastName: String!, profilePhotoUrl: String!, gender: String!, birthDate: String!, job: String!): UpdateUserProfileResponse!
 }
 
+type GetCreditsResponse {
+  ok: Boolean!
+  error: String
+  credit: [Credit]
+  mainCredit: Credit
+}
+
+type Query {
+  GetCredits: GetCreditsResponse!
+  GetUserProfile: GetUserProfileResponse!
+}
+
 type Credit {
   id: Int!
   user: User
@@ -85,10 +97,6 @@ type GetUserProfileResponse {
   user: User
 }
 
-type Query {
-  GetUserProfile: GetUserProfileResponse!
-}
-
 type User {
   id: Int!
   firstName: String
@@ -102,7 +110,7 @@ type User {
   job: String
   deviceId: String!
   credit: [Credit]
-  # mainCredit: Credit
+  mainCredit: Credit
   interests: [Interests]
   verification: Verification
   createdAt: String!
