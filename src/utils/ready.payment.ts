@@ -4,7 +4,11 @@ import request from "request";
 export const readyPayment = async () => {
   const adminKey = process.env.KP_ADMIN_KEY;
 <<<<<<< HEAD
+<<<<<<< HEAD
   const CID = process.env.KP_ONETIME_CID;
+=======
+  const CID = process.env.KP_SUBSCRIP_CID;
+>>>>>>> 78a74f3c223f598facb03ffde7ad9b5498068010
 =======
   const CID = process.env.KP_SUBSCRIP_CID;
 >>>>>>> 78a74f3c223f598facb03ffde7ad9b5498068010
@@ -18,8 +22,13 @@ export const readyPayment = async () => {
       partner_user_id: "1234",
       item_name: "test",
 <<<<<<< HEAD
+<<<<<<< HEAD
       quantity: 1,
       total_amount: 1,
+=======
+      quantity: 0,
+      total_amount: 0,
+>>>>>>> 78a74f3c223f598facb03ffde7ad9b5498068010
 =======
       quantity: 0,
       total_amount: 0,
@@ -36,6 +45,7 @@ export const readyPayment = async () => {
     },
   };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
   // {
   //   tid: "T2786082956768948836",
@@ -58,6 +68,8 @@ export const readyPayment = async () => {
     if (err !== null) return err;
     else return res;
 =======
+=======
+>>>>>>> 78a74f3c223f598facb03ffde7ad9b5498068010
   // const res = {
   //   tid: "T2786084756360245862",
   //   tms_result: false,
@@ -108,6 +120,9 @@ export const readyPayment = async () => {
       // 테스트에서 결제 승인 하려면 어케 해야하나요???
 
     });
+<<<<<<< HEAD
+>>>>>>> 78a74f3c223f598facb03ffde7ad9b5498068010
+=======
 >>>>>>> 78a74f3c223f598facb03ffde7ad9b5498068010
   });
 };
