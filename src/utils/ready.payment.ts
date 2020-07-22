@@ -5,7 +5,11 @@ export const readyPayment = async () => {
   const adminKey = process.env.KP_ADMIN_KEY;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   const CID = process.env.KP_ONETIME_CID;
+=======
+  const CID = process.env.KP_SUBSCRIP_CID;
+>>>>>>> 78a74f3c223f598facb03ffde7ad9b5498068010
 =======
   const CID = process.env.KP_SUBSCRIP_CID;
 >>>>>>> 78a74f3c223f598facb03ffde7ad9b5498068010
@@ -23,8 +27,13 @@ export const readyPayment = async () => {
       item_name: "test",
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       quantity: 1,
       total_amount: 1,
+=======
+      quantity: 0,
+      total_amount: 0,
+>>>>>>> 78a74f3c223f598facb03ffde7ad9b5498068010
 =======
       quantity: 0,
       total_amount: 0,
@@ -45,6 +54,7 @@ export const readyPayment = async () => {
     },
   };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
   // {
@@ -68,6 +78,8 @@ export const readyPayment = async () => {
     if (err !== null) return err;
     else return res;
 =======
+=======
+>>>>>>> 78a74f3c223f598facb03ffde7ad9b5498068010
 =======
 >>>>>>> 78a74f3c223f598facb03ffde7ad9b5498068010
   // const res = {
@@ -121,6 +133,9 @@ export const readyPayment = async () => {
 
     });
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> 78a74f3c223f598facb03ffde7ad9b5498068010
+=======
 >>>>>>> 78a74f3c223f598facb03ffde7ad9b5498068010
 =======
 >>>>>>> 78a74f3c223f598facb03ffde7ad9b5498068010
