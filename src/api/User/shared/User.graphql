@@ -1,7 +1,5 @@
 type User {
   id: Int!
-  firstName: String
-  lastName: String
   fullName: String
   profilePhotoUrl: String
   phoneNumber: String!

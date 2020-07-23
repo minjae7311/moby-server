@@ -23,10 +23,8 @@ class User extends BaseEntity {
   id: number;
 
   @Column({ type: "text", nullable: true })
-  firstName: string;
+  fullName: string;
 
-  @Column({ type: "text", nullable: true })
-  lastName: string;
 
   /**
    * @todo default photoUrl
@@ -71,14 +69,6 @@ class User extends BaseEntity {
   @UpdateDateColumn()
   updatedAt: string;
 
-  /**
-   * Make User's full name.
-   *
-   * @returns {string} User's full name
-   */
-  get fullName(): string {
-    return `${this.firstName} ${this.lastName}`;
-  }
 }
 
 export default User;

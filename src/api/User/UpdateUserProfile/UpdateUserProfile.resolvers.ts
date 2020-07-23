@@ -17,8 +17,7 @@ const resolvers: Resolvers = {
         const user: User = req.user;
 
         try {
-          user.firstName = args.firstName;
-          user.lastName = args.lastName;
+          user.fullName = args.fullName;
           user.profilePhotoUrl = args.profilePhotoUrl;
           user.gender = args.gender;
           user.birthDate = args.birthDate;

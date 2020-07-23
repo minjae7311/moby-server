@@ -9,7 +9,7 @@ type Mutation {
   StartPayment: StartPaymentResponse!
   CompletPhoneNumberVerification(phoneNumber: String!, key: String!, deviceId: String!): CompletPhoneNumberVerificationResponse!
   StartPhoneNumberVerification(phoneNumber: String!): StartPhoneNumberVerificationResponse
-  UpdateUserProfile(firstName: String!, lastName: String!, profilePhotoUrl: String!, gender: String!, birthDate: String!, job: String!): UpdateUserProfileResponse!
+  UpdateUserProfile(fullName: String!, profilePhotoUrl: String!, gender: String!, birthDate: String!, job: String!): UpdateUserProfileResponse!
 }
 
 type GetCreditsResponse {
@@ -103,8 +103,6 @@ type GetUserProfileResponse {
 
 type User {
   id: Int!
-  firstName: String
-  lastName: String
   fullName: String
   profilePhotoUrl: String
   phoneNumber: String!
