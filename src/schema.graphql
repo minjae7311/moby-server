@@ -5,10 +5,11 @@ type EnrollCreditResponse {
 
 type Mutation {
   EnrollCredit(company: String!, number: String!, expiringDate: String!, cvv: String!, sid: String!): EnrollCreditResponse!
+  UpdateDriverLocation(driverId: DriverInput!, lat: Float!, lng: Float!): UpdateDriverLocationResponse!
   CreateInterests(name: String!): CreateInterestsResponse
   StartPayment: StartPaymentResponse!
   AddPlace(name: String, lat: Float!, lng: Float!, address: String!): AddPlaceResponse!
-  RequestRide(from: PlaceInput!, to: PlaceInput!, finalFee: Float!, distance: String!, duration: String!): RequestRideResponse!
+  RequestRide(from: PlaceInput!, to: PlaceInput!, finalFee: Float, distance: String, duration: String): RequestRideResponse!
   CompletPhoneNumberVerification(phoneNumber: String!, key: String!, deviceId: String!): CompletPhoneNumberVerificationResponse!
   StartPhoneNumberVerification(phoneNumber: String!): StartPhoneNumberVerificationResponse
   UpdateUserProfile(fullName: String!, profilePhotoUrl: String!, gender: String!, birthDate: String!, job: String!): UpdateUserProfileResponse!
@@ -45,6 +46,25 @@ type Discount {
   reason: String!
   createdAt: String!
   updatedAt: String
+}
+
+type Driver {
+  id: Int!
+  lat: Float
+  lng: Float
+  isDriving: Boolean!
+  rides: [Ride]
+  createdAt: String!
+  updatedAt: String
+}
+
+type UpdateDriverLocationResponse {
+  ok: Boolean!
+  error: String
+}
+
+input DriverInput {
+  id: Int!
 }
 
 type CreateInterestsResponse {
@@ -115,6 +135,8 @@ type Ride {
   finalFee: Float
   discount: [Discount]
   passenger: User!
+  driver: Driver
+  accepted: Boolean!
   createdAt: String!
   updatedAt: String
 }
@@ -147,6 +169,7 @@ type User {
   place: [Place]
   favPlace: [Place]
   interests: [Interests]
+  isRiding: Boolean
   verification: Verification
   createdAt: String!
   updatedAt: String
