@@ -16,9 +16,9 @@ const resolvers = {
             SubscribeNewRide: { from },
           } = payload;
           console.log(from);
+          //   const { lat, lng } = currentDriver;
 
           return true;
-          //   const { lat, lng } = currentDriver;
         }
       ),
     },
