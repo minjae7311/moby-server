@@ -6,6 +6,7 @@ type Place {
   address: String!
   ride_from: Ride
   ride_to: Ride
+  user: [User]
   createdAt: String!
   updatedAt: String
 }

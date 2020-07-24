@@ -14,6 +14,7 @@ import {
 import Interests from "./Interests";
 import Verification from "./Verification";
 import Credit from "./Credit";
+import Place from "./Place";
 
 // const BCRYPT_ROUNDS = 10;
 
@@ -24,7 +25,6 @@ class User extends BaseEntity {
 
   @Column({ type: "text", nullable: true })
   fullName: string;
-
 
   /**
    * @todo default photoUrl
@@ -63,12 +63,17 @@ class User extends BaseEntity {
   @OneToOne((type) => Verification, (verification) => verification.user)
   verification: Verification;
 
+  @ManyToMany(() => Place, (place) => place.user)
+  place: Place[];
+
+  @ManyToMany(() => Place, (place) => place.user)
+  favPlace: Place[];
+
   @CreateDateColumn()
   createdAt: string;
 
   @UpdateDateColumn()
   updatedAt: string;
-
 }
 
 export default User;
