@@ -39,7 +39,10 @@ const resolvers: Resolvers = {
 
             pubSub.publish("rideRequesting", { SubscribeNewRide: newRide });
 
-            user.isRiding = true;
+            /**
+             * @todo
+             */
+            user.isRiding = false;
             user.save();
 
             return {

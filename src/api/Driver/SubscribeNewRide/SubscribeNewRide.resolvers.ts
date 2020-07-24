@@ -7,18 +7,20 @@ const resolvers = {
       subscribe: withFilter(
         (_res, _args, { pubSub }) => pubSub.asyncIterator("rideRequesting"),
         (payload, __args, { context }) => {
-          /**
-           * @todo
-           */
           const { currentDriver } = context;
           console.log(currentDriver);
           const {
             SubscribeNewRide: { from },
           } = payload;
           console.log(from);
-          //   const { lat, lng } = currentDriver;
+          const { lat, lng } = currentDriver;
 
-          return true;
+          return (
+            from.lat >= lat - 0.05 &&
+            from.lat <= lat + 0.05 &&
+            from.lng >= lng - 0.05 &&
+            from.lng <= lng + 0.05
+          );
         }
       ),
     },
