@@ -1,0 +1,9 @@
+type Driver {
+  id: Int!
+  lat: Float
+  lng: Float
+  isDriving: Boolean!
+  rides: [Ride]
+  createdAt: String!
+  updatedAt: String
+}

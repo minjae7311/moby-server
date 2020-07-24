@@ -12,6 +12,7 @@ import Payment from "./Payment";
 import Discount from "./Discount";
 import Place from "./Place";
 import User from "./User";
+import Driver from "./Driver";
 
 @Entity()
 class Ride extends BaseEntity {
@@ -35,6 +36,12 @@ class Ride extends BaseEntity {
 
   @ManyToOne(() => User, (user) => user.rides)
   passenger: User;
+
+  @ManyToOne(() => Driver, (driver) => driver.rides)
+  driver: Driver;
+
+  @Column({ type: "boolean", nullable: false, default: false })
+  accepted: boolean;
 
   @CreateDateColumn()
   createdAt: string;

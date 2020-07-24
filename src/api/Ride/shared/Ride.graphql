@@ -6,6 +6,8 @@ type Ride {
   finalFee: Float
   discount: [Discount]
   passenger: User!
+  driver: Driver
+  accepted: Boolean!
   createdAt: String!
   updatedAt: String
 }
