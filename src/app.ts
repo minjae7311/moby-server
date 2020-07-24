@@ -1,5 +1,5 @@
 import cors from "cors";
-import { GraphQLServer } from "graphql-yoga";
+import { GraphQLServer, PubSub } from "graphql-yoga";
 import { NextFunction, Response } from "express";
 import helmet from "helmet";
 import logger from "morgan";
@@ -8,13 +8,22 @@ import decodeJWT from "./utils/decode.JWT";
 
 class App {
   public app: GraphQLServer;
+  /**
+   * @todo Change to @redis or @Memcached
+   */
+  public pubSub: any;
+
   constructor() {
+    this.pubSub = new PubSub();
+    this.pubSub.ee.setMaxListeners(99);
+
     this.app = new GraphQLServer({
       schema,
       context: (req) => {
         const { connection: { context = null } = {} } = req;
         return {
           req: req.request,
+          pubSub: this.pubSub,
           context,
         };
       },

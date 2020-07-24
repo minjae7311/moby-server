@@ -14,7 +14,7 @@ const resolvers: Resolvers = {
       async (
         _res,
         args: RequestRideMutationArgs,
-        { req }
+        { req, pubSub }
       ): Promise<RequestRideResponse> => {
         const { user } = req;
         const notNullArgs = cleanNullArgs(args);
@@ -37,9 +37,10 @@ const resolvers: Resolvers = {
               passenger: user,
             }).save();
 
-            /**
-             * @TODO need to isRiding = true about this User?
-             */
+            pubSub.publish("rideRequesting", { SubscribeNewRide: newRide });
+
+            user.isRiding = true;
+            user.save();
 
             return {
               ok: true,
