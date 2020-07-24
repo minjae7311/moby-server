@@ -166,7 +166,6 @@ type User {
   rides: [Ride]
   credit: [Credit]
   mainCredit: Credit
-  place: [Place]
   favPlace: [Place]
   interests: [Interests]
   isRiding: Boolean

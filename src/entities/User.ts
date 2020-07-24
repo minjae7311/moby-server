@@ -10,7 +10,7 @@ import {
   OneToOne,
   Unique,
   OneToMany,
-  JoinTable,
+  // JoinTable,
 } from "typeorm";
 import Interests from "./Interests";
 import Verification from "./Verification";
@@ -69,7 +69,6 @@ class User extends BaseEntity {
   verification: Verification;
 
   @ManyToMany(() => Place)
-  @JoinTable()
   favPlace: Place[];
 
   @OneToMany(() => Ride, (ride) => ride.passenger)

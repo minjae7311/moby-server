@@ -6,6 +6,7 @@ import {
 } from "../../../types/graph";
 import Ride from "../../../entities/Ride";
 import Place from "../../../entities/Place";
+import cleanNullArgs from "../../../utils/cleanNullArg";
 
 const resolvers: Resolvers = {
   Mutation: {
@@ -16,6 +17,7 @@ const resolvers: Resolvers = {
         { req }
       ): Promise<RequestRideResponse> => {
         const { user } = req;
+        const notNullArgs = cleanNullArgs(args);
 
         if (user.isRiding) {
           return {
@@ -23,25 +25,31 @@ const resolvers: Resolvers = {
             error: "already-riding",
             ride: null,
           };
+        } else {
+          try {
+            const from = await Place.findOne({ id: args.from.id });
+            const to = await Place.findOne({ id: args.to.id });
+
+            const newRide = await Ride.create({
+              ...notNullArgs,
+              from,
+              to,
+              passenger: user,
+            }).save();
+
+            return {
+              ok: true,
+              error: null,
+              ride: newRide,
+            };
+          } catch (e) {
+            return {
+              ok: false,
+              error: e.message,
+              ride: null,
+            };
+          }
         }
-
-        const from = await Place.findOne({ id: args.from.id });
-        const to = await Place.findOne({ id: args.to.id });
-
-        const newRide = await Ride.create({
-          ...args,
-          from,
-          to,
-          passenger: user,
-        }).save();
-
-        console.log(newRide);
-
-        return {
-          ok: true,
-          error: null,
-          ride: null,
-        };
       }
     ),
   },
