@@ -6,17 +6,16 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   ManyToOne,
-  ManyToMany,
+  JoinTable,
 } from "typeorm";
 import Ride from "./Ride";
-import User from "./User";
 
 @Entity()
 class Place extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: "text" })
+  @Column({ type: "text", nullable: true })
   name: string;
 
   @Column({ type: "double precision", default: 0 })
@@ -29,13 +28,12 @@ class Place extends BaseEntity {
   address: string;
 
   @ManyToOne(() => Ride, (ride) => ride.from)
+  @JoinTable()
   ride_from: Ride[];
 
   @ManyToOne(() => Ride, (ride) => ride.to)
+  @JoinTable()
   ride_to: Ride[];
-
-  @ManyToMany(() => User, (user) => user.place)
-  user: User[];
 
   @CreateDateColumn()
   createdAt: string;

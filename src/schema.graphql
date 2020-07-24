@@ -7,6 +7,7 @@ type Mutation {
   EnrollCredit(company: String!, number: String!, expiringDate: String!, cvv: String!, sid: String!): EnrollCreditResponse!
   CreateInterests(name: String!): CreateInterestsResponse
   StartPayment: StartPaymentResponse!
+  AddPlace(name: String, lat: Float!, lng: Float!, address: String!): AddPlaceResponse!
   CompletPhoneNumberVerification(phoneNumber: String!, key: String!, deviceId: String!): CompletPhoneNumberVerificationResponse!
   StartPhoneNumberVerification(phoneNumber: String!): StartPhoneNumberVerificationResponse
   UpdateUserProfile(fullName: String!, profilePhotoUrl: String!, gender: String!, birthDate: String!, job: String!): UpdateUserProfileResponse!
@@ -79,14 +80,20 @@ type StartPaymentResponse {
   error: String
 }
 
+type AddPlaceResponse {
+  ok: Boolean!
+  error: String
+}
+
 type Place {
   id: Int!
-  name: String!
+  name: String
   lat: Float!
   lng: Float!
   address: String!
   ride_from: Ride
   ride_to: Ride
+  user: [User]
   createdAt: String!
   updatedAt: String
 }
@@ -125,6 +132,8 @@ type User {
   deviceId: String!
   credit: [Credit]
   mainCredit: Credit
+  place: [Place]
+  favPlace: [Place]
   interests: [Interests]
   verification: Verification
   createdAt: String!

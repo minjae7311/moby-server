@@ -1,12 +1,11 @@
 type Place {
   id: Int!
-  name: String!
+  name: String
   lat: Float!
   lng: Float!
   address: String!
   ride_from: Ride
   ride_to: Ride
-  user: [User]
   createdAt: String!
   updatedAt: String
 }

@@ -10,6 +10,7 @@ import {
   OneToOne,
   Unique,
   OneToMany,
+  JoinTable,
 } from "typeorm";
 import Interests from "./Interests";
 import Verification from "./Verification";
@@ -63,10 +64,8 @@ class User extends BaseEntity {
   @OneToOne((type) => Verification, (verification) => verification.user)
   verification: Verification;
 
-  @ManyToMany(() => Place, (place) => place.user)
-  place: Place[];
-
-  @ManyToMany(() => Place, (place) => place.user)
+  @ManyToMany(() => Place)
+  @JoinTable()
   favPlace: Place[];
 
   @CreateDateColumn()

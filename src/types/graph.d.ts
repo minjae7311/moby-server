@@ -1,4 +1,4 @@
-export const typeDefs = ["type EnrollCreditResponse {\n  ok: Boolean!\n  error: String\n}\n\ntype Mutation {\n  EnrollCredit(company: String!, number: String!, expiringDate: String!, cvv: String!, sid: String!): EnrollCreditResponse!\n  CreateInterests(name: String!): CreateInterestsResponse\n  StartPayment: StartPaymentResponse!\n  CompletPhoneNumberVerification(phoneNumber: String!, key: String!, deviceId: String!): CompletPhoneNumberVerificationResponse!\n  StartPhoneNumberVerification(phoneNumber: String!): StartPhoneNumberVerificationResponse\n  UpdateUserProfile(fullName: String!, profilePhotoUrl: String!, gender: String!, birthDate: String!, job: String!): UpdateUserProfileResponse!\n}\n\ntype GetCreditsResponse {\n  ok: Boolean!\n  error: String\n  credit: [Credit]\n  mainCredit: Credit\n}\n\ntype Query {\n  GetCredits: GetCreditsResponse!\n  GetUserProfile: GetUserProfileResponse!\n}\n\ntype Credit {\n  id: Int!\n  user: User\n  company: String!\n  number: String!\n  expiringDate: String!\n  cvv: String!\n  sid: String!\n  createdAt: String!\n  updatedAt: String\n}\n\ntype Discount {\n  id: Int!\n  ride: Ride!\n  price: Float!\n  reason: String!\n  createdAt: String!\n  updatedAt: String\n}\n\ntype CreateInterestsResponse {\n  ok: Boolean!\n  error: String\n}\n\ntype Interests {\n  id: Int!\n  name: String!\n  user: [User]\n  createdAt: String!\n  updatedAt: String\n}\n\ntype Payment {\n  id: Int!\n  ride: Ride!\n  credit: Credit\n  price: Float!\n  isCancelled: Boolean!\n  reason: String\n  date: String!\n  createdAt: String!\n  updatedAt: String\n}\n\ntype PaymentResult {\n  ok: Boolean!\n}\n\ntype StartPaymentResponse {\n  ok: Boolean!\n  error: String\n}\n\ntype Place {\n  id: Int!\n  name: String!\n  lat: Float!\n  lng: Float!\n  address: String!\n  ride_from: Ride\n  ride_to: Ride\n  createdAt: String!\n  updatedAt: String\n}\n\ntype Ride {\n  id: Int!\n  user: User!\n  payment: [Payment]\n  finalFee: Float\n  discount: [Discount]\n  createdAt: String!\n  updatedAt: String\n}\n\ntype CompletPhoneNumberVerificationResponse {\n  ok: Boolean!\n  error: String\n  token: String\n}\n\ntype GetUserProfileResponse {\n  ok: Boolean!\n  error: String\n  user: User\n}\n\ntype User {\n  id: Int!\n  fullName: String\n  profilePhotoUrl: String\n  phoneNumber: String!\n  verifiedPhoneNumber: Boolean!\n  gender: String\n  birthDate: String\n  job: String\n  deviceId: String!\n  credit: [Credit]\n  mainCredit: Credit\n  interests: [Interests]\n  verification: Verification\n  createdAt: String!\n  updatedAt: String\n}\n\ntype StartPhoneNumberVerificationResponse {\n  ok: Boolean!\n  error: String\n}\n\ntype UpdateUserProfileResponse {\n  ok: Boolean!\n  error: String\n}\n\ntype Verification {\n  id: Int!\n  target: String!\n  payload: String!\n  key: String!\n  verified: Boolean!\n  user: User\n  expired: Boolean!\n  createdAt: String!\n  updatedAt: String\n}\n"];
+export const typeDefs = ["type EnrollCreditResponse {\n  ok: Boolean!\n  error: String\n}\n\ntype Mutation {\n  EnrollCredit(company: String!, number: String!, expiringDate: String!, cvv: String!, sid: String!): EnrollCreditResponse!\n  CreateInterests(name: String!): CreateInterestsResponse\n  StartPayment: StartPaymentResponse!\n  AddPlace(name: String, lat: Float!, lng: Float!, address: String!): AddPlaceResponse!\n  CompletPhoneNumberVerification(phoneNumber: String!, key: String!, deviceId: String!): CompletPhoneNumberVerificationResponse!\n  StartPhoneNumberVerification(phoneNumber: String!): StartPhoneNumberVerificationResponse\n  UpdateUserProfile(fullName: String!, profilePhotoUrl: String!, gender: String!, birthDate: String!, job: String!): UpdateUserProfileResponse!\n}\n\ntype GetCreditsResponse {\n  ok: Boolean!\n  error: String\n  credit: [Credit]\n  mainCredit: Credit\n}\n\ntype Query {\n  GetCredits: GetCreditsResponse!\n  GetUserProfile: GetUserProfileResponse!\n}\n\ntype Credit {\n  id: Int!\n  user: User\n  company: String!\n  number: String!\n  expiringDate: String!\n  cvv: String!\n  sid: String!\n  createdAt: String!\n  updatedAt: String\n}\n\ntype Discount {\n  id: Int!\n  ride: Ride!\n  price: Float!\n  reason: String!\n  createdAt: String!\n  updatedAt: String\n}\n\ntype CreateInterestsResponse {\n  ok: Boolean!\n  error: String\n}\n\ntype Interests {\n  id: Int!\n  name: String!\n  user: [User]\n  createdAt: String!\n  updatedAt: String\n}\n\ntype Payment {\n  id: Int!\n  ride: Ride!\n  credit: Credit\n  price: Float!\n  isCancelled: Boolean!\n  reason: String\n  date: String!\n  createdAt: String!\n  updatedAt: String\n}\n\ntype PaymentResult {\n  ok: Boolean!\n}\n\ntype StartPaymentResponse {\n  ok: Boolean!\n  error: String\n}\n\ntype AddPlaceResponse {\n  ok: Boolean!\n  error: String\n}\n\ntype Place {\n  id: Int!\n  name: String\n  lat: Float!\n  lng: Float!\n  address: String!\n  ride_from: Ride\n  ride_to: Ride\n  user: [User]\n  createdAt: String!\n  updatedAt: String\n}\n\ntype Ride {\n  id: Int!\n  user: User!\n  payment: [Payment]\n  finalFee: Float\n  discount: [Discount]\n  createdAt: String!\n  updatedAt: String\n}\n\ntype CompletPhoneNumberVerificationResponse {\n  ok: Boolean!\n  error: String\n  token: String\n}\n\ntype GetUserProfileResponse {\n  ok: Boolean!\n  error: String\n  user: User\n}\n\ntype User {\n  id: Int!\n  fullName: String\n  profilePhotoUrl: String\n  phoneNumber: String!\n  verifiedPhoneNumber: Boolean!\n  gender: String\n  birthDate: String\n  job: String\n  deviceId: String!\n  credit: [Credit]\n  mainCredit: Credit\n  place: [Place]\n  favPlace: [Place]\n  interests: [Interests]\n  verification: Verification\n  createdAt: String!\n  updatedAt: String\n}\n\ntype StartPhoneNumberVerificationResponse {\n  ok: Boolean!\n  error: String\n}\n\ntype UpdateUserProfileResponse {\n  ok: Boolean!\n  error: String\n}\n\ntype Verification {\n  id: Int!\n  target: String!\n  payload: String!\n  key: String!\n  verified: Boolean!\n  user: User\n  expired: Boolean!\n  createdAt: String!\n  updatedAt: String\n}\n"];
 /* tslint:disable */
 
 export interface Query {
@@ -37,8 +37,54 @@ export interface User {
   deviceId: string;
   credit: Array<Credit> | null;
   mainCredit: Credit | null;
+  place: Array<Place> | null;
+  favPlace: Array<Place> | null;
   interests: Array<Interests> | null;
   verification: Verification | null;
+  createdAt: string;
+  updatedAt: string | null;
+}
+
+export interface Place {
+  id: number;
+  name: string | null;
+  lat: number;
+  lng: number;
+  address: string;
+  ride_from: Ride | null;
+  ride_to: Ride | null;
+  user: Array<User> | null;
+  createdAt: string;
+  updatedAt: string | null;
+}
+
+export interface Ride {
+  id: number;
+  user: User;
+  payment: Array<Payment> | null;
+  finalFee: number | null;
+  discount: Array<Discount> | null;
+  createdAt: string;
+  updatedAt: string | null;
+}
+
+export interface Payment {
+  id: number;
+  ride: Ride;
+  credit: Credit | null;
+  price: number;
+  isCancelled: boolean;
+  reason: string | null;
+  date: string;
+  createdAt: string;
+  updatedAt: string | null;
+}
+
+export interface Discount {
+  id: number;
+  ride: Ride;
+  price: number;
+  reason: string;
   createdAt: string;
   updatedAt: string | null;
 }
@@ -73,6 +119,7 @@ export interface Mutation {
   EnrollCredit: EnrollCreditResponse;
   CreateInterests: CreateInterestsResponse | null;
   StartPayment: StartPaymentResponse;
+  AddPlace: AddPlaceResponse;
   CompletPhoneNumberVerification: CompletPhoneNumberVerificationResponse;
   StartPhoneNumberVerification: StartPhoneNumberVerificationResponse | null;
   UpdateUserProfile: UpdateUserProfileResponse;
@@ -88,6 +135,13 @@ export interface EnrollCreditMutationArgs {
 
 export interface CreateInterestsMutationArgs {
   name: string;
+}
+
+export interface AddPlaceMutationArgs {
+  name: string | null;
+  lat: number;
+  lng: number;
+  address: string;
 }
 
 export interface CompletPhoneNumberVerificationMutationArgs {
@@ -123,6 +177,11 @@ export interface StartPaymentResponse {
   error: string | null;
 }
 
+export interface AddPlaceResponse {
+  ok: boolean;
+  error: string | null;
+}
+
 export interface CompletPhoneNumberVerificationResponse {
   ok: boolean;
   error: string | null;
@@ -139,49 +198,6 @@ export interface UpdateUserProfileResponse {
   error: string | null;
 }
 
-export interface Discount {
-  id: number;
-  ride: Ride;
-  price: number;
-  reason: string;
-  createdAt: string;
-  updatedAt: string | null;
-}
-
-export interface Ride {
-  id: number;
-  user: User;
-  payment: Array<Payment> | null;
-  finalFee: number | null;
-  discount: Array<Discount> | null;
-  createdAt: string;
-  updatedAt: string | null;
-}
-
-export interface Payment {
-  id: number;
-  ride: Ride;
-  credit: Credit | null;
-  price: number;
-  isCancelled: boolean;
-  reason: string | null;
-  date: string;
-  createdAt: string;
-  updatedAt: string | null;
-}
-
 export interface PaymentResult {
   ok: boolean;
-}
-
-export interface Place {
-  id: number;
-  name: string;
-  lat: number;
-  lng: number;
-  address: string;
-  ride_from: Ride | null;
-  ride_to: Ride | null;
-  createdAt: string;
-  updatedAt: string | null;
 }
