@@ -10,9 +10,10 @@ const resolvers: Resolvers = {
       args: AddPlaceMutationArgs,
       _req
     ): Promise<AddPlaceResponse> => {
-      const notNullArgs = cleanNullArgs(args);
+      const { lat, lng } = args;
       const existingPlace = await Place.findOne({
-        ...notNullArgs,
+        lat,
+        lng,
       });
 
       if (existingPlace) {
@@ -23,6 +24,8 @@ const resolvers: Resolvers = {
         };
       } else {
         try {
+          const notNullArgs = cleanNullArgs(args);
+
           const newPlace = await Place.create({
             ...notNullArgs,
           }).save();
