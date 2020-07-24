@@ -37,6 +37,10 @@ const resolvers: Resolvers = {
               passenger: user,
             }).save();
 
+            /**
+             * @TODO need to isRiding = true about this User?
+             */
+
             return {
               ok: true,
               error: null,
