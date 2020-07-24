@@ -5,10 +5,7 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  ManyToOne,
-  JoinTable,
 } from "typeorm";
-import Ride from "./Ride";
 
 @Entity()
 class Place extends BaseEntity {
@@ -26,14 +23,6 @@ class Place extends BaseEntity {
 
   @Column({ type: "text" })
   address: string;
-
-  @ManyToOne(() => Ride, (ride) => ride.from)
-  @JoinTable()
-  ride_from: Ride[];
-
-  @ManyToOne(() => Ride, (ride) => ride.to)
-  @JoinTable()
-  ride_to: Ride[];
 
   @CreateDateColumn()
   createdAt: string;

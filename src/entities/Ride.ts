@@ -6,20 +6,22 @@ import {
   UpdateDateColumn,
   Column,
   OneToMany,
+  ManyToOne,
 } from "typeorm";
 import Payment from "./Payment";
 import Discount from "./Discount";
 import Place from "./Place";
+import User from "./User";
 
 @Entity()
 class Ride extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @OneToMany(() => Place, (place) => place.ride_from)
+  @ManyToOne(() => Place)
   from: Place;
 
-  @OneToMany(() => Place, (place) => place.ride_to)
+  @ManyToOne(() => Place)
   to: Place;
 
   @OneToMany(() => Payment, (payment) => payment.ride)
@@ -30,6 +32,9 @@ class Ride extends BaseEntity {
 
   @OneToMany(() => Discount, (discount) => discount.ride)
   discount: Discount[];
+
+  @ManyToOne(() => User, (user) => user.rides)
+  passenger: User;
 
   @CreateDateColumn()
   createdAt: string;

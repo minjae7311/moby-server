@@ -23,21 +23,24 @@ const resolvers: Resolvers = {
           return {
             ok: true,
             error: null,
+            placeId: existingPlace.id,
           };
         } else {
           try {
-            await Place.create({
+            const newPlace = await Place.create({
               ...notNullArgs,
             }).save();
 
             return {
               ok: true,
               error: null,
+              placeId: newPlace.id,
             };
           } catch (e) {
             return {
               ok: false,
               error: e.message,
+              placeId: null,
             };
           }
         }

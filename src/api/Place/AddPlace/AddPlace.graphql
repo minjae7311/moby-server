@@ -1,6 +1,7 @@
 type AddPlaceResponse {
   ok: Boolean!
   error: String
+  placeId: Int
 }
 
 type Mutation {

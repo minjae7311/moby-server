@@ -16,6 +16,7 @@ import Interests from "./Interests";
 import Verification from "./Verification";
 import Credit from "./Credit";
 import Place from "./Place";
+import Ride from "./Ride";
 
 // const BCRYPT_ROUNDS = 10;
 
@@ -67,6 +68,9 @@ class User extends BaseEntity {
   @ManyToMany(() => Place)
   @JoinTable()
   favPlace: Place[];
+
+  @OneToMany(() => Ride, (ride) => ride.passenger)
+  rides: Ride[];
 
   @CreateDateColumn()
   createdAt: string;

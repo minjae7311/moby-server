@@ -1,9 +1,11 @@
 type Ride {
   id: Int!
-  user: User!
+  from: Place
+  to: Place
   payment: [Payment]
   finalFee: Float
   discount: [Discount]
+  passenger: User!
   createdAt: String!
   updatedAt: String
 }

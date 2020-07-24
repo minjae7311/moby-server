@@ -8,6 +8,7 @@ type User {
   birthDate: String
   job: String
   deviceId: String!
+  rides: [Ride]
   credit: [Credit]
   mainCredit: Credit
   place: [Place]
