@@ -6,7 +6,6 @@ import {
   UpdateDateColumn,
   Column,
   OneToMany,
-  ManyToOne,
 } from "typeorm";
 import Ride from "./Ride";
 
