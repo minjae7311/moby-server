@@ -17,6 +17,14 @@ const resolvers: Resolvers = {
       ): Promise<RequestRideResponse> => {
         const { user } = req;
 
+        if (user.isRiding) {
+          return {
+            ok: false,
+            error: "already-riding",
+            ride: null,
+          };
+        }
+
         const from = await Place.findOne({ id: args.from.id });
         const to = await Place.findOne({ id: args.to.id });
 
@@ -28,9 +36,6 @@ const resolvers: Resolvers = {
         }).save();
 
         console.log(newRide);
-        newRide.payment = [];
-        newRide.discount = [];
-        newRide.finalFee = 0;
 
         return {
           ok: true,

@@ -14,6 +14,7 @@ type User {
   place: [Place]
   favPlace: [Place]
   interests: [Interests]
+  isRiding: Boolean
   verification: Verification
   createdAt: String!
   updatedAt: String

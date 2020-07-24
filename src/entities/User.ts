@@ -53,6 +53,9 @@ class User extends BaseEntity {
   @Column({ type: "text", nullable: false, default: "" })
   deviceId: string;
 
+  @Column({ type: "boolean", default: false })
+  isRiding: boolean;
+
   @ManyToMany((type) => Interests, (interests) => interests.user)
   interests: Interests[];
 
