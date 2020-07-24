@@ -33,7 +33,7 @@ class Credit extends BaseEntity {
   @Column({ type: "text", nullable: false })
   cvv: string;
 
-  @Column({ type: "text" })
+  @Column({ type: "text", nullable: false })
   sid: string;
 
   @OneToMany(() => Payment, (payment) => payment.credit)
