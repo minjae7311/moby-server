@@ -5,8 +5,9 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  //   ManyToOne,
+  ManyToOne,
 } from "typeorm";
+import Ride from "./Ride";
 
 @Entity()
 class Place extends BaseEntity {
@@ -24,6 +25,12 @@ class Place extends BaseEntity {
 
   @Column({ type: "text" })
   address: string;
+
+  @ManyToOne(() => Ride, (ride) => ride.from)
+  ride_from: Ride[];
+
+  @ManyToOne(() => Ride, (ride) => ride.to)
+  ride_to: Ride[];
 
   @CreateDateColumn()
   createdAt: string;

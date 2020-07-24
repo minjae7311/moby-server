@@ -4,6 +4,8 @@ type Place {
   lat: Float!
   lng: Float!
   address: String!
+  ride_from: Ride
+  ride_to: Ride
   createdAt: String!
   updatedAt: String
 }

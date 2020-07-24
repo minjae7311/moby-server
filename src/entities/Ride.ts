@@ -9,17 +9,18 @@ import {
 } from "typeorm";
 import Payment from "./Payment";
 import Discount from "./Discount";
+import Place from "./Place";
 
 @Entity()
 class Ride extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  // @OneToMany(()=>Place, place=>place.ride)
-  //   from:Place;
+  @OneToMany(() => Place, (place) => place.ride_from)
+  from: Place;
 
-  //   @OneToMany(()=>Place, place=>place.ride)
-  // to:Place;
+  @OneToMany(() => Place, (place) => place.ride_to)
+  to: Place;
 
   @OneToMany(() => Payment, (payment) => payment.ride)
   payment: Payment[];

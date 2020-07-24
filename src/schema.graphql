@@ -79,6 +79,18 @@ type StartPaymentResponse {
   error: String
 }
 
+type Place {
+  id: Int!
+  name: String!
+  lat: Float!
+  lng: Float!
+  address: String!
+  ride_from: Ride
+  ride_to: Ride
+  createdAt: String!
+  updatedAt: String
+}
+
 type Ride {
   id: Int!
   user: User!

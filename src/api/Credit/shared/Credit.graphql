@@ -5,7 +5,7 @@ type Credit {
   number: String!
   expiringDate: String!
   cvv: String!
-  sid: String!
+  sid: String
   createdAt: String!
   updatedAt: String
 }
