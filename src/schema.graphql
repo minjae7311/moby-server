@@ -7,6 +7,7 @@ type Mutation {
   EnrollCredit(company: String!, number: String!, expiringDate: String!, cvv: String!, sid: String!): EnrollCreditResponse!
   AddNewDriver: AddNewDriverResponse!
   AcceptRequestingRide(rideId: Int!): AcceptRequestingRideResponse!
+  PickoffPassenger(rideId: Int!): PickoffPassengerResponse!
   PickupPassenger(rideId: Int!): PickupPassengerResponse!
   UpdateDriverLocation(driverId: DriverInput!, lat: Float!, lng: Float!): UpdateDriverLocationResponse!
   CreateInterests(name: String!): CreateInterestsResponse
@@ -58,6 +59,11 @@ type AddNewDriverResponse {
 }
 
 type AcceptRequestingRideResponse {
+  ok: Boolean!
+  error: String
+}
+
+type PickoffPassengerResponse {
   ok: Boolean!
   error: String
 }

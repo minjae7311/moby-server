@@ -1,0 +1,8 @@
+type PickoffPassengerResponse {
+  ok: Boolean!
+  error: String
+}
+
+type Mutation {
+  PickoffPassenger(rideId: Int!): PickoffPassengerResponse!
+}
