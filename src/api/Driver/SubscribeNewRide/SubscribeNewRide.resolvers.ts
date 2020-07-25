@@ -7,8 +7,6 @@ const resolvers = {
       subscribe: withFilter(
         (_res, _args, { pubSub }) => pubSub.asyncIterator("rideRequesting"),
         async (payload, __args, { context }) => {
-          console.log(payload);
-
           const currentDriver: Driver = context.currentDriver;
           const {
             SubscribeNewRide: { from },

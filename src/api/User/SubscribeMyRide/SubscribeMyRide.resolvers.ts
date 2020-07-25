@@ -12,8 +12,6 @@ const resolvers = {
             SubscribeMyRide: { passenger /*driverId, status*/ },
           } = payload;
 
-          console.log(payload);
-
           return passenger.id == currentUser.id;
         }
       ),
