@@ -18,7 +18,10 @@ const resolvers: Resolvers = {
        */
       // const driver:Driver = req.user;
       const driver = await Driver.findOne({ id: 1 });
-      const ride = await Ride.findOne({ id: args.rideId });
+      const ride = await Ride.findOne(
+        { id: args.rideId },
+        { relations: ["passenger"] }
+      );
 
       if (!ride) {
         return {

@@ -7,6 +7,7 @@ dotenv.config();
 import ConnectionOptions from "./ormConfig";
 import { createConnection } from "typeorm";
 import Driver from "./entities/Driver";
+import decodeJWT from "./utils/decode.JWT";
 
 const PORT: number | string = process.env.PORT || 4000;
 const PLAYGROUND_ENDPOINT: string = "/playground";
@@ -24,9 +25,13 @@ const appOptions: Options = {
        * @todo get currentDriver with json token
        */
       const currentDriver = await Driver.findOne({ id: 1 });
-            
+
+      const token = connectionParams["X-JWT"];
+      const currentUser = await decodeJWT(token);
+
       return {
         currentDriver,
+        currentUser,
       };
     },
   },
