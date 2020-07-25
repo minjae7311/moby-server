@@ -6,6 +6,7 @@ type EnrollCreditResponse {
 type Mutation {
   EnrollCredit(company: String!, number: String!, expiringDate: String!, cvv: String!, sid: String!): EnrollCreditResponse!
   AddNewDriver: AddNewDriverResponse!
+  AcceptRequestingRide(rideId: Int!): AcceptRequestingRideResponse!
   UpdateDriverLocation(driverId: DriverInput!, lat: Float!, lng: Float!): UpdateDriverLocationResponse!
   CreateInterests(name: String!): CreateInterestsResponse
   StartPayment: StartPaymentResponse!
@@ -55,6 +56,11 @@ type AddNewDriverResponse {
   driver: Driver
 }
 
+type AcceptRequestingRideResponse {
+  ok: Boolean!
+  error: String
+}
+
 type Driver {
   id: Int!
   lat: Float
@@ -67,7 +73,6 @@ type Driver {
 
 type Subscription {
   SubscribeNewRide: Ride
-  SubscribeNewDriverLocation: Driver
 }
 
 type UpdateDriverLocationResponse {
@@ -148,7 +153,7 @@ type Ride {
   discount: [Discount]
   passenger: User!
   driver: Driver
-  accepted: Boolean!
+  status: String!
   createdAt: String!
   updatedAt: String
 }
