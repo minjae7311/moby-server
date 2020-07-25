@@ -13,6 +13,7 @@ import Discount from "./Discount";
 import Place from "./Place";
 import User from "./User";
 import Driver from "./Driver";
+import { rideStatus } from "../types/types";
 
 @Entity()
 class Ride extends BaseEntity {
@@ -42,6 +43,13 @@ class Ride extends BaseEntity {
 
   @Column({ type: "boolean", nullable: false, default: false })
   accepted: boolean;
+
+  @Column({
+    type: "text",
+    enum: ["ACCEPTED", "FINISHED", "CANCELED", "REQUESTING", "ONROUTE"],
+    default: "REQUESTING",
+  })
+  status: rideStatus;
 
   @CreateDateColumn()
   createdAt: string;

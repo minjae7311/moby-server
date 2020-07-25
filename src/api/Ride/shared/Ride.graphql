@@ -7,7 +7,7 @@ type Ride {
   discount: [Discount]
   passenger: User!
   driver: Driver
-  accepted: Boolean!
+  status: String!
   createdAt: String!
   updatedAt: String
 }
