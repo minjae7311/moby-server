@@ -10,7 +10,7 @@ const resolvers: Resolvers = {
     UpdateDriverLocation: async (
       _res,
       args: UpdateDriverLocationMutationArgs,
-      _req
+      { _req, pubSub }
     ): Promise<UpdateDriverLocationResponse> => {
       const driver = await Driver.findOne({
         id: args.driverId.id,
@@ -25,6 +25,11 @@ const resolvers: Resolvers = {
         try {
           driver.lat = args.lat;
           driver.lng = args.lng;
+
+          pubSub.publish("driverLocationUpdating", {
+            SubscribeNewDriverLocation: driver,
+          });
+
           await driver.save();
 
           return {

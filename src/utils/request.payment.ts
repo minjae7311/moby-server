@@ -38,10 +38,7 @@ export const requestPayment = async (user: User): Promise<PaymentResult> => {
     },
   };
 
-  console.log(1);
-  const result = await sendRequest(options);
-  console.log(4);
-  console.log("\n\n\n\n\n\n\n\n\n\n\n\n", result);
+  await sendRequest(options);
   return {
     ok: true,
   };

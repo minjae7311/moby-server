@@ -3,17 +3,21 @@ import { withFilter } from "graphql-yoga";
 
 const resolvers = {
   Subscription: {
-    SubscribeNewRide: {
+    Subscribing: {
       subscribe: withFilter(
-        (_res, _args, { pubSub }) => pubSub.asyncIterator("rideRequesting"),
-        (payload, __args, { context }) => {
-          const { currentDriver } = context;
-          console.log(currentDriver);
+        (_res, _args, { pubSub }) =>
+          pubSub.asyncIterator(["rideRequesting", "driverLocationUpdating"]),
+        async (payload, __args, { context }) => {
+          console.log(payload);
+
+          // const currentDriver: Driver = context.currentDriver;
           const {
             SubscribeNewRide: { from },
+            SubscribeNewDriverLocation: { lat, lng },
           } = payload;
-          console.log(from);
-          const { lat, lng } = currentDriver;
+
+          // await currentDriver.reload();
+          // const { lat, lng } = currentDriver;
 
           return (
             from.lat >= lat - 0.05 &&

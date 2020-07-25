@@ -1,3 +1,10 @@
-type Subscription {
+type SubscribingType {
   SubscribeNewRide: Ride
+  SubscribeNewDriverLocation: Driver
+}
+
+type Subscription {
+  # SubscribeNewRide: Ride
+  # SubscribeNewDriverLocation: Driver
+  Subscribing: SubscribingType
 }

@@ -10,8 +10,7 @@ const resolvers: Resolvers = {
       async (_res, _args, { req }): Promise<StartPaymentResponse> => {
         const { user } = req;
 
-        const result = await requestPayment(user);
-        console.log("\n\n\n", result, "\n\n\n");
+        /* const result = */await requestPayment(user);
         return {
           ok: false,
           error: null,

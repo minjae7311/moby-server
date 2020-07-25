@@ -21,9 +21,10 @@ const appOptions: Options = {
     path: SUBSCRIPTION_ENDPOINT,
     onConnect: async (connectionParams) => {
       /**
-       * @todo
+       * @todo get currentDriver with json token
        */
       const currentDriver = await Driver.findOne({ id: 1 });
+            
       return {
         currentDriver,
       };
