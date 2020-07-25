@@ -1,6 +1,7 @@
 type PickoffPassengerResponse {
   ok: Boolean!
   error: String
+  ride: Ride
 }
 
 type Mutation {

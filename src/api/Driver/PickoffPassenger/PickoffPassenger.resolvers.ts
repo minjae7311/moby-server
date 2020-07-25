@@ -26,6 +26,7 @@ const resolvers: Resolvers = {
         return {
           ok: false,
           error: "ride-not-found",
+          ride: null,
         };
       }
 
@@ -33,6 +34,7 @@ const resolvers: Resolvers = {
         return {
           ok: false,
           error: "ride-is-not-onroute",
+          ride: null,
         };
       } else {
         try {
@@ -44,14 +46,20 @@ const resolvers: Resolvers = {
 
           await ride.save();
 
+          /**
+           * @todo check -> payment, fee, discount, survey
+           */
+
           return {
             ok: true,
             error: null,
+            ride,
           };
         } catch (e) {
           return {
             ok: false,
             error: e.message,
+            ride: null,
           };
         }
       }
