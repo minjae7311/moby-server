@@ -41,9 +41,6 @@ class Ride extends BaseEntity {
   @ManyToOne(() => Driver, (driver) => driver.rides)
   driver: Driver;
 
-  @Column({ type: "boolean", nullable: false, default: false })
-  accepted: boolean;
-
   @Column({
     type: "text",
     enum: ["ACCEPTED", "FINISHED", "CANCELED", "REQUESTING", "ONROUTE"],
