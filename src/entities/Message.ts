@@ -23,7 +23,7 @@ class Message extends BaseEntity {
   chat: Chat;
 
   @ManyToOne((type) => User)
-  user: User;
+  passenger: User;
 
   @ManyToOne((type) => Driver)
   driver: Driver;

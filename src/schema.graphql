@@ -1,3 +1,26 @@
+type SendNewMessageResponse {
+  ok: Boolean!
+  error: String
+  message: Message
+}
+
+type Mutation {
+  SendNewMessage(text: String!, chatId: Int!, isSenderPassenger: Boolean!, passengerId: Int, driverId: Int): SendNewMessageResponse!
+  EnrollCredit(company: String!, number: String!, expiringDate: String!, cvv: String!, sid: String!): EnrollCreditResponse!
+  AddNewDriver: AddNewDriverResponse!
+  AcceptRequestingRide(rideId: Int!): AcceptRequestingRideResponse!
+  PickoffPassenger(rideId: Int!): PickoffPassengerResponse!
+  PickupPassenger(rideId: Int!): PickupPassengerResponse!
+  UpdateDriverLocation(driverId: DriverInput!, lat: Float!, lng: Float!): UpdateDriverLocationResponse!
+  CreateInterests(name: String!): CreateInterestsResponse
+  StartPayment: StartPaymentResponse!
+  AddPlace(name: String, lat: Float!, lng: Float!, address: String!): AddPlaceResponse!
+  RequestRide(from: PlaceInput!, to: PlaceInput!, finalFee: Float, distance: String, duration: String): RequestRideResponse!
+  CompletPhoneNumberVerification(phoneNumber: String!, key: String!, deviceId: String!): CompletPhoneNumberVerificationResponse!
+  StartPhoneNumberVerification(phoneNumber: String!): StartPhoneNumberVerificationResponse
+  UpdateUserProfile(fullName: String!, profilePhotoUrl: String!, gender: String!, birthDate: String!, job: String!): UpdateUserProfileResponse!
+}
+
 type Chat {
   id: Int!
   messages: [Message]
@@ -12,7 +35,7 @@ type Message {
   id: Int!
   text: String!
   chat: Chat!
-  user: User
+  passenger: User
   driver: Driver
   createdAt: String!
   updatedAt: String
@@ -21,22 +44,6 @@ type Message {
 type EnrollCreditResponse {
   ok: Boolean!
   error: String
-}
-
-type Mutation {
-  EnrollCredit(company: String!, number: String!, expiringDate: String!, cvv: String!, sid: String!): EnrollCreditResponse!
-  AddNewDriver: AddNewDriverResponse!
-  AcceptRequestingRide(rideId: Int!): AcceptRequestingRideResponse!
-  PickoffPassenger(rideId: Int!): PickoffPassengerResponse!
-  PickupPassenger(rideId: Int!): PickupPassengerResponse!
-  UpdateDriverLocation(driverId: DriverInput!, lat: Float!, lng: Float!): UpdateDriverLocationResponse!
-  CreateInterests(name: String!): CreateInterestsResponse
-  StartPayment: StartPaymentResponse!
-  AddPlace(name: String, lat: Float!, lng: Float!, address: String!): AddPlaceResponse!
-  RequestRide(from: PlaceInput!, to: PlaceInput!, finalFee: Float, distance: String, duration: String): RequestRideResponse!
-  CompletPhoneNumberVerification(phoneNumber: String!, key: String!, deviceId: String!): CompletPhoneNumberVerificationResponse!
-  StartPhoneNumberVerification(phoneNumber: String!): StartPhoneNumberVerificationResponse
-  UpdateUserProfile(fullName: String!, profilePhotoUrl: String!, gender: String!, birthDate: String!, job: String!): UpdateUserProfileResponse!
 }
 
 type GetCreditsResponse {
