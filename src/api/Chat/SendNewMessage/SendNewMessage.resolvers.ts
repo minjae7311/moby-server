@@ -47,7 +47,7 @@ const resolvers: Resolvers = {
             };
           } catch (e) {
             return {
-              ok: true,
+              ok: false,
               error: e.message,
               message: null,
             };

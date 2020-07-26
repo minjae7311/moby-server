@@ -5,7 +5,7 @@ type SendNewMessageResponse {
 }
 
 type Mutation {
-  SendNewMessage(text: String!, chatId: Int!, isSenderPassenger: Boolean!, passengerId: Int, driverId: Int): SendNewMessageResponse!
+  SendNewMessage(text: String!, chatId: Int!, isSenderPassenger: Boolean!): SendNewMessageResponse!
   EnrollCredit(company: String!, number: String!, expiringDate: String!, cvv: String!, sid: String!): EnrollCreditResponse!
   AddNewDriver: AddNewDriverResponse!
   AcceptRequestingRide(rideId: Int!): AcceptRequestingRideResponse!
@@ -39,6 +39,12 @@ type Message {
   driver: Driver
   createdAt: String!
   updatedAt: String
+}
+
+type Subscription {
+  SubscribeNewMessage: Message
+  SubscribeNewRide: Ride
+  SubscribeMyRide: Ride
 }
 
 type EnrollCreditResponse {
@@ -111,11 +117,6 @@ type Driver {
   updatedAt: String
 }
 
-type Subscription {
-  SubscribeNewRide: Ride
-  SubscribeMyRide: Ride
-}
-
 type UpdateDriverLocationResponse {
   ok: Boolean!
   error: String
@@ -179,6 +180,7 @@ type RequestRideResponse {
   ok: Boolean!
   error: String
   ride: Ride
+  chat: Chat
 }
 
 input PlaceInput {

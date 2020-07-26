@@ -6,6 +6,7 @@ import {
   UpdateDateColumn,
   ManyToOne,
   Column,
+  JoinColumn,
 } from "typeorm";
 import Chat from "./Chat";
 import User from "./User";
@@ -20,6 +21,7 @@ class Message extends BaseEntity {
   text: string;
 
   @ManyToOne((type) => Chat, (chat) => chat.messages)
+  @JoinColumn()
   chat: Chat;
 
   @ManyToOne((type) => User)

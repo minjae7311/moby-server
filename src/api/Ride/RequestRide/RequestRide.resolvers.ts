@@ -25,6 +25,7 @@ const resolvers: Resolvers = {
             ok: false,
             error: "already-riding",
             ride: null,
+            chat: null,
           };
         } else {
           try {
@@ -58,12 +59,14 @@ const resolvers: Resolvers = {
               ok: true,
               error: null,
               ride: newRide,
+              chat: newChat,
             };
           } catch (e) {
             return {
               ok: false,
               error: e.message,
               ride: null,
+              chat: null,
             };
           }
         }
