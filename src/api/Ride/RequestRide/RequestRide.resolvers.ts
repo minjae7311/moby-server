@@ -7,6 +7,7 @@ import {
 import Ride from "../../../entities/Ride";
 import Place from "../../../entities/Place";
 import cleanNullArgs from "../../../utils/cleanNullArg";
+import Chat from "../../../entities/Chat";
 
 const resolvers: Resolvers = {
   Mutation: {
@@ -36,6 +37,14 @@ const resolvers: Resolvers = {
               to,
               passenger: user,
             }).save();
+
+            const newChat = await Chat.create({
+              passenger: user,
+              ride: newRide,
+            }).save();
+
+            newRide.chat = newChat;
+            newRide.save();
 
             pubSub.publish("rideRequesting", { SubscribeNewRide: newRide });
 

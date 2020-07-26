@@ -7,4 +7,3 @@ type Message {
   createdAt: String!
   updatedAt: String
 }
-ƒ

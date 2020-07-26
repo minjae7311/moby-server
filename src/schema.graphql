@@ -1,3 +1,23 @@
+type Chat {
+  id: Int!
+  messages: [Message]
+  passenger: User!
+  driver: Driver
+  ride: Ride!
+  createdAt: String!
+  updatedAt: String
+}
+
+type Message {
+  id: Int!
+  text: String!
+  chat: Chat!
+  user: User
+  driver: Driver
+  createdAt: String!
+  updatedAt: String
+}
+
 type EnrollCreditResponse {
   ok: Boolean!
   error: String
@@ -168,6 +188,7 @@ type Ride {
   passenger: User!
   driver: Driver
   status: String!
+  chat: Chat
   createdAt: String!
   updatedAt: String
 }

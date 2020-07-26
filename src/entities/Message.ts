@@ -26,7 +26,7 @@ class Message extends BaseEntity {
   user: User;
 
   @ManyToOne((type) => Driver)
-  driver: User;
+  driver: Driver;
 
   @CreateDateColumn()
   createdAt: string;
