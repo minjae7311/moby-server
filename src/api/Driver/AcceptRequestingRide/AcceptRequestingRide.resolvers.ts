@@ -51,6 +51,10 @@ const resolvers: Resolvers = {
             SubscribeMyRide: ride,
           });
 
+          /**
+           * @todo create chat
+           */
+
           await ride.save();
 
           return {
