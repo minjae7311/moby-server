@@ -1,5 +1,5 @@
 import request from "request";
-import { PaymentResult } from "../types/graph";
+import { PaymentResult, VerifyCreditResult } from "../types/graph";
 import Ride from "../entities/Ride";
 import Credit from "../entities/Credit";
 
@@ -61,6 +61,12 @@ export const requestPayment = async (ride: Ride): Promise<PaymentResult> => {
   }
 };
 
-export const verfyCredit = async(credit: Credit) => {
+export const verfyCredit = async(credit: Credit):Promise<VerifyCreditResult> => {
+    
+
+
+  const options={
+
+  }
   
 }

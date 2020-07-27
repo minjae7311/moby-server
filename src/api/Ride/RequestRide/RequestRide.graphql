@@ -5,14 +5,11 @@ type RequestRideResponse {
   chat: Chat
 }
 
-input PlaceInput {
-  id: Int!
-}
 
 type Mutation {
   RequestRide(
-    from: PlaceInput!
-    to: PlaceInput!
+    fromId: Int!
+    toId: Int!
     finalFee: Float
     distance: String
     duration: String

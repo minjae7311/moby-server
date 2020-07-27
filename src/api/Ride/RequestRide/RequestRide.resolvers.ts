@@ -29,8 +29,8 @@ const resolvers: Resolvers = {
           };
         } else {
           try {
-            const from = await Place.findOne({ id: args.from.id });
-            const to = await Place.findOne({ id: args.to.id });
+            const from = await Place.findOne({ id: args.fromId });
+            const to = await Place.findOne({ id: args.toId });
 
             const newRide = await Ride.create({
               ...notNullArgs,
