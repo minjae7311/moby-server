@@ -21,20 +21,20 @@ class Credit extends BaseEntity {
   @JoinColumn()
   user: User;
 
-  @Column({ type: "text", nullable: false })
-  company: string;
+  @Column({ type: "text" })
+  card_name: string;
 
   @Column({ type: "text", nullable: false })
-  number: string;
+  card_number: string;
 
   @Column({ type: "text", nullable: false })
-  expiringDate: string;
+  expiry: string;
 
-  @Column({ type: "text", nullable: false })
-  cvv: string;
+  // @Column({ type: "text", nullable: false })
+  // cvv: string;
 
-  @Column({ type: "text", nullable: false })
-  sid: string;
+  // @Column({ type: "text", nullable: false })
+  // sid: string;
 
   @OneToMany(() => Payment, (payment) => payment.credit)
   payment: Payment[];

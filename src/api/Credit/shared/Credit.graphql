@@ -1,11 +1,9 @@
 type Credit {
   id: Int!
   user: User
-  company: String!
-  number: String!
-  expiringDate: String!
-  cvv: String!
-  sid: String!
+  card_name: String
+  card_number: String!
+  expiry: String!
   createdAt: String!
   updatedAt: String
 }

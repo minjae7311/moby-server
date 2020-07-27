@@ -1,6 +1,7 @@
 import request from "request";
 import { PaymentResult } from "../types/graph";
 import Ride from "../entities/Ride";
+import Credit from "../entities/Credit";
 
 const Authorization = process.env.IAMPORT_TOKEN;
 
@@ -12,7 +13,19 @@ const sendRequest = async (option: any) => {
   });
 };
 
+/**
+ * 
+ * @param {Ride} ride should have passenger info
+ */
 export const requestPayment = async (ride: Ride): Promise<PaymentResult> => {
+  if(!ride.passenger) {
+    return {
+      ok:false,
+      code:null,
+      error:'passenger-not-found'
+    }
+  }
+
   const options = {
     uri: `https://api.iamport.kr/subscribe/customers/${ride.passenger.id}`,
     method: "POST",
@@ -47,3 +60,7 @@ export const requestPayment = async (ride: Ride): Promise<PaymentResult> => {
     };
   }
 };
+
+export const verfyCredit = async(credit: Credit) => {
+  
+}
