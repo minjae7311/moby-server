@@ -13,5 +13,6 @@ type Mutation {
     finalFee: Float
     distance: String
     duration: String
+    creditId: Int
   ): RequestRideResponse!
 }

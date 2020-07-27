@@ -50,10 +50,16 @@ const resolvers: Resolvers = {
             pubSub.publish("rideRequesting", { SubscribeNewRide: newRide });
 
             /**
-             * @todo
+             * @todo user.isRiding = true
              */
             user.isRiding = false;
             user.save();
+
+
+            /**
+             * @todo create payment
+             */
+            // creditId
 
             return {
               ok: true,

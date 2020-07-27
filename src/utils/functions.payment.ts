@@ -39,7 +39,7 @@ export const requestPayment = async (ride: Ride): Promise<PaymentResult> => {
   const Authorization = authResponse.response.access_token;
 
   const options = {
-    // uri: `https://api.iamport.kr/subscribe/again`,
+    uri: `https://api.iamport.kr/subscribe/again`,
     method: "POST",
     form: {
       customer_uid: ride.passenger.id,

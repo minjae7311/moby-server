@@ -47,6 +47,9 @@ const resolvers: Resolvers = {
 
           await ride.save();
 
+          ride.passenger.isRiding = false;
+          ride.passenger.save();
+
           /**
            * @todo check -> fee, discount, survey
            */
