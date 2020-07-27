@@ -6,8 +6,6 @@ import Credit from "../entities/Credit";
 import dotenv from "dotenv";
 dotenv.config();
 
-const Authorization = process.env.IAMPORT_TOKEN;
-
 const sendRequest = async (option: any) => {
   return new Promise((resolve, reject) => {
     request.post(option, (_err, res) => {
@@ -21,26 +19,35 @@ const sendRequest = async (option: any) => {
  * @param {Ride} ride should have passenger info
  */
 export const requestPayment = async (ride: Ride): Promise<PaymentResult> => {
-  // if (!ride.passenger) {
-  //   return {
-  //     ok: false,
-  //     code: null,
-  //     error: "passenger-not-found",
-  //   };
-  // }
+  if (!ride.passenger) {
+    return {
+      ok: false,
+      code: null,
+      error: "passenger-not-found",
+    };
+  }
+
+  const authResponse: any = await sendRequest({
+    uri:
+      "https://api.iamport.kr/users/getToken?_token=c5a7e9d6c61d977673ca3073d26ce8301984436d",
+    method: "POST",
+    form: {
+      imp_key: process.env.IAMPORT_KEY,
+      imp_secret: process.env.IAMPORT_SECRET,
+    },
+  });
+  const Authorization = authResponse.response.access_token;
 
   const options = {
     // uri: `https://api.iamport.kr/subscribe/again`,
-    uri: `https://api.iamport.kr/subscribe/customers/68`,
     method: "POST",
     form: {
-      // customer_uid: ride.passenger.id,
+      customer_uid: ride.passenger.id,
       card_number: "377988064432611",
       expiry: "2024-12",
       birth: "930427",
       pwd_2digit: "87",
-      // merchant_uid: ride.finalFee,
-      merchant_uid: 1,
+      merchant_uid: ride.finalFee,
       amount: 1,
     },
     headers: {
@@ -73,6 +80,18 @@ export const requestPayment = async (ride: Ride): Promise<PaymentResult> => {
 export const verifyCredit = async (
   credit: Credit
 ): Promise<VerifyCreditResult> => {
+  const authResponse: any = await sendRequest({
+    uri:
+      "https://api.iamport.kr/users/getToken?_token=c5a7e9d6c61d977673ca3073d26ce8301984436d",
+    method: "POST",
+    form: {
+      imp_key: process.env.IAMPORT_KEY,
+      imp_secret: process.env.IAMPORT_SECRET,
+    },
+  });
+
+  const Authorization = authResponse.response.access_token;
+
   const { card_number, expiry, pwd_2digit } = credit;
   const birth = credit.user.birthDate;
 
