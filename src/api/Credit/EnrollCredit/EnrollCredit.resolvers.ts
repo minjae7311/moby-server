@@ -42,10 +42,10 @@ const resolvers: Resolvers = {
 
             const verifyCreditResult = await verifyCredit(newCredit);
             if (verifyCreditResult.ok && verifyCreditResult.credit) {
-              if (!user.mainCredit) {
-                user.mainCredit = newCredit;
-                user.save();
-              }
+              console.log(
+                "\n\n\n\n\n\nverifyCreditResult.credit:",
+                verifyCreditResult.credit
+              );
 
               return {
                 ok: true,

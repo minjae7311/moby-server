@@ -13,14 +13,12 @@ const resolvers: Resolvers = {
             ok: true,
             error: null,
             credit: user.credit,
-            mainCredit: user.mainCredit,
           };
         } else {
           return {
             ok: false,
             error: "user-not-found",
             credit: null,
-            mainCredit: null,
           };
         }
       }

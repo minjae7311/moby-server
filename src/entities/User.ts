@@ -62,9 +62,6 @@ class User extends BaseEntity {
   @OneToMany(() => Credit, (credit) => credit.user)
   credit: Credit[];
 
-  @OneToOne(() => Credit, (credit) => credit.user)
-  mainCredit: Credit;
-
   @OneToOne((type) => Verification, (verification) => verification.user)
   verification: Verification;
 

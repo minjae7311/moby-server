@@ -24,7 +24,7 @@ class Credit extends BaseEntity {
   @Column({ type: "text", nullable: true })
   nickname: string;
 
-  @Column({ type: "text", nullable: true  })
+  @Column({ type: "text", nullable: true })
   card_name: string;
 
   @Column({ type: "text", nullable: false })
@@ -36,8 +36,8 @@ class Credit extends BaseEntity {
   @Column({ type: "text", nullable: false })
   pwd_2digit: string;
 
-  // @Column({ type: "text", nullable: false })
-  // sid: string;
+  @Column({ type: "boolean", nullable: false, default: false })
+  isMain: boolean;
 
   @OneToMany(() => Payment, (payment) => payment.credit)
   payment: Payment[];

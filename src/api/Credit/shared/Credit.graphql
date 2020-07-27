@@ -6,6 +6,7 @@ type Credit {
   card_number: String!
   expiry: String!
   pwd_2digit: String!
+  isMain: Boolean!
   createdAt: String!
   updatedAt: String
 }

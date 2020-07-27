@@ -73,8 +73,6 @@ export const requestPayment = async (ride: Ride): Promise<PaymentResult> => {
 export const verifyCredit = async (
   credit: Credit
 ): Promise<VerifyCreditResult> => {
-  console.log("\n\n\n\ninput credit:", credit);
-
   const { card_number, expiry, pwd_2digit } = credit;
   const birth = credit.user.birthDate;
 
@@ -104,16 +102,14 @@ export const verifyCredit = async (
 
   const response: any = await sendRequest(options);
 
-  console.log("\n\n\n\nresponse: ", response);
-
   if (response.code == 0) {
     credit.nickname = credit.nickname
       ? credit.nickname
       : response.response.card_name;
     credit.card_name = response.response.card_name;
-    console.log("\n\n\n\n credit before save:", credit);
 
     const newCredit = await credit.save();
+
     return {
       ok: true,
       error: null,
