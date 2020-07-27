@@ -18,10 +18,7 @@ const resolvers: Resolvers = {
         const user: User = req.user;
 
         const existingCredit = await Credit.findOne({
-          number: args.number,
-          company: args.company,
-          cvv: args.cvv,
-          expiringDate: args.expiringDate,
+          ...args,
         });
 
         if (existingCredit) {

@@ -6,7 +6,7 @@ type SendNewMessageResponse {
 
 type Mutation {
   SendNewMessage(text: String!, chatId: Int!, isSenderPassenger: Boolean!): SendNewMessageResponse!
-  EnrollCredit(company: String!, number: String!, expiringDate: String!, cvv: String!, sid: String!): EnrollCreditResponse!
+  EnrollCredit(card_number: String!, expiry: String!): EnrollCreditResponse!
   AddNewDriver: AddNewDriverResponse!
   AcceptRequestingRide(rideId: Int!): AcceptRequestingRideResponse!
   PickoffPassenger(rideId: Int!): PickoffPassengerResponse!
