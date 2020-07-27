@@ -3,10 +3,8 @@ import User from "../entities/User";
 import { PaymentResult } from "../types/graph";
 
 const sendRequest = async (option: any) => {
-  console.log(2);
   return new Promise((resolve, reject) => {
     request.post(option, (err, res) => {
-      console.log(3);
       resolve(JSON.parse(res.body));
     });
   });
