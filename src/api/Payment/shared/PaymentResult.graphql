@@ -1,3 +1,5 @@
 type PaymentResult {
     ok: Boolean!
+    code: Int
+    error: String
 }

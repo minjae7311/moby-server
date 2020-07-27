@@ -4,6 +4,7 @@ import {
   PickoffPassengerResponse,
 } from "../../../types/graph";
 import Ride from "../../../entities/Ride";
+import { requestPayment } from "../../../utils/request.payment";
 
 const resolvers: Resolvers = {
   Mutation: {
@@ -47,14 +48,23 @@ const resolvers: Resolvers = {
           await ride.save();
 
           /**
-           * @todo check -> payment, fee, discount, survey
+           * @todo check -> fee, discount, survey
            */
 
-          return {
-            ok: true,
-            error: null,
-            ride,
-          };
+          const paymentResult = await requestPayment(ride);
+          if (paymentResult.ok) {
+            return {
+              ok: true,
+              error: null,
+              ride,
+            };
+          } else {
+            return {
+              ok: false,
+              error: paymentResult.error,
+              ride: null,
+            };
+          }
         } catch (e) {
           return {
             ok: false,
