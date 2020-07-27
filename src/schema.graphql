@@ -67,6 +67,7 @@ type Query {
 type Credit {
   id: Int!
   user: User
+  nickname: String
   card_name: String
   card_number: String!
   expiry: String!

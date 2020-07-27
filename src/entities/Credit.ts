@@ -22,6 +22,9 @@ class Credit extends BaseEntity {
   user: User;
 
   @Column({ type: "text" })
+  nickname: string;
+
+  @Column({ type: "text" })
   card_name: string;
 
   @Column({ type: "text", nullable: false })
