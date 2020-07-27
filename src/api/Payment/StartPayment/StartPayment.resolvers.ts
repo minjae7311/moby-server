@@ -1,6 +1,6 @@
 import { Resolvers } from "../../../types/resolvers";
 import privateResolver from "../../../utils/privateResolver";
-import { requestPayment } from "../../../utils/request.payment";
+import { requestPayment } from "../../../utils/functions.payment";
 import { StartPaymentResponse } from "../../../types/graph";
 // import User from "../../../entities/User";
 

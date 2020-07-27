@@ -4,7 +4,7 @@ import {
   PickoffPassengerResponse,
 } from "../../../types/graph";
 import Ride from "../../../entities/Ride";
-import { requestPayment } from "../../../utils/request.payment";
+import { requestPayment } from "../../../utils/functions.payment";
 
 const resolvers: Resolvers = {
   Mutation: {
