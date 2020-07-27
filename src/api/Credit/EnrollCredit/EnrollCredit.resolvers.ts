@@ -6,6 +6,8 @@ import {
   EnrollCreditMutationArgs,
 } from "../../../types/graph";
 import Credit from "../../../entities/Credit";
+import { verifyCredit } from "../../../utils/functions.payment";
+import cleanNullArgs from "../../../utils/cleanNullArg";
 
 const resolvers: Resolvers = {
   Mutation: {
@@ -17,8 +19,12 @@ const resolvers: Resolvers = {
       ): Promise<EnrollCreditResponse> => {
         const user: User = req.user;
 
+        const { card_number, expiry, pwd_2digit } = args;
+
         const existingCredit = await Credit.findOne({
-          ...args,
+          card_number,
+          expiry,
+          pwd_2digit,
         });
 
         if (existingCredit) {
@@ -28,20 +34,29 @@ const resolvers: Resolvers = {
           };
         } else {
           try {
+            const notNullArgs = cleanNullArgs(args);
             const newCredit = await Credit.create({
               user: user,
-              ...args,
-            }).save();
+              ...notNullArgs,
+            });
 
-            if (!user.mainCredit) {
-              user.mainCredit = newCredit;
-              user.save();
+            const verifyCreditResult = await verifyCredit(newCredit);
+            if (verifyCreditResult.ok && verifyCreditResult.credit) {
+              if (!user.mainCredit) {
+                user.mainCredit = newCredit;
+                user.save();
+              }
+
+              return {
+                ok: true,
+                error: null,
+              };
+            } else {
+              return {
+                ok: false,
+                error: verifyCreditResult.error,
+              };
             }
-
-            return {
-              ok: true,
-              error: null,
-            };
           } catch (e) {
             return {
               ok: false,

@@ -21,10 +21,10 @@ class Credit extends BaseEntity {
   @JoinColumn()
   user: User;
 
-  @Column({ type: "text" })
+  @Column({ type: "text", nullable: true })
   nickname: string;
 
-  @Column({ type: "text" })
+  @Column({ type: "text", nullable: true  })
   card_name: string;
 
   @Column({ type: "text", nullable: false })
@@ -33,8 +33,8 @@ class Credit extends BaseEntity {
   @Column({ type: "text", nullable: false })
   expiry: string;
 
-  // @Column({ type: "text", nullable: false })
-  // cvv: string;
+  @Column({ type: "text", nullable: false })
+  pwd_2digit: string;
 
   // @Column({ type: "text", nullable: false })
   // sid: string;

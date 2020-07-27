@@ -5,7 +5,9 @@ type EnrollCreditResponse {
 
 type Mutation {
   EnrollCredit(
+    nickname: String
     card_number: String!
     expiry: String!
+    pwd_2digit: String!
   ): EnrollCreditResponse!
 }
