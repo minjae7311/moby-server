@@ -10,7 +10,6 @@ type User {
   deviceId: String!
   rides: [Ride]
   credit: [Credit]
-  mainCredit: Credit
   favPlace: [Place]
   interests: [Interests]
   isRiding: Boolean

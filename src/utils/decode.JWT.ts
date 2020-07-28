@@ -8,7 +8,7 @@ const decodeJWT = async (token: string): Promise<User | undefined> => {
     const user = await User.findOne(
       { id, deviceId },
       {
-        relations: ["credit", "mainCredit"],
+        relations: ["credit"],
       }
     );
 
