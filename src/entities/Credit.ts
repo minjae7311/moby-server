@@ -7,6 +7,7 @@ import {
   Column,
   ManyToOne,
   OneToMany,
+  JoinColumn,
 } from "typeorm";
 import User from "./User";
 import Payment from "./Payment";
@@ -17,6 +18,7 @@ class Credit extends BaseEntity {
   id: number;
 
   @ManyToOne(() => User, (user) => user.credit)
+  @JoinColumn()
   user: User;
 
   @Column({ type: "text", nullable: false })
@@ -31,8 +33,8 @@ class Credit extends BaseEntity {
   @Column({ type: "text", nullable: false })
   cvv: string;
 
-  @Column({ type: "boolean", default: true })
-  first: Boolean;
+  @Column({ type: "text", nullable: false })
+  sid: string;
 
   @OneToMany(() => Payment, (payment) => payment.credit)
   payment: Payment[];

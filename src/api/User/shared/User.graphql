@@ -1,7 +1,5 @@
 type User {
   id: Int!
-  firstName: String
-  lastName: String
   fullName: String
   profilePhotoUrl: String
   phoneNumber: String!
@@ -10,9 +8,12 @@ type User {
   birthDate: String
   job: String
   deviceId: String!
+  rides: [Ride]
   credit: [Credit]
-  # mainCredit: Credit
+  mainCredit: Credit
+  favPlace: [Place]
   interests: [Interests]
+  isRiding: Boolean
   verification: Verification
   createdAt: String!
   updatedAt: String

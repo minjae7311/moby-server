@@ -6,20 +6,27 @@ import {
   UpdateDateColumn,
   Column,
   OneToMany,
+  ManyToOne,
+  OneToOne,
 } from "typeorm";
 import Payment from "./Payment";
 import Discount from "./Discount";
+import Place from "./Place";
+import User from "./User";
+import Driver from "./Driver";
+import { rideStatus } from "../types/types";
+import Chat from "./Chat";
 
 @Entity()
 class Ride extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  // @OneToMany(()=>Place, place=>place.ride)
-  //   from:Place;
+  @ManyToOne(() => Place)
+  from: Place;
 
-  //   @OneToMany(()=>Place, place=>place.ride)
-  // to:Place;
+  @ManyToOne(() => Place)
+  to: Place;
 
   @OneToMany(() => Payment, (payment) => payment.ride)
   payment: Payment[];
@@ -29,6 +36,22 @@ class Ride extends BaseEntity {
 
   @OneToMany(() => Discount, (discount) => discount.ride)
   discount: Discount[];
+
+  @ManyToOne(() => User, (user) => user.rides)
+  passenger: User;
+
+  @ManyToOne(() => Driver, (driver) => driver.rides)
+  driver: Driver;
+
+  @OneToOne(() => Chat, (chat) => chat.ride)
+  chat: Chat;
+
+  @Column({
+    type: "text",
+    enum: ["ACCEPTED", "FINISHED", "CANCELED", "REQUESTING", "ONROUTE"],
+    default: "REQUESTING",
+  })
+  status: rideStatus;
 
   @CreateDateColumn()
   createdAt: string;

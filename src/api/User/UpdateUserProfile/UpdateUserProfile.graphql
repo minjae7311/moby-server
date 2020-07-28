@@ -5,8 +5,7 @@ type UpdateUserProfileResponse {
 
 type Mutation {
   UpdateUserProfile(
-    firstName: String!
-    lastName: String!
+    fullName: String!
     profilePhotoUrl: String!
     gender: String!
     birthDate: String!

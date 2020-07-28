@@ -1,0 +1,9 @@
+type AddNewDriverResponse {
+  ok: Boolean!
+  error: String
+  driver: Driver
+}
+
+type Mutation {
+  AddNewDriver: AddNewDriverResponse!
+}

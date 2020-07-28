@@ -10,11 +10,13 @@ import {
   OneToOne,
   Unique,
   OneToMany,
-  // JoinColumn,
+  // JoinTable,
 } from "typeorm";
 import Interests from "./Interests";
 import Verification from "./Verification";
 import Credit from "./Credit";
+import Place from "./Place";
+import Ride from "./Ride";
 
 // const BCRYPT_ROUNDS = 10;
 
@@ -24,10 +26,7 @@ class User extends BaseEntity {
   id: number;
 
   @Column({ type: "text", nullable: true })
-  firstName: string;
-
-  @Column({ type: "text", nullable: true })
-  lastName: string;
+  fullName: string;
 
   /**
    * @todo default photoUrl
@@ -54,6 +53,9 @@ class User extends BaseEntity {
   @Column({ type: "text", nullable: false, default: "" })
   deviceId: string;
 
+  @Column({ type: "boolean", default: false })
+  isRiding: boolean;
+
   @ManyToMany((type) => Interests, (interests) => interests.user)
   interests: Interests[];
 
@@ -66,20 +68,17 @@ class User extends BaseEntity {
   @OneToOne((type) => Verification, (verification) => verification.user)
   verification: Verification;
 
+  @ManyToMany(() => Place)
+  favPlace: Place[];
+
+  @OneToMany(() => Ride, (ride) => ride.passenger)
+  rides: Ride[];
+
   @CreateDateColumn()
   createdAt: string;
 
   @UpdateDateColumn()
   updatedAt: string;
-
-  /**
-   * Make User's full name.
-   *
-   * @returns {string} User's full name
-   */
-  get fullName(): string {
-    return `${this.firstName} ${this.lastName}`;
-  }
 }
 
 export default User;

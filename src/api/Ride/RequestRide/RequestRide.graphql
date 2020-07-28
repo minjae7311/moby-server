@@ -1,0 +1,20 @@
+type RequestRideResponse {
+  ok: Boolean!
+  error: String
+  ride: Ride
+  chat: Chat
+}
+
+input PlaceInput {
+  id: Int!
+}
+
+type Mutation {
+  RequestRide(
+    from: PlaceInput!
+    to: PlaceInput!
+    finalFee: Float
+    distance: String
+    duration: String
+  ): RequestRideResponse!
+}

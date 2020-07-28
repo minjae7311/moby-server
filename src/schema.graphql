@@ -1,11 +1,77 @@
+type SendNewMessageResponse {
+  ok: Boolean!
+  error: String
+  message: Message
+}
+
+type Mutation {
+  SendNewMessage(text: String!, chatId: Int!, isSenderPassenger: Boolean!): SendNewMessageResponse!
+  EnrollCredit(company: String!, number: String!, expiringDate: String!, cvv: String!, sid: String!): EnrollCreditResponse!
+  AddNewDriver: AddNewDriverResponse!
+  AcceptRequestingRide(rideId: Int!): AcceptRequestingRideResponse!
+  PickoffPassenger(rideId: Int!): PickoffPassengerResponse!
+  PickupPassenger(rideId: Int!): PickupPassengerResponse!
+  UpdateDriverLocation(driverId: DriverInput!, lat: Float!, lng: Float!): UpdateDriverLocationResponse!
+  CreateInterests(name: String!): CreateInterestsResponse
+  StartPayment: StartPaymentResponse!
+  AddPlace(name: String, lat: Float!, lng: Float!, address: String!): AddPlaceResponse!
+  RequestRide(from: PlaceInput!, to: PlaceInput!, finalFee: Float, distance: String, duration: String): RequestRideResponse!
+  CompletPhoneNumberVerification(phoneNumber: String!, key: String!, deviceId: String!): CompletPhoneNumberVerificationResponse!
+  StartPhoneNumberVerification(phoneNumber: String!): StartPhoneNumberVerificationResponse
+  UpdateUserProfile(fullName: String!, profilePhotoUrl: String!, gender: String!, birthDate: String!, job: String!): UpdateUserProfileResponse!
+}
+
+type Chat {
+  id: Int!
+  messages: [Message]
+  passenger: User!
+  driver: Driver
+  ride: Ride!
+  createdAt: String!
+  updatedAt: String
+}
+
+type Message {
+  id: Int!
+  text: String!
+  chat: Chat!
+  passenger: User
+  driver: Driver
+  createdAt: String!
+  updatedAt: String
+}
+
+type Subscription {
+  SubscribeNewMessage: Message
+  SubscribeNewRide: Ride
+  SubscribeMyRide: Ride
+}
+
+type EnrollCreditResponse {
+  ok: Boolean!
+  error: String
+}
+
+type GetCreditsResponse {
+  ok: Boolean!
+  error: String
+  credit: [Credit]
+  mainCredit: Credit
+}
+
+type Query {
+  GetCredits: GetCreditsResponse!
+  GetUserProfile: GetUserProfileResponse!
+}
+
 type Credit {
   id: Int!
   user: User
-  company: String
-  number: String
-  expiringDate: String
-  cvv: String
-  first: Boolean!
+  company: String!
+  number: String!
+  expiringDate: String!
+  cvv: String!
+  sid: String!
   createdAt: String!
   updatedAt: String
 }
@@ -19,17 +85,50 @@ type Discount {
   updatedAt: String
 }
 
-type CreateInterestsResponse {
+type AddNewDriverResponse {
+  ok: Boolean!
+  error: String
+  driver: Driver
+}
+
+type AcceptRequestingRideResponse {
   ok: Boolean!
   error: String
 }
 
-type Mutation {
-  CreateInterests(name: String!): CreateInterestsResponse
-  StartPayment: StartPaymentResponse!
-  CompletPhoneNumberVerification(phoneNumber: String!, key: String!, deviceId: String!): CompletPhoneNumberVerificationResponse!
-  StartPhoneNumberVerification(phoneNumber: String!): StartPhoneNumberVerificationResponse
-  UpdateUserProfile(firstName: String!, lastName: String!, profilePhotoUrl: String!, gender: String!, birthDate: String!, job: String!): UpdateUserProfileResponse!
+type PickoffPassengerResponse {
+  ok: Boolean!
+  error: String
+  ride: Ride
+}
+
+type PickupPassengerResponse {
+  ok: Boolean!
+  error: String
+}
+
+type Driver {
+  id: Int!
+  lat: Float
+  lng: Float
+  isDriving: Boolean!
+  rides: [Ride]
+  createdAt: String!
+  updatedAt: String
+}
+
+type UpdateDriverLocationResponse {
+  ok: Boolean!
+  error: String
+}
+
+input DriverInput {
+  id: Int!
+}
+
+type CreateInterestsResponse {
+  ok: Boolean!
+  error: String
 }
 
 type Interests {
@@ -52,17 +151,53 @@ type Payment {
   updatedAt: String
 }
 
+type PaymentResult {
+  ok: Boolean!
+}
+
 type StartPaymentResponse {
   ok: Boolean!
   error: String
 }
 
+type AddPlaceResponse {
+  ok: Boolean!
+  error: String
+  placeId: Int
+}
+
+type Place {
+  id: Int!
+  name: String
+  lat: Float!
+  lng: Float!
+  address: String!
+  createdAt: String!
+  updatedAt: String
+}
+
+type RequestRideResponse {
+  ok: Boolean!
+  error: String
+  ride: Ride
+  chat: Chat
+}
+
+input PlaceInput {
+  id: Int!
+}
+
 type Ride {
   id: Int!
-  user: User!
+  from: Place
+  to: Place
   payment: [Payment]
   finalFee: Float
   discount: [Discount]
+  passenger: User!
+  driver: Driver
+  status: String!
+  chat: Chat
   createdAt: String!
   updatedAt: String
 }
@@ -79,14 +214,8 @@ type GetUserProfileResponse {
   user: User
 }
 
-type Query {
-  GetUserProfile: GetUserProfileResponse!
-}
-
 type User {
   id: Int!
-  firstName: String
-  lastName: String
   fullName: String
   profilePhotoUrl: String
   phoneNumber: String!
@@ -95,9 +224,12 @@ type User {
   birthDate: String
   job: String
   deviceId: String!
+  rides: [Ride]
   credit: [Credit]
-  # mainCredit: Credit
+  mainCredit: Credit
+  favPlace: [Place]
   interests: [Interests]
+  isRiding: Boolean
   verification: Verification
   createdAt: String!
   updatedAt: String

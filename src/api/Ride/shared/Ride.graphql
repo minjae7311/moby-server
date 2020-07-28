@@ -1,9 +1,14 @@
 type Ride {
   id: Int!
-  user: User!
+  from: Place
+  to: Place
   payment: [Payment]
   finalFee: Float
   discount: [Discount]
+  passenger: User!
+  driver: Driver
+  status: String!
+  chat: Chat
   createdAt: String!
   updatedAt: String
 }

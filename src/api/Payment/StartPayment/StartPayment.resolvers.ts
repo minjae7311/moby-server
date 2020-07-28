@@ -1,17 +1,22 @@
 import { Resolvers } from "../../../types/resolvers";
 import privateResolver from "../../../utils/privateResolver";
+import { requestPayment } from "../../../utils/request.payment";
+import { StartPaymentResponse } from "../../../types/graph";
+// import User from "../../../entities/User";
 
 const resolvers: Resolvers = {
   Mutation: {
-    StartPayment: privateResolver(async (_res, _args, { req }) => {
-      // const { user } = req.user;
-      // const { credit } = user.mainCredit;
+    StartPayment: privateResolver(
+      async (_res, _args, { req }): Promise<StartPaymentResponse> => {
+        const { user } = req;
 
-
-      return {
-        ok: false,
-      };
-    }),
+        /* const result = */await requestPayment(user);
+        return {
+          ok: false,
+          error: null,
+        };
+      }
+    ),
   },
 };
 
