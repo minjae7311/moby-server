@@ -2,10 +2,7 @@ type GetCreditsResponse {
   ok: Boolean!
   error: String
   credit: [Credit]
-<<<<<<< HEAD
   mainCredit: Credit
-=======
->>>>>>> a74f8e9d1e8176b877933846630694e8775d3c27
 }
 
 type Query {
