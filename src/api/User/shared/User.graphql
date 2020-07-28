@@ -10,7 +10,10 @@ type User {
   deviceId: String!
   rides: [Ride]
   credit: [Credit]
+<<<<<<< HEAD
   mainCredit: Credit
+=======
+>>>>>>> a74f8e9d1e8176b877933846630694e8775d3c27
   favPlace: [Place]
   interests: [Interests]
   isRiding: Boolean

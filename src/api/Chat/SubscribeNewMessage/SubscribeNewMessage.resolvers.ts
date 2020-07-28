@@ -15,13 +15,10 @@ const resolvers = {
             SubscribeNewMessage: { chat },
           } = payload;
 
-          console.log(payload);
-
           const currentChat = await Chat.findOne(
             { id: chat.id },
             { relations: ["passenger", "driver"] }
           );
-          console.log(currentChat);
 
           try {
             if (currentChat) {
@@ -30,11 +27,9 @@ const resolvers = {
                 currentChat.driver.id == driver.id
               );
             } else {
-              console.log("\n\n\n\nchat not found");
               return false;
             }
           } catch (e) {
-            console.log(e.message);
             return false;
           }
         }

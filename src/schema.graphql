@@ -6,7 +6,7 @@ type SendNewMessageResponse {
 
 type Mutation {
   SendNewMessage(text: String!, chatId: Int!, isSenderPassenger: Boolean!): SendNewMessageResponse!
-  EnrollCredit(company: String!, number: String!, expiringDate: String!, cvv: String!, sid: String!): EnrollCreditResponse!
+  EnrollCredit(nickname: String, card_number: String!, expiry: String!, pwd_2digit: String!): EnrollCreditResponse!
   AddNewDriver: AddNewDriverResponse!
   AcceptRequestingRide(rideId: Int!): AcceptRequestingRideResponse!
   PickoffPassenger(rideId: Int!): PickoffPassengerResponse!
@@ -15,7 +15,7 @@ type Mutation {
   CreateInterests(name: String!): CreateInterestsResponse
   StartPayment: StartPaymentResponse!
   AddPlace(name: String, lat: Float!, lng: Float!, address: String!): AddPlaceResponse!
-  RequestRide(from: PlaceInput!, to: PlaceInput!, finalFee: Float, distance: String, duration: String): RequestRideResponse!
+  RequestRide(fromId: Int!, toId: Int!, finalFee: Float, distance: String, duration: String): RequestRideResponse!
   CompletPhoneNumberVerification(phoneNumber: String!, key: String!, deviceId: String!): CompletPhoneNumberVerificationResponse!
   StartPhoneNumberVerification(phoneNumber: String!): StartPhoneNumberVerificationResponse
   UpdateUserProfile(fullName: String!, profilePhotoUrl: String!, gender: String!, birthDate: String!, job: String!): UpdateUserProfileResponse!
@@ -56,7 +56,6 @@ type GetCreditsResponse {
   ok: Boolean!
   error: String
   credit: [Credit]
-  mainCredit: Credit
 }
 
 type Query {
@@ -67,13 +66,21 @@ type Query {
 type Credit {
   id: Int!
   user: User
-  company: String!
-  number: String!
-  expiringDate: String!
-  cvv: String!
-  sid: String!
+  nickname: String
+  card_name: String
+  card_number: String!
+  expiry: String!
+  pwd_2digit: String!
+  isMain: Boolean!
   createdAt: String!
   updatedAt: String
+}
+
+type VerifyCreditResult {
+  ok: Boolean!
+  error: String
+  code: Int
+  credit: Credit
 }
 
 type Discount {
@@ -153,6 +160,8 @@ type Payment {
 
 type PaymentResult {
   ok: Boolean!
+  code: Int
+  error: String
 }
 
 type StartPaymentResponse {
@@ -181,10 +190,6 @@ type RequestRideResponse {
   error: String
   ride: Ride
   chat: Chat
-}
-
-input PlaceInput {
-  id: Int!
 }
 
 type Ride {
@@ -226,7 +231,6 @@ type User {
   deviceId: String!
   rides: [Ride]
   credit: [Credit]
-  mainCredit: Credit
   favPlace: [Place]
   interests: [Interests]
   isRiding: Boolean

@@ -1,0 +1,18 @@
+type RequestRideResponse {
+  ok: Boolean!
+  error: String
+  ride: Ride
+  chat: Chat
+}
+
+
+type Mutation {
+  RequestRide(
+    fromId: Int!
+    toId: Int!
+    finalFee: Float
+    distance: String
+    duration: String
+    creditId: Int
+  ): RequestRideResponse!
+}

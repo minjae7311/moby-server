@@ -6,6 +6,7 @@ import {
   UpdateDateColumn,
   Column,
   ManyToOne,
+  JoinColumn,
 //   BeforeInsert,
 //   BeforeUpdate,
 } from "typeorm";
@@ -21,6 +22,7 @@ class Payment extends BaseEntity {
   ride: Ride;
 
   @ManyToOne(() => Credit, (credit) => credit.payment)
+  @JoinColumn()
   credit: Credit;
 
   @Column({ type: "double precision", default: 0 })

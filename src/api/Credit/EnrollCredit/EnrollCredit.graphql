@@ -5,10 +5,17 @@ type EnrollCreditResponse {
 
 type Mutation {
   EnrollCredit(
+<<<<<<< HEAD
     company: String!
     number: String!
     expiringDate: String!
     cvv: String!
     sid: String!
+=======
+    nickname: String
+    card_number: String!
+    expiry: String!
+    pwd_2digit: String!
+>>>>>>> a74f8e9d1e8176b877933846630694e8775d3c27
   ): EnrollCreditResponse!
 }
