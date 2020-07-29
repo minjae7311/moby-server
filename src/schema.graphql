@@ -7,6 +7,7 @@ type SendNewMessageResponse {
 type Mutation {
   SendNewMessage(text: String!, chatId: Int!, isSenderPassenger: Boolean!): SendNewMessageResponse!
   EnrollCredit(nickname: String, card_number: String!, expiry: String!, pwd_2digit: String!): EnrollCreditResponse!
+  SetMainCredit(creditId: Int!): SetMainCreditResponse!
   AddNewDriver: AddNewDriverResponse!
   AcceptRequestingRide(rideId: Int!): AcceptRequestingRideResponse!
   PickoffPassenger(rideId: Int!): PickoffPassengerResponse!
@@ -61,6 +62,11 @@ type GetCreditsResponse {
 type Query {
   GetCredits: GetCreditsResponse!
   GetUserProfile: GetUserProfileResponse!
+}
+
+type SetMainCreditResponse {
+  ok: Boolean!
+  error: String
 }
 
 type Credit {
