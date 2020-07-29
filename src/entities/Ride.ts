@@ -31,7 +31,10 @@ class Ride extends BaseEntity {
   @OneToMany(() => Payment, (payment) => payment.ride)
   payment: Payment[];
 
-  @Column({ type: "double precision", default: 0 })
+  @Column({ type: "double precision", nullable: true })
+  expectingFee: number;
+
+  @Column({ type: "double precision", nullable: true })
   finalFee: number;
 
   @OneToMany(() => Discount, (discount) => discount.ride)

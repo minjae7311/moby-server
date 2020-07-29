@@ -17,7 +17,7 @@ type Mutation {
   StartPayment: StartPaymentResponse!
   AddPlace(name: String, lat: Float!, lng: Float!, address: String!): AddPlaceResponse!
   CompletPhoneNumberVerification(phoneNumber: String!, key: String!, deviceId: String!): CompletPhoneNumberVerificationResponse!
-  RequestRide(fromId: Int!, toId: Int!, finalFee: Float, distance: String, duration: String, creditId: Int): RequestRideResponse!
+  RequestRide(fromId: Int!, toId: Int!, expectingFee: Float!, distance: String, duration: String, creditId: Int!): RequestRideResponse!
   StartPhoneNumberVerification(phoneNumber: String!): StartPhoneNumberVerificationResponse
   UpdateUserProfile(fullName: String!, profilePhotoUrl: String!, gender: String!, birthDate: String!, job: String!): UpdateUserProfileResponse!
 }
@@ -159,7 +159,7 @@ type Payment {
   price: Float!
   isCancelled: Boolean!
   reason: String
-  date: String!
+  date: String
   createdAt: String!
   updatedAt: String
 }
@@ -196,6 +196,7 @@ type Ride {
   from: Place
   to: Place
   payment: [Payment]
+  expectingFee: Float
   finalFee: Float
   discount: [Discount]
   passenger: User!

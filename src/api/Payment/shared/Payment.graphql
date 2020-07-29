@@ -5,7 +5,7 @@ type Payment {
   price: Float!
   isCancelled: Boolean!
   reason: String
-  date: String!
+  date: String
   createdAt: String!
   updatedAt: String
 }

@@ -3,6 +3,7 @@ type Ride {
   from: Place
   to: Place
   payment: [Payment]
+  expectingFee: Float
   finalFee: Float
   discount: [Discount]
   passenger: User!

@@ -8,6 +8,8 @@ import Ride from "../../../entities/Ride";
 import Place from "../../../entities/Place";
 import cleanNullArgs from "../../../utils/cleanNullArg";
 import Chat from "../../../entities/Chat";
+import Payment from "../../../entities/Payment";
+import Credit from "../../../entities/Credit";
 
 const resolvers: Resolvers = {
   Mutation: {
@@ -47,6 +49,22 @@ const resolvers: Resolvers = {
             newRide.chat = newChat;
             newRide.save();
 
+            const credit = await Credit.findOne({ id: args.creditId });
+            await Payment.create({
+              ride: newRide,
+              price: args.expectingFee,
+              credit,
+            }).save();
+
+            ///// test
+            const tRide = await Ride.findOne(
+              { id: newRide.id },
+              { relations: ["payment"] }
+            );
+            console.log("\n\n\n\nnewRide:", tRide);
+
+            ///// test
+
             pubSub.publish("rideRequesting", { SubscribeNewRide: newRide });
 
             /**
@@ -54,12 +72,6 @@ const resolvers: Resolvers = {
              */
             user.isRiding = false;
             user.save();
-
-
-            /**
-             * @todo create payment
-             */
-            // creditId
 
             return {
               ok: true,

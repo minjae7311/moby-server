@@ -10,9 +10,9 @@ type Mutation {
   RequestRide(
     fromId: Int!
     toId: Int!
-    finalFee: Float
+    expectingFee: Float!
     distance: String
     duration: String
-    creditId: Int
+    creditId: Int!
   ): RequestRideResponse!
 }
