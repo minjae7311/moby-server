@@ -14,6 +14,19 @@ const sendRequest = async (option: any) => {
   });
 };
 
+const getAuthToken = async () => {
+  const authResponse: any = await sendRequest({
+    uri:
+      "https://api.iamport.kr/users/getToken?_token=c5a7e9d6c61d977673ca3073d26ce8301984436d",
+    method: "POST",
+    form: {
+      imp_key: process.env.IAMPORT_KEY,
+      imp_secret: process.env.IAMPORT_SECRET,
+    },
+  });
+  return authResponse.response.access_token;
+};
+
 /**
  *
  * @param {Ride} ride should have passenger info
@@ -27,16 +40,7 @@ export const requestPayment = async (ride: Ride): Promise<PaymentResult> => {
     };
   }
 
-  const authResponse: any = await sendRequest({
-    uri:
-      "https://api.iamport.kr/users/getToken?_token=c5a7e9d6c61d977673ca3073d26ce8301984436d",
-    method: "POST",
-    form: {
-      imp_key: process.env.IAMPORT_KEY,
-      imp_secret: process.env.IAMPORT_SECRET,
-    },
-  });
-  const Authorization = authResponse.response.access_token;
+  const Authorization = await getAuthToken();
 
   const options = {
     uri: `https://api.iamport.kr/subscribe/again`,
@@ -80,20 +84,7 @@ export const requestPayment = async (ride: Ride): Promise<PaymentResult> => {
 export const verifyCredit = async (
   credit: Credit
 ): Promise<VerifyCreditResult> => {
-  /**
-   * @todo make this as function
-   */
-  const authResponse: any = await sendRequest({
-    uri:
-      "https://api.iamport.kr/users/getToken?_token=c5a7e9d6c61d977673ca3073d26ce8301984436d",
-    method: "POST",
-    form: {
-      imp_key: process.env.IAMPORT_KEY,
-      imp_secret: process.env.IAMPORT_SECRET,
-    },
-  });
-
-  const Authorization = authResponse.response.access_token;
+  const Authorization = await getAuthToken();
 
   const { card_number, expiry, pwd_2digit } = credit;
   const birth = credit.user.birthDate;
