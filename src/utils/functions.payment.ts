@@ -81,8 +81,15 @@ export const cancelPayment = async (
   }
 };
 
+/**
+ * IamPort에 결제를 요청합니다.
+ *
+ * @param {Payment} payment 결제를 요청할 Payment 객체.
+ * @param {string} flag 결제 id 구분. ex) 'initial' or 'final'
+ */
 export const requestPayment = async (
-  payment: Payment, flag: string
+  payment: Payment,
+  flag: string
 ): Promise<PaymentResult> => {
   if (!payment) {
     return {
@@ -132,8 +139,6 @@ export const requestPayment = async (
   };
 
   const response: any = await sendRequest(options);
-
-  console.log("\n\n\n\n\n\n", response, "\n\n\n\n\n\n");
 
   if (response.code == 0) {
     const imp_uid = response.response.imp_uid;

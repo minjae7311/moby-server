@@ -60,8 +60,6 @@ const resolvers: Resolvers = {
             { relations: ["credit"] }
           );
 
-          console.log("\n\n\n\n\n\n", payment);
-
           const credit = payment!.credit;
           await cancelPayment(payment!);
 
