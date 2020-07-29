@@ -2,6 +2,8 @@ node_modules
 
 /src/types/
 
-*.d.ts
-
 /src/schema.graphql
+
+yarn-error.log
+
+yarn.lock
