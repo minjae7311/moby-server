@@ -27,7 +27,7 @@ const resolvers: Resolvers = {
         } else {
           try {
             const creditList = user.credit;
-            creditList.array.forEach((credit) => {
+            creditList.forEach((credit) => {
               if (credit.isMain == true) {
                 credit.isMain = false;
                 credit.save();
