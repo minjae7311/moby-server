@@ -11,7 +11,6 @@ const resolvers: Resolvers = {
         const { user } = req;
 
         const result = await requestPayment(user);
-        console.log("\n\n\n\nResult in StartPayment:", result, "\n\n\n\n\n");
 
         return {
           ok: false,
