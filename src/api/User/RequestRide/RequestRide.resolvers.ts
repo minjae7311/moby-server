@@ -56,21 +56,9 @@ const resolvers: Resolvers = {
               credit,
             }).save();
 
-            ///// test
-            const tRide = await Ride.findOne(
-              { id: newRide.id },
-              { relations: ["payment"] }
-            );
-            console.log("\n\n\n\nnewRide:", tRide);
-
-            ///// test
-
             pubSub.publish("rideRequesting", { SubscribeNewRide: newRide });
 
-            /**
-             * @todo user.isRiding = true
-             */
-            user.isRiding = false;
+            user.isRiding = true;
             user.save();
 
             return {
