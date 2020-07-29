@@ -10,7 +10,7 @@ type Mutation {
   SetMainCredit(creditId: Int!): SetMainCreditResponse!
   AddNewDriver: AddNewDriverResponse!
   AcceptRequestingRide(rideId: Int!): AcceptRequestingRideResponse!
-  PickoffPassenger(rideId: Int!): PickoffPassengerResponse!
+  PickoffPassenger(rideId: Int!, finalFee: Float!): PickoffPassengerResponse!
   PickupPassenger(rideId: Int!): PickupPassengerResponse!
   UpdateDriverLocation(driverId: DriverInput!, lat: Float!, lng: Float!): UpdateDriverLocationResponse!
   CreateInterests(name: String!): CreateInterestsResponse
@@ -160,6 +160,7 @@ type Payment {
   isCancelled: Boolean!
   reason: String
   date: String
+  imp_uid: String
   createdAt: String!
   updatedAt: String
 }
@@ -167,6 +168,7 @@ type Payment {
 type PaymentResult {
   ok: Boolean!
   code: Int
+  imp_uid: String
   error: String
 }
 

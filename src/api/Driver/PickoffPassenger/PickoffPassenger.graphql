@@ -5,5 +5,5 @@ type PickoffPassengerResponse {
 }
 
 type Mutation {
-  PickoffPassenger(rideId: Int!): PickoffPassengerResponse!
+  PickoffPassenger(rideId: Int!, finalFee: Float!): PickoffPassengerResponse!
 }

@@ -4,7 +4,11 @@ import {
   PickoffPassengerResponse,
 } from "../../../types/graph";
 import Ride from "../../../entities/Ride";
-import { requestPayment } from "../../../utils/functions.payment";
+import {
+  requestPayment,
+  cancelPayment,
+} from "../../../utils/functions.payment";
+import Payment from "../../../entities/Payment";
 
 const resolvers: Resolvers = {
   Mutation: {
@@ -45,17 +49,32 @@ const resolvers: Resolvers = {
             SubscribeMyRide: ride,
           });
 
-          await ride.save();
-
           ride.passenger.isRiding = false;
           ride.passenger.save();
 
-          /**
-           * @todo check -> fee, discount, survey
-           */
+          const payment = await Payment.findOne(
+            {
+              ride,
+              isCancelled: false,
+            },
+            { relations: ["credit"] }
+          );
 
-          const paymentResult = await requestPayment(ride);
+          console.log("\n\n\n\n\n\n", payment);
+
+          const credit = payment!.credit;
+          await cancelPayment(payment!);
+
+          const newPayment = await Payment.create({
+            ride,
+            price: args.finalFee,
+            credit,
+          });
+
+          const paymentResult = await requestPayment(newPayment, "final");
           if (paymentResult.ok) {
+            ride.save();
+
             return {
               ok: true,
               error: null,

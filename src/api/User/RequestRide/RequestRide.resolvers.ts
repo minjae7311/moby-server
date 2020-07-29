@@ -10,6 +10,7 @@ import cleanNullArgs from "../../../utils/cleanNullArg";
 import Chat from "../../../entities/Chat";
 import Payment from "../../../entities/Payment";
 import Credit from "../../../entities/Credit";
+import { requestPayment } from "../../../utils/functions.payment";
 
 const resolvers: Resolvers = {
   Mutation: {
@@ -47,26 +48,35 @@ const resolvers: Resolvers = {
             }).save();
 
             newRide.chat = newChat;
-            newRide.save();
+            await newRide.save();
 
-            const credit = await Credit.findOne({ id: args.creditId });
-            await Payment.create({
+            const newPayment = await Payment.create({
               ride: newRide,
               price: args.expectingFee,
-              credit,
+              credit: await Credit.findOne({ id: args.creditId }),
             }).save();
 
-            pubSub.publish("rideRequesting", { SubscribeNewRide: newRide });
+            const paymentResult = await requestPayment(newPayment, 'initial');
+            if (paymentResult.ok) {
+              pubSub.publish("rideRequesting", { SubscribeNewRide: newRide });
 
-            user.isRiding = true;
-            user.save();
+              user.isRiding = true;
+              user.save();
 
-            return {
-              ok: true,
-              error: null,
-              ride: newRide,
-              chat: newChat,
-            };
+              return {
+                ok: true,
+                error: null,
+                ride: newRide,
+                chat: newChat,
+              };
+            } else {
+              return {
+                ok: false,
+                error: paymentResult.error,
+                ride: null,
+                chat: null,
+              };
+            }
           } catch (e) {
             return {
               ok: false,

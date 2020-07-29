@@ -1,9 +1,9 @@
 import request from "request";
 import { PaymentResult, VerifyCreditResult } from "../types/graph";
-import Ride from "../entities/Ride";
 import Credit from "../entities/Credit";
 
 import dotenv from "dotenv";
+import Payment from "../entities/Payment";
 dotenv.config();
 
 const sendRequest = async (option: any) => {
@@ -28,31 +28,30 @@ const getAuthToken = async () => {
 };
 
 /**
+ * 결제 내역을 취소합니다.
  *
- * @param {Ride} ride should have passenger info
+ * @param {Payment} payment
  */
-export const requestPayment = async (ride: Ride): Promise<PaymentResult> => {
-  if (!ride.passenger) {
+export const cancelPayment = async (
+  payment: Payment
+): Promise<PaymentResult> => {
+  if (!payment) {
     return {
       ok: false,
+      error: "payment-not-passed",
       code: null,
-      error: "passenger-not-found",
+      imp_uid: null,
     };
   }
 
-  const Authorization = await getAuthToken();
+  const { imp_uid } = payment;
 
+  const Authorization = await getAuthToken();
   const options = {
-    uri: `https://api.iamport.kr/subscribe/again`,
+    uri: `https://api.iamport.kr/payments/cancel`,
     method: "POST",
     form: {
-      customer_uid: ride.passenger.id,
-      card_number: "377988064432611",
-      expiry: "2024-12",
-      birth: "930427",
-      pwd_2digit: "87",
-      merchant_uid: ride.finalFee,
-      amount: 1,
+      imp_uid,
     },
     headers: {
       "Content-Type": "application/json",
@@ -63,16 +62,96 @@ export const requestPayment = async (ride: Ride): Promise<PaymentResult> => {
   const response: any = await sendRequest(options);
 
   if (response.code == 0) {
+    payment.isCancelled = true;
+    await payment.save();
+
     return {
       ok: true,
       code: response.code,
       error: null,
+      imp_uid: response.response.imp_uid,
     };
   } else {
     return {
       ok: true,
       code: response.code,
       error: response.message,
+      imp_uid: null,
+    };
+  }
+};
+
+export const requestPayment = async (
+  payment: Payment, flag: string
+): Promise<PaymentResult> => {
+  if (!payment) {
+    return {
+      ok: false,
+      code: null,
+      error: "payment-not-found",
+      imp_uid: null,
+    };
+  }
+
+  if (!payment.ride) {
+    return {
+      ok: false,
+      code: null,
+      error: "ride-not-found",
+      imp_uid: null,
+    };
+  }
+
+  if (!payment.ride.passenger) {
+    return {
+      ok: false,
+      code: null,
+      error: "passenger-not-found",
+      imp_uid: null,
+    };
+  }
+
+  const Authorization = await getAuthToken();
+
+  const options = {
+    uri: `https://api.iamport.kr/subscribe/payments/again`,
+    method: "POST",
+    form: {
+      customer_uid: payment.ride.passenger.id,
+      card_number: payment.credit.card_number,
+      expiry: payment.credit.expiry,
+      birth: payment.ride.passenger.birthDate,
+      pwd_2digit: payment.credit.pwd_2digit,
+      merchant_uid: `${flag}${payment.ride.id}`,
+      amount: payment.price,
+    },
+    headers: {
+      "Content-Type": "application/json",
+      Authorization,
+    },
+  };
+
+  const response: any = await sendRequest(options);
+
+  console.log("\n\n\n\n\n\n", response, "\n\n\n\n\n\n");
+
+  if (response.code == 0) {
+    const imp_uid = response.response.imp_uid;
+    payment.imp_uid = imp_uid;
+    await payment.save();
+
+    return {
+      ok: true,
+      code: response.code,
+      error: null,
+      imp_uid,
+    };
+  } else {
+    return {
+      ok: true,
+      code: response.code,
+      error: response.message,
+      imp_uid: null,
     };
   }
 };

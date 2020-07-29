@@ -6,6 +6,7 @@ type Payment {
   isCancelled: Boolean!
   reason: String
   date: String
+  imp_uid: String
   createdAt: String!
   updatedAt: String
 }

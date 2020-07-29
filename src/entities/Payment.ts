@@ -36,6 +36,9 @@ class Payment extends BaseEntity {
 
   @Column({ type: "text", nullable: true })
   date: string;
+  
+  @Column({ type: "text", nullable: true })
+  imp_uid: string;
 
   @CreateDateColumn()
   createdAt: string;
