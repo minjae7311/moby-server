@@ -32,6 +32,7 @@ const resolvers: Resolvers = {
               ok: false,
               error: "verification-expired",
               token: null,
+              isExistingUser: null,
             };
           }
 
@@ -53,6 +54,7 @@ const resolvers: Resolvers = {
               ok: true,
               error: null,
               token,
+              isExistingUser: true
             };
           } else {
             // new user
@@ -72,6 +74,7 @@ const resolvers: Resolvers = {
               ok: true,
               error: null,
               token,
+              isExistingUser: false,
             };
           }
         } else {
@@ -80,6 +83,7 @@ const resolvers: Resolvers = {
             ok: false,
             error: "invalid-code",
             token: null,
+            isExistingUser:null
           };
         }
       } catch (e) {
@@ -87,6 +91,7 @@ const resolvers: Resolvers = {
           ok: false,
           error: e.message,
           token: null,
+          isExistingUser:null
         };
       }
     },

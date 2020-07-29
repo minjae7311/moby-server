@@ -15,8 +15,8 @@ type Mutation {
   CreateInterests(name: String!): CreateInterestsResponse
   StartPayment: StartPaymentResponse!
   AddPlace(name: String, lat: Float!, lng: Float!, address: String!): AddPlaceResponse!
-  RequestRide(fromId: Int!, toId: Int!, finalFee: Float, distance: String, duration: String): RequestRideResponse!
   CompletPhoneNumberVerification(phoneNumber: String!, key: String!, deviceId: String!): CompletPhoneNumberVerificationResponse!
+  RequestRide(fromId: Int!, toId: Int!, finalFee: Float, distance: String, duration: String, creditId: Int): RequestRideResponse!
   StartPhoneNumberVerification(phoneNumber: String!): StartPhoneNumberVerificationResponse
   UpdateUserProfile(fullName: String!, profilePhotoUrl: String!, gender: String!, birthDate: String!, job: String!): UpdateUserProfileResponse!
 }
@@ -185,13 +185,6 @@ type Place {
   updatedAt: String
 }
 
-type RequestRideResponse {
-  ok: Boolean!
-  error: String
-  ride: Ride
-  chat: Chat
-}
-
 type Ride {
   id: Int!
   from: Place
@@ -211,12 +204,20 @@ type CompletPhoneNumberVerificationResponse {
   ok: Boolean!
   error: String
   token: String
+  isExistingUser: Boolean
 }
 
 type GetUserProfileResponse {
   ok: Boolean!
   error: String
   user: User
+}
+
+type RequestRideResponse {
+  ok: Boolean!
+  error: String
+  ride: Ride
+  chat: Chat
 }
 
 type User {

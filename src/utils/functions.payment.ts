@@ -80,6 +80,9 @@ export const requestPayment = async (ride: Ride): Promise<PaymentResult> => {
 export const verifyCredit = async (
   credit: Credit
 ): Promise<VerifyCreditResult> => {
+  /**
+   * @todo make this as function
+   */
   const authResponse: any = await sendRequest({
     uri:
       "https://api.iamport.kr/users/getToken?_token=c5a7e9d6c61d977673ca3073d26ce8301984436d",
