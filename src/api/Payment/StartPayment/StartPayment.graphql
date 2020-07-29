@@ -1,9 +1,0 @@
-type StartPaymentResponse {
-    ok: Boolean!
-    error: String
-    #todo paymentId: Int
-}
-
-type Mutation {
-    StartPayment: StartPaymentResponse!
-}

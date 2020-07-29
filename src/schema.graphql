@@ -14,7 +14,6 @@ type Mutation {
   PickupPassenger(rideId: Int!): PickupPassengerResponse!
   UpdateDriverLocation(driverId: DriverInput!, lat: Float!, lng: Float!): UpdateDriverLocationResponse!
   CreateInterests(name: String!): CreateInterestsResponse
-  StartPayment: StartPaymentResponse!
   AddPlace(name: String, lat: Float!, lng: Float!, address: String!): AddPlaceResponse!
   CompletPhoneNumberVerification(phoneNumber: String!, key: String!, deviceId: String!): CompletPhoneNumberVerificationResponse!
   RequestRide(fromId: Int!, toId: Int!, expectingFee: Float!, distance: String, duration: String, creditId: Int!): RequestRideResponse!
@@ -169,11 +168,6 @@ type PaymentResult {
   ok: Boolean!
   code: Int
   imp_uid: String
-  error: String
-}
-
-type StartPaymentResponse {
-  ok: Boolean!
   error: String
 }
 
