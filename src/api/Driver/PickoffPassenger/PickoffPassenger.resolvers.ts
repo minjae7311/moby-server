@@ -61,32 +61,36 @@ const resolvers: Resolvers = {
           );
 
           const credit = payment!.credit;
-
-          /**
-           * @todo 캔슬이 되어야 다음 결제가 진행되도록.
-           */
-          await cancelPayment(payment!);
-
-          const newPayment = await Payment.create({
-            ride,
-            price: args.finalFee,
-            credit,
-          });
-
-          ride.finalFee = args.finalFee;
-          ride.save();
-
-          const paymentResult = await requestPayment(newPayment, "final");
-          if (paymentResult.ok) {
-            return {
-              ok: true,
-              error: null,
+          const cancelResult = await cancelPayment(payment!);
+          
+          if (cancelResult.ok) {
+            const newPayment = await Payment.create({
               ride,
-            };
+              price: args.finalFee,
+              credit,
+            });
+
+            ride.finalFee = args.finalFee;
+            ride.save();
+
+            const paymentResult = await requestPayment(newPayment, "final");
+            if (paymentResult.ok) {
+              return {
+                ok: true,
+                error: null,
+                ride,
+              };
+            } else {
+              return {
+                ok: false,
+                error: paymentResult.error,
+                ride: null,
+              };
+            }
           } else {
             return {
               ok: false,
-              error: paymentResult.error,
+              error: cancelResult.error,
               ride: null,
             };
           }
