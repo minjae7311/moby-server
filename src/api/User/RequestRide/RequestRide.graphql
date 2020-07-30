@@ -5,11 +5,14 @@ type RequestRideResponse {
   chat: Chat
 }
 
-
 type Mutation {
   RequestRide(
-    fromId: Int!
-    toId: Int!
+    fromAddress: String!
+    fromLat: Float!
+    fromLng: Float!
+    toAddress: String!
+    toLat: Float!
+    toLng: Float!
     expectingFee: Float!
     distance: String
     duration: String

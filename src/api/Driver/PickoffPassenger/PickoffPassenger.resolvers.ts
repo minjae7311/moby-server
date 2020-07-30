@@ -61,6 +61,10 @@ const resolvers: Resolvers = {
           );
 
           const credit = payment!.credit;
+
+          /**
+           * @todo 캔슬이 되어야 다음 결제가 진행되도록.
+           */
           await cancelPayment(payment!);
 
           const newPayment = await Payment.create({
@@ -69,10 +73,11 @@ const resolvers: Resolvers = {
             credit,
           });
 
+          ride.finalFee = args.finalFee;
+          ride.save();
+
           const paymentResult = await requestPayment(newPayment, "final");
           if (paymentResult.ok) {
-            ride.save();
-
             return {
               ok: true,
               error: null,

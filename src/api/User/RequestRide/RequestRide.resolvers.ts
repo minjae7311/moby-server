@@ -32,8 +32,16 @@ const resolvers: Resolvers = {
           };
         } else {
           try {
-            const from = await Place.findOne({ id: args.fromId });
-            const to = await Place.findOne({ id: args.toId });
+            const from = await Place.create({
+              address: args.fromAddress,
+              lat: args.fromLat,
+              lng: args.fromLng,
+            }).save();
+            const to = await Place.create({
+              address: args.toAddress,
+              lat: args.toLat,
+              lng: args.toLng,
+            }).save();
 
             const newRide = await Ride.create({
               ...notNullArgs,
@@ -56,7 +64,7 @@ const resolvers: Resolvers = {
               credit: await Credit.findOne({ id: args.creditId }),
             }).save();
 
-            const paymentResult = await requestPayment(newPayment, 'initial');
+            const paymentResult = await requestPayment(newPayment, "initial");
             if (paymentResult.ok) {
               pubSub.publish("rideRequesting", { SubscribeNewRide: newRide });
 
