@@ -49,6 +49,18 @@ class Ride extends BaseEntity {
   @OneToOne(() => Chat, (chat) => chat.ride)
   chat: Chat;
 
+  @Column({ type: "text", nullable: true })
+  requestedDate: string;
+
+  @Column({ type: "text", nullable: true })
+  acceptedDate: string;
+
+  @Column({ type: "text", nullable: true })
+  finishedDate: string;
+
+  @Column({ type: "text", nullable: true })
+  cancelledDate: string;
+
   @Column({
     type: "text",
     enum: ["ACCEPTED", "FINISHED", "CANCELED", "REQUESTING", "ONROUTE"],
