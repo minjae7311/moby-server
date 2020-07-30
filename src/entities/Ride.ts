@@ -49,6 +49,9 @@ class Ride extends BaseEntity {
   @OneToOne(() => Chat, (chat) => chat.ride)
   chat: Chat;
 
+  /**
+   * @todo hadle these things
+   */
   @Column({ type: "text", nullable: true })
   requestedDate: string;
 
