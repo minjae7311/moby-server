@@ -33,9 +33,6 @@ class Credit extends BaseEntity {
   @Column({ type: "text", nullable: false })
   expiry: string;
 
-  @Column({ type: "text", nullable: false })
-  pwd_2digit: string;
-
   @Column({ type: "boolean", nullable: false, default: false })
   isMain: boolean;
 
@@ -47,6 +44,10 @@ class Credit extends BaseEntity {
 
   @UpdateDateColumn()
   updatedAt: string;
+
+  get first4numbers(): string {
+    return this.card_number.slice(0, 4);
+  }
 }
 
 export default Credit;

@@ -19,12 +19,11 @@ const resolvers: Resolvers = {
       ): Promise<EnrollCreditResponse> => {
         const user: User = req.user;
 
-        const { card_number, expiry, pwd_2digit } = args;
+        const { card_number, expiry } = args;
 
         const existingCredit = await Credit.findOne({
           card_number,
           expiry,
-          pwd_2digit,
         });
 
         if (existingCredit) {

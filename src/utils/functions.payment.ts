@@ -128,7 +128,6 @@ export const requestPayment = async (
       card_number: payment.credit.card_number,
       expiry: payment.credit.expiry,
       birth: payment.ride.passenger.birthDate,
-      pwd_2digit: payment.credit.pwd_2digit,
       merchant_uid: `${flag}${payment.ride.id}`,
       amount: payment.price,
     },
@@ -162,6 +161,7 @@ export const requestPayment = async (
 };
 
 /**
+ * 카드를 인증하고 데이터베이스에 저장합니다.
  *
  * @param {Credit} credit
  */
@@ -170,10 +170,10 @@ export const verifyCredit = async (
 ): Promise<VerifyCreditResult> => {
   const Authorization = await getAuthToken();
 
-  const { card_number, expiry, pwd_2digit } = credit;
+  const { card_number, expiry } = credit;
   const birth = credit.user.birthDate;
 
-  if (!card_number || !expiry || !pwd_2digit) {
+  if (!card_number || !expiry) {
     return {
       ok: false,
       error: "empty-infos",
@@ -189,7 +189,6 @@ export const verifyCredit = async (
       card_number,
       expiry,
       birth,
-      pwd_2digit,
     },
     headers: {
       "Content-Type": "application/json",

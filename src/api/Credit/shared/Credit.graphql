@@ -5,8 +5,8 @@ type Credit {
   card_name: String
   card_number: String!
   expiry: String!
-  pwd_2digit: String!
   isMain: Boolean!
+  first4numbers: String
   createdAt: String!
   updatedAt: String
 }
