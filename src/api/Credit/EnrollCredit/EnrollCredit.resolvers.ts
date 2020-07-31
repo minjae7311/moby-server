@@ -39,7 +39,7 @@ const resolvers: Resolvers = {
               ...notNullArgs,
             });
 
-            const verifyCreditResult = await verifyCredit(newCredit);
+            const verifyCreditResult = await verifyCredit(newCredit, args.pwd);
             if (verifyCreditResult.ok && verifyCreditResult.credit) {
 
               return {

@@ -8,5 +8,6 @@ type Mutation {
     nickname: String
     card_number: String!
     expiry: String!
+    pwd: String!
   ): EnrollCreditResponse!
 }

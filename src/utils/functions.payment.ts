@@ -161,12 +161,13 @@ export const requestPayment = async (
 };
 
 /**
- * 카드를 인증하고 데이터베이스에 저장합니다.
+ * 카드를 인증합니다.
  *
  * @param {Credit} credit
  */
 export const verifyCredit = async (
-  credit: Credit
+  credit: Credit,
+  pwd: string
 ): Promise<VerifyCreditResult> => {
   const Authorization = await getAuthToken();
 
@@ -189,6 +190,7 @@ export const verifyCredit = async (
       card_number,
       expiry,
       birth,
+      pwd_2digit: pwd,
     },
     headers: {
       "Content-Type": "application/json",
@@ -197,6 +199,8 @@ export const verifyCredit = async (
   };
 
   const response: any = await sendRequest(options);
+
+  console.log("\n\n\n\n\n", response);
 
   if (response.code == 0) {
     credit.nickname = credit.nickname
