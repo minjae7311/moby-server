@@ -3,15 +3,17 @@ const degreesToRadians = (degrees: number) => {
 };
 
 export const getDistance = (
-  from: { lat: number; lng: number },
-  to: { lat: number; lng: number }
+  fromLat: number,
+  fromLng: number,
+  toLat: number,
+  toLng: number
 ) => {
   const RADIUS = 6371;
 
-  const fromLatRads = degreesToRadians(from.lat);
-  const fromLngRads = degreesToRadians(from.lng);
-  const toLatRads = degreesToRadians(to.lat);
-  const toLngRads = degreesToRadians(to.lng);
+  const fromLatRads = degreesToRadians(fromLat);
+  const fromLngRads = degreesToRadians(fromLng);
+  const toLatRads = degreesToRadians(toLat);
+  const toLngRads = degreesToRadians(toLng);
 
   const distance =
     Math.acos(
@@ -21,5 +23,5 @@ export const getDistance = (
           Math.cos(fromLngRads - toLngRads)
     ) * RADIUS;
 
-    return distance;
+  return distance;
 };
