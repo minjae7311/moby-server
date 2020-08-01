@@ -26,7 +26,7 @@ const resolvers: Resolvers = {
         const newVerification = await Verification.create({
           payload: phoneNumber,
           target: "PHONE",
-          expired: false
+          expired: false,
         }).save();
 
         if (existingVerification) {
@@ -41,6 +41,10 @@ const resolvers: Resolvers = {
           }
         }
 
+        /**
+         * 
+         * @todo 실패했을때 처리해주기?
+         */
         await sendVerificationSMS(newVerification.payload, newVerification.key);
 
         return {
