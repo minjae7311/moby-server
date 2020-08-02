@@ -129,7 +129,8 @@ export const requestPayment = async (
       expiry: payment.credit.expiry,
       birth: payment.ride.passenger.birthDate,
       merchant_uid: `${flag}${payment.ride.id}`,
-      amount: payment.price,
+      // amount: payment.price,
+      amount: 100,
     },
     headers: {
       "Content-Type": "application/json",
@@ -139,15 +140,6 @@ export const requestPayment = async (
 
   const response: any = await sendRequest(options);
 
-  /**
-   * @todo
-   */
-  return {
-    ok: true,
-    code: null,
-    error: "testing",
-    imp_uid: null,
-  };
   if (response.code == 0) {
     const imp_uid = response.response.imp_uid;
     payment.imp_uid = imp_uid;
