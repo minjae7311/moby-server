@@ -139,6 +139,15 @@ export const requestPayment = async (
 
   const response: any = await sendRequest(options);
 
+  /**
+   * @todo
+   */
+  return {
+    ok: true,
+    code: null,
+    error: "testing",
+    imp_uid: null,
+  };
   if (response.code == 0) {
     const imp_uid = response.response.imp_uid;
     payment.imp_uid = imp_uid;
@@ -199,8 +208,6 @@ export const verifyCredit = async (
   };
 
   const response: any = await sendRequest(options);
-
-  console.log("\n\n\n\n\n", response);
 
   if (response.code == 0) {
     credit.nickname = credit.nickname
