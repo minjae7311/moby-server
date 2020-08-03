@@ -5,5 +5,5 @@ type AddNewDriverResponse {
 }
 
 type Mutation {
-  AddNewDriver: AddNewDriverResponse!
+  AddNewDriver(vehicleId: Int!): AddNewDriverResponse!
 }

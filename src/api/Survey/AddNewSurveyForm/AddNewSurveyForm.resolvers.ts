@@ -5,6 +5,7 @@ import {
   AddNewSurveyFormResponse,
 } from "../../../types/graph";
 import SurveyForm from "../../../entities/SurveyForm";
+import cleanNullArgs from "../../../utils/cleanNullArg";
 
 const resolvers: Resolvers = {
   Mutation: {
@@ -13,6 +14,7 @@ const resolvers: Resolvers = {
       args: AddNewSurveyFormMutationArgs
     ): Promise<AddNewSurveyFormResponse> => {
       const questions = await SurveyQuestion.findByIds(args.questionIds);
+      const notNullArgs = cleanNullArgs(args);
 
       if (questions.length == 0) {
         return {
@@ -25,7 +27,7 @@ const resolvers: Resolvers = {
       try {
         const surveyForm = await SurveyForm.create({
           questions,
-          ...args,
+          ...notNullArgs,
         }).save();
 
         return {

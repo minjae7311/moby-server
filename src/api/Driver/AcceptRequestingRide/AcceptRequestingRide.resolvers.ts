@@ -18,7 +18,7 @@ const resolvers: Resolvers = {
        * @todo set vehicle
        */
       // const driver:Driver = req.user;
-      const driver = await Driver.findOne({ id: 1 });
+      const driver = await Driver.findOne({ id: 2 });
       const ride = await Ride.findOne(
         { id: args.rideId },
         { relations: ["passenger"] }
