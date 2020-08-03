@@ -1,11 +1,12 @@
 type SurveyForm {
   id: Int!
-  # @todo
-  # targetAgeFrom: Int
-  # targetAgeTo: Int
-  # targetGender: Boolean
-  # ...
   questions: [SurveyQuestion]
   createdAt: String!
   updatedAt: String
 }
+
+# @todo
+# targetAgeFrom: Int
+# targetAgeTo: Int
+# targetGender: Boolean
+# ...

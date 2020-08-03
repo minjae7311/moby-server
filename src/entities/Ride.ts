@@ -11,7 +11,6 @@ import {
   JoinColumn,
 } from "typeorm";
 import Payment from "./Payment";
-import Discount from "./Discount";
 import Place from "./Place";
 import User from "./User";
 import Driver from "./Driver";
@@ -38,9 +37,6 @@ class Ride extends BaseEntity {
 
   @Column({ type: "double precision", nullable: true })
   finalFee: number;
-
-  @OneToMany(() => Discount, (discount) => discount.ride)
-  discount: Discount[];
 
   @ManyToOne(() => User, (user) => user.rides)
   passenger: User;

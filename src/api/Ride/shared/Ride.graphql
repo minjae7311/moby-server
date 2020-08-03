@@ -5,7 +5,6 @@ type Ride {
   payment: [Payment]
   expectingFee: Float
   finalFee: Float
-  discount: [Discount]
   passenger: User!
   driver: Driver
   status: String!
