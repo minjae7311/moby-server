@@ -32,10 +32,6 @@ const resolvers: Resolvers = {
         if (existingVerification) {
           if (existingVerification.user) {
             newVerification.user = existingVerification.user;
-            /**
-             * @todo not need to save old verification??
-             * make "OldVerifications" table?
-             */
             await existingVerification.remove();
             newVerification.save();
           }

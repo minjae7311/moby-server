@@ -25,7 +25,7 @@ const appOptions: Options = {
        * @todo get currentDriver with json token
        */
       const currentDriver = await Driver.findOne(
-        { id: 4 },
+        { id: 5 },
         { relations: ["vehicle"] }
       );
 
