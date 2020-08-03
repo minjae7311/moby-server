@@ -1,0 +1,34 @@
+import {
+  Entity,
+  BaseEntity,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+  Column,
+} from "typeorm";
+
+@Entity()
+class Vehicle extends BaseEntity {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column({ type: "double precision", default: 0 })
+  discount: number;
+
+  @Column({ type: "text", nullable: true })
+  company: string;
+
+  @Column({ type: "text", nullable: false })
+  carType: string;
+
+  @Column({ type: "text", nullable: false })
+  carNumber: string;
+
+  @CreateDateColumn()
+  createdAt: string;
+
+  @UpdateDateColumn()
+  updatedAt: string;
+}
+
+export default Vehicle;
