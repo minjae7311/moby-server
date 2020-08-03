@@ -1,7 +1,9 @@
+scalar JSON
+
 type SurveyForm {
   id: Int!
   formTitle: String
-  questions: [SurveyQuestion]
+  contentsJson: JSON!
   createdAt: String!
   updatedAt: String
 }

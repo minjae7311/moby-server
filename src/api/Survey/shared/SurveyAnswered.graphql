@@ -1,9 +1,11 @@
+scalar JSON
+
 type SurveyAnswered {
   id: Int!
   user: User!
   ride: Ride!
-  surveyForm: SurveyForm
-  answeredJson: String
+  surveyForm: SurveyForm!
+  answeredJson: JSON!
   createdAt: String!
   updatedAt: String
 }

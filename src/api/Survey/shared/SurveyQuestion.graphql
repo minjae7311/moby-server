@@ -1,9 +1,0 @@
-type SurveyQuestion {
-  id: Int!
-  isSubjective: Boolean!
-  question: String!
-  answers: [String]
-  surveyForm: [SurveyForm]
-  createdAt: String!
-  updatedAt: String
-}

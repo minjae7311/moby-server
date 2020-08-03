@@ -6,7 +6,7 @@ type AddNewSurveyFormResponse {
 
 type Mutation {
   AddNewSurveyForm(
-    questionIds: [Int]!
+    contentsJson: JSON!
     formTitle: String
   ): AddNewSurveyFormResponse!
 }

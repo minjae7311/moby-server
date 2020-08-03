@@ -4,20 +4,16 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  ManyToMany,
-  JoinTable,
   Column,
 } from "typeorm";
-import SurveyQuestion from "./SurveyQuestion";
 
 @Entity()
 class SurveyForm extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToMany(() => SurveyQuestion, (questions) => questions.surveyForm)
-  @JoinTable()
-  questions: SurveyQuestion[];
+  @Column({ type: "jsonb", nullable: false })
+  contentsJson: JSON;
 
   @Column({ type: "text", nullable: true })
   formTitle: string;

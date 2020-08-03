@@ -1,5 +1,4 @@
 import { Resolvers } from "../../../types/resolvers";
-import SurveyQuestion from "../../../entities/SurveyQuestion";
 import {
   AddNewSurveyFormMutationArgs,
   AddNewSurveyFormResponse,
@@ -13,20 +12,10 @@ const resolvers: Resolvers = {
       _res,
       args: AddNewSurveyFormMutationArgs
     ): Promise<AddNewSurveyFormResponse> => {
-      const questions = await SurveyQuestion.findByIds(args.questionIds);
       const notNullArgs = cleanNullArgs(args);
-
-      if (questions.length == 0) {
-        return {
-          ok: false,
-          error: "questions-not-found",
-          surveyForm: null,
-        };
-      }
 
       try {
         const surveyForm = await SurveyForm.create({
-          questions,
           ...notNullArgs,
         }).save();
 

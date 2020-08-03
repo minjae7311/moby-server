@@ -30,8 +30,8 @@ class SurveyAnswered extends BaseEntity {
   @JoinColumn()
   surveyForm: SurveyForm;
 
-  @Column({ type: "text" })
-  answeredJson: string;
+  @Column({ type: "jsonb" })
+  answeredJson: JSON;
 
   @CreateDateColumn()
   createdAt: string;
