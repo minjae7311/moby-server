@@ -1,5 +1,6 @@
 type SurveyForm {
   id: Int!
+  formTitle: String
   questions: [SurveyQuestion]
   createdAt: String!
   updatedAt: String

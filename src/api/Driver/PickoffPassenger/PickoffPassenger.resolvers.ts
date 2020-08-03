@@ -68,7 +68,7 @@ const resolvers: Resolvers = {
               ride,
               price: args.finalFee,
               credit,
-            });
+            }).save();
 
             ride.finalFee = args.finalFee;
             ride.save();

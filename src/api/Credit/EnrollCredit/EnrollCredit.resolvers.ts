@@ -37,7 +37,7 @@ const resolvers: Resolvers = {
             const newCredit = await Credit.create({
               user: user,
               ...notNullArgs,
-            });
+            }).save();
 
             const verifyCreditResult = await verifyCredit(newCredit, args.pwd);
             if (verifyCreditResult.ok && verifyCreditResult.credit) {

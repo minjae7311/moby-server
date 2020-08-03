@@ -5,7 +5,9 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   Column,
+  ManyToMany,
 } from "typeorm";
+import SurveyForm from "./SurveyForm";
 
 @Entity()
 class SurveyQuestion extends BaseEntity {
@@ -20,6 +22,9 @@ class SurveyQuestion extends BaseEntity {
 
   @Column({ type: "text", nullable: true })
   answers: string[];
+
+  @ManyToMany(() => SurveyForm, (surveyForm) => surveyForm.questions)
+  surveyForm: SurveyForm[];
 
   @CreateDateColumn()
   createdAt: string;
