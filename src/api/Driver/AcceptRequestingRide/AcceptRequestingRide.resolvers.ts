@@ -5,6 +5,7 @@ import {
 } from "../../../types/graph";
 import Driver from "../../../entities/Driver";
 import Ride from "../../../entities/Ride";
+import { getDistance } from "../../../utils/getDistance";
 
 const resolvers: Resolvers = {
   Mutation: {
@@ -25,7 +26,7 @@ const resolvers: Resolvers = {
       const ride = await Ride.findOne(
         { id: args.rideId },
         {
-          relations: ["passenger", "vehicle"],
+          relations: ["passenger", "vehicle", "from", "driver"],
         }
       );
 
@@ -53,6 +54,12 @@ const resolvers: Resolvers = {
           ride.driver = driver;
           ride.status = "ACCEPTED";
           ride.vehicle = driver.vehicle;
+          ride.distanceBetween = getDistance(
+            ride.from.lat,
+            ride.from.lng,
+            ride.driver.lat,
+            ride.driver.lng
+          );
 
           pubSub.publish("rideStatusUpdating", {
             SubscribeMyRide: ride,
