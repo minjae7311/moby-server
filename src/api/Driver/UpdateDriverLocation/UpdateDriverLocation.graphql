@@ -3,13 +3,9 @@ type UpdateDriverLocationResponse {
   error: String
 }
 
-input DriverInput {
-  id: Int!
-}
-
 type Mutation {
   UpdateDriverLocation(
-    driverId: DriverInput!
+    driverId: Int!
     lat: Float!
     lng: Float!
   ): UpdateDriverLocationResponse!
