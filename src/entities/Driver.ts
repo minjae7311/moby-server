@@ -28,7 +28,7 @@ class Driver extends BaseEntity {
   @OneToMany(() => Ride, (ride) => ride.driver)
   rides: Ride[];
 
-  @ManyToOne(() => Vehicle, { nullable: false })
+  @ManyToOne(() => Vehicle, { nullable: true }) // @todo nullable false
   vehicle: Vehicle;
 
   @CreateDateColumn()
