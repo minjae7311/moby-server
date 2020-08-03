@@ -6,6 +6,7 @@ import {
   UpdateDateColumn,
   Column,
   ManyToOne,
+  JoinColumn,
 } from "typeorm";
 import SurveyForm from "./SurveyForm";
 
@@ -18,6 +19,7 @@ class Vehicle extends BaseEntity {
   discount: number;
 
   @ManyToOne(() => SurveyForm)
+  @JoinColumn()
   surveyForm: SurveyForm;
 
   @Column({ type: "text", nullable: true })

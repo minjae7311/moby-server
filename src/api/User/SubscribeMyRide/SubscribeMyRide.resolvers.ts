@@ -6,13 +6,10 @@ const resolvers = {
       subscribe: withFilter(
         (_res, _args, { pubSub }) => pubSub.asyncIterator("rideStatusUpdating"),
         async (payload, __args, { context }) => {
-          /**
-           * @todo 현재 요청한 라이드를 특정할 더 효과적인 방법?
-           */
           const { currentUser } = context;
 
           const {
-            SubscribeMyRide: { passenger /*driverId, status*/ },
+            SubscribeMyRide: { passenger },
           } = payload;
 
           return passenger.id == currentUser.id;

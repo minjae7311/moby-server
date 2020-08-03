@@ -12,6 +12,9 @@ const decodeJWT = async (token: string): Promise<User | undefined> => {
       }
     );
 
+
+    
+
     return user;
   } catch (error) {
     return undefined;

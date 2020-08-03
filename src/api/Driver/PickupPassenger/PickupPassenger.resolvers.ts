@@ -19,8 +19,12 @@ const resolvers: Resolvers = {
 
       const ride = await Ride.findOne(
         { id: args.rideId },
-        { relations: ["passenger" /* , "driver" */] }
+        {
+          relations: ["passenger", "vehicle", "vehicle.surveyForm"],
+        }
       );
+
+      console.log("\n\n\n\n", ride);
 
       if (!ride) {
         return {

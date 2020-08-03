@@ -6,7 +6,6 @@ import {
   UpdateDateColumn,
   ManyToMany,
   JoinTable,
-  JoinColumn,
   Column,
 } from "typeorm";
 import SurveyQuestion from "./SurveyQuestion";
@@ -18,7 +17,6 @@ class SurveyForm extends BaseEntity {
 
   @ManyToMany(() => SurveyQuestion, (questions) => questions.surveyForm)
   @JoinTable()
-  @JoinColumn()
   questions: SurveyQuestion[];
 
   @Column({ type: "text", nullable: true })

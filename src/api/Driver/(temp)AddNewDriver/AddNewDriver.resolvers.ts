@@ -13,8 +13,11 @@ const resolvers: Resolvers = {
       args: AddNewDriverMutationArgs,
       _req
     ): Promise<AddNewDriverResponse> => {
-      const vehicle = await Vehicle.create({ id: args.vehicleId });
       try {
+        const vehicle = await Vehicle.findOne(
+          { id: args.vehicleId },
+          { relations: ["surveyForm"] }
+        );
         const newDriver = await Driver.create({ vehicle }).save();
         return {
           ok: true,
