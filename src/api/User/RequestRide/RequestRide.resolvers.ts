@@ -49,6 +49,7 @@ const resolvers: Resolvers = {
               from,
               to,
               passenger: user,
+              findingDistance: 10,
             }).save();
 
             const newPayment = await Payment.create({
