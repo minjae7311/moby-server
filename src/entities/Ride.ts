@@ -63,6 +63,9 @@ class Ride extends BaseEntity {
 
   @Column({ type: "text", nullable: true })
   cancelledDate: string;
+  
+  @Column({ type: "boolean", nullable: false, default: false })
+  surveyCompleted: boolean;
 
   @Column({
     type: "text",
