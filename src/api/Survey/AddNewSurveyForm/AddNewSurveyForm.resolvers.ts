@@ -14,8 +14,6 @@ const resolvers: Resolvers = {
     ): Promise<AddNewSurveyFormResponse> => {
       const questions = await SurveyQuestion.findByIds(args.questionIds);
 
-      console.log("\n\n\n\n", questions);
-
       if (questions.length == 0) {
         return {
           ok: false,
@@ -25,9 +23,10 @@ const resolvers: Resolvers = {
       }
 
       try {
-        const surveyForm = await SurveyForm.create({ questions, ...args }).save();
-
-        console.log("\n\n\n\n", surveyForm);
+        const surveyForm = await SurveyForm.create({
+          questions,
+          ...args,
+        }).save();
 
         return {
           ok: true,

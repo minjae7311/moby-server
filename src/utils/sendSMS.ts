@@ -28,9 +28,6 @@ const sendRequest = async (option: any) => {
  * @param {string} smsBody body
  */
 export const sendSMS = async (to: string, smsBody: string) => {
-  console.log(NHN_KEY);
-  console.log(NHN_SEND_NUMBER);
-
   const options = {
     headers: {
       "Content-Type": "application/json;charset=UTF-8",
@@ -41,10 +38,9 @@ export const sendSMS = async (to: string, smsBody: string) => {
       body: smsBody,
       sendNo: NHN_SEND_NUMBER,
       recipientList: [{ recipientNo: to }],
-    }
+    },
   };
   const sendSMSResult = await sendRequest(options);
-  console.log("\n\n\n\n\n", sendSMSResult);
 
   return sendSMSResult;
 };

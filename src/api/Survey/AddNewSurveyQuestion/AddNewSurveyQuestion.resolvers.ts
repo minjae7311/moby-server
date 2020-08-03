@@ -26,8 +26,6 @@ const resolvers: Resolvers = {
           ...notNullArgs,
         }).save();
 
-        console.log("\n\n\n\n\n", args.answers);
-
         return {
           ok: true,
           error: null,
