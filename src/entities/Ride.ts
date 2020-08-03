@@ -15,7 +15,6 @@ import Place from "./Place";
 import User from "./User";
 import Driver from "./Driver";
 import { rideStatus } from "../types/types";
-import Chat from "./Chat";
 import Vehicle from "./Vehicle";
 
 @Entity()
@@ -43,9 +42,6 @@ class Ride extends BaseEntity {
 
   @ManyToOne(() => Driver, (driver) => driver.rides)
   driver: Driver;
-
-  @OneToOne(() => Chat, (chat) => chat.ride)
-  chat: Chat;
 
   /**
    * @todo hadle these things

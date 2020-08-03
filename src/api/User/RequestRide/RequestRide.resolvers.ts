@@ -7,7 +7,6 @@ import {
 import Ride from "../../../entities/Ride";
 import Place from "../../../entities/Place";
 import cleanNullArgs from "../../../utils/cleanNullArg";
-import Chat from "../../../entities/Chat";
 import Payment from "../../../entities/Payment";
 import Credit from "../../../entities/Credit";
 import { requestPayment } from "../../../utils/functions.payment";
@@ -28,7 +27,6 @@ const resolvers: Resolvers = {
             ok: false,
             error: "already-riding",
             ride: null,
-            chat: null,
           };
         } else {
           try {
@@ -53,14 +51,6 @@ const resolvers: Resolvers = {
               passenger: user,
             }).save();
 
-            const newChat = await Chat.create({
-              passenger: user,
-              ride: newRide,
-            }).save();
-
-            newRide.chat = newChat;
-            await newRide.save();
-
             const newPayment = await Payment.create({
               ride: newRide,
               price: args.expectingFee,
@@ -78,14 +68,12 @@ const resolvers: Resolvers = {
                 ok: true,
                 error: null,
                 ride: newRide,
-                chat: newChat,
               };
             } else {
               return {
                 ok: false,
                 error: paymentResult.error,
                 ride: null,
-                chat: null,
               };
             }
           } catch (e) {
@@ -93,7 +81,6 @@ const resolvers: Resolvers = {
               ok: false,
               error: e.message,
               ride: null,
-              chat: null,
             };
           }
         }

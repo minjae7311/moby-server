@@ -21,7 +21,7 @@ const resolvers: Resolvers = {
       const driver = await Driver.findOne({ id: 1 });
       const ride = await Ride.findOne(
         { id: args.rideId },
-        { relations: ["passenger", "chat"] }
+        { relations: ["passenger"] }
       );
 
       if (!ride) {
@@ -47,8 +47,6 @@ const resolvers: Resolvers = {
         try {
           ride.driver = driver;
           ride.status = "ACCEPTED";
-          ride.chat.driver = driver;
-          ride.chat.save();
 
           pubSub.publish("rideStatusUpdating", {
             SubscribeMyRide: ride,

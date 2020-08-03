@@ -8,7 +8,6 @@ type Ride {
   passenger: User!
   driver: Driver
   status: String!
-  chat: Chat
   requestedDate: String
   acceptedDate: String
   finishedDate: String
