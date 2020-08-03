@@ -15,6 +15,7 @@ type Ride {
   finishedDate: String
   cancelledDate: String
   surveyCompleted: Boolean!
+  vehicle: Vehicle
   createdAt: String!
   updatedAt: String
 }

@@ -15,6 +15,7 @@ const resolvers: Resolvers = {
     ): Promise<AcceptRequestingRideResponse> => {
       /**
        * @todo 나중엔 드라이버를 토큰으로 가져오기.
+       * @todo set vehicle
        */
       // const driver:Driver = req.user;
       const driver = await Driver.findOne({ id: 1 });

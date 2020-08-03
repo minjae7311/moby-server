@@ -8,6 +8,7 @@ import {
   OneToMany,
   ManyToOne,
   OneToOne,
+  JoinColumn,
 } from "typeorm";
 import Payment from "./Payment";
 import Discount from "./Discount";
@@ -16,6 +17,7 @@ import User from "./User";
 import Driver from "./Driver";
 import { rideStatus } from "../types/types";
 import Chat from "./Chat";
+import Vehicle from "./Vehicle";
 
 @Entity()
 class Ride extends BaseEntity {
@@ -63,7 +65,7 @@ class Ride extends BaseEntity {
 
   @Column({ type: "text", nullable: true })
   cancelledDate: string;
-  
+
   @Column({ type: "boolean", nullable: false, default: false })
   surveyCompleted: boolean;
 
@@ -73,6 +75,10 @@ class Ride extends BaseEntity {
     default: "REQUESTING",
   })
   status: rideStatus;
+
+  @ManyToOne(() => Vehicle, { nullable: true })
+  @JoinColumn()
+  vehicle: Vehicle;
 
   @CreateDateColumn()
   createdAt: string;

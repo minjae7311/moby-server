@@ -6,8 +6,10 @@ import {
   UpdateDateColumn,
   Column,
   OneToMany,
+  ManyToOne,
 } from "typeorm";
 import Ride from "./Ride";
+import Vehicle from "./Vehicle";
 
 @Entity()
 class Driver extends BaseEntity {
@@ -25,6 +27,9 @@ class Driver extends BaseEntity {
 
   @OneToMany(() => Ride, (ride) => ride.driver)
   rides: Ride[];
+
+  @ManyToOne(() => Vehicle, { nullable: false })
+  vehicle: Vehicle;
 
   @CreateDateColumn()
   createdAt: string;

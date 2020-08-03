@@ -4,6 +4,7 @@ type Driver {
   lng: Float
   isDriving: Boolean!
   rides: [Ride]
+  vehicle: Vehicle
   createdAt: String!
   updatedAt: String
 }
