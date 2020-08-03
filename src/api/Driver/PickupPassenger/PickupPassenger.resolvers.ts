@@ -24,8 +24,6 @@ const resolvers: Resolvers = {
         }
       );
 
-      console.log("\n\n\n\n", ride);
-
       if (!ride) {
         return {
           ok: false,
