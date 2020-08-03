@@ -1,7 +1,7 @@
 type Vehicle {
   id: Int!
   discount: Float
-  surveyForm: SurveyForm
+  surveyForm: SurveyForm!
   company: String
   carType: String!
   carNumber: String!
