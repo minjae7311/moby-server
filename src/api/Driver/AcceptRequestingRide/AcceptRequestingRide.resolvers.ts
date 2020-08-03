@@ -18,10 +18,13 @@ const resolvers: Resolvers = {
        * @todo set vehicle
        */
       // const driver:Driver = req.user;
-      const driver = await Driver.findOne({ id: 2 });
+      const driver = await Driver.findOne(
+        { id: 2 },
+        { relations: ["vehicle"] }
+      );
       const ride = await Ride.findOne(
         { id: args.rideId },
-        { relations: ["passenger"] }
+        { relations: ["passenger", "vehicle"] }
       );
 
       if (!ride) {
@@ -47,6 +50,9 @@ const resolvers: Resolvers = {
         try {
           ride.driver = driver;
           ride.status = "ACCEPTED";
+          ride.vehicle = driver.vehicle;
+
+          console.log("\n\n\n\n\n", ride.vehicle, driver.vehicle);
 
           pubSub.publish("rideStatusUpdating", {
             SubscribeMyRide: ride,

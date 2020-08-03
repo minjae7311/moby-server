@@ -24,7 +24,10 @@ const appOptions: Options = {
       /**
        * @todo get currentDriver with json token
        */
-      const currentDriver = await Driver.findOne({ id: 2 });
+      const currentDriver = await Driver.findOne(
+        { id: 2 },
+        { relations: ["vehicle"] }
+      );
 
       const token = connectionParams["X-JWT"];
       const currentUser = await decodeJWT(token);
