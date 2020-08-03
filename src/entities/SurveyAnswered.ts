@@ -6,28 +6,32 @@ import {
   UpdateDateColumn,
   Column,
   ManyToOne,
+  JoinColumn,
+  OneToOne,
 } from "typeorm";
+import User from "./User";
+import Ride from "./Ride";
 import SurveyForm from "./SurveyForm";
 
 @Entity()
-class Vehicle extends BaseEntity {
+class SurveyAnswered extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: "double precision", default: 0 })
-  discount: number;
+  @ManyToOne(() => User)
+  @JoinColumn()
+  user: User;
+
+  @OneToOne(() => Ride)
+  @JoinColumn()
+  ride: Ride;
 
   @ManyToOne(() => SurveyForm)
+  @JoinColumn()
   surveyForm: SurveyForm;
 
-  @Column({ type: "text", nullable: true })
-  company: string;
-
-  @Column({ type: "text", nullable: false })
-  carType: string;
-
-  @Column({ type: "text", nullable: false })
-  carNumber: string;
+  @Column({ type: "text" })
+  answeredJson: string;
 
   @CreateDateColumn()
   createdAt: string;
@@ -36,4 +40,4 @@ class Vehicle extends BaseEntity {
   updatedAt: string;
 }
 
-export default Vehicle;
+export default SurveyAnswered;
