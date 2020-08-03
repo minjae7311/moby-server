@@ -1,0 +1,12 @@
+type SurveyForm {
+  id: Int!
+  # @todo
+  # targetAgeFrom: Int
+  # targetAgeTo: Int
+  # targetGender: Boolean
+  # ...
+  vehicle: [Vehicle]
+  questions: [SurveyQuestion]
+  createdAt: String!
+  updatedAt: String
+}

@@ -1,0 +1,9 @@
+type SurveyAnswered {
+  id: Int!
+  user: User!
+  ride: Ride!
+  surveyForm: [SurveyForm]
+  answeredJson: String
+  createdAt: String!
+  updatedAt: String
+}

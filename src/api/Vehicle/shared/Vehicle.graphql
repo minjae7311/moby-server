@@ -1,0 +1,9 @@
+type Vehicle {
+  id: Int!
+  discount: Float
+  company: String
+  carType: String!
+  carNumber: String!
+  createdAt: String!
+  updatedAt: String
+}

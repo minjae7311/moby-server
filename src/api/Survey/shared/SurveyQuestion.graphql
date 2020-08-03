@@ -1,0 +1,8 @@
+type SurveyQuestion {
+  id: Int!
+  isSubjective: Boolean!
+  question: String!
+  answers: [String]
+  createdAt: String!
+  updatedAt: String
+}
