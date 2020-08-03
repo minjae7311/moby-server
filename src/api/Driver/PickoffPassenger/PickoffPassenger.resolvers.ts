@@ -24,7 +24,7 @@ const resolvers: Resolvers = {
 
       const ride = await Ride.findOne(
         { id: args.rideId },
-        { relations: ["passenger" /* , "driver" */] }
+        { relations: ["passenger", "vehicle"] }
       );
 
       if (!ride) {
@@ -62,15 +62,19 @@ const resolvers: Resolvers = {
 
           const credit = payment!.credit;
           const cancelResult = await cancelPayment(payment!);
-          
+          const discountPrice = ride.vehicle.discount;
+          const price = ride.surveyCompleted
+            ? args.finalFee - discountPrice
+            : args.finalFee;
+
           if (cancelResult.ok) {
             const newPayment = await Payment.create({
               ride,
-              price: args.finalFee,
+              price,
               credit,
             }).save();
 
-            ride.finalFee = args.finalFee;
+            ride.finalFee = price;
             ride.save();
 
             const paymentResult = await requestPayment(newPayment, "final");
