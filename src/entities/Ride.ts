@@ -7,7 +7,6 @@ import {
   Column,
   OneToMany,
   ManyToOne,
-  OneToOne,
   JoinColumn,
 } from "typeorm";
 import Payment from "./Payment";
