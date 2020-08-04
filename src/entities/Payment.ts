@@ -21,6 +21,9 @@ class Payment extends BaseEntity {
   @ManyToOne(() => Ride, (ride) => ride.payment)
   ride: Ride;
 
+  /**
+   * @todo fk error on delete credit
+   */
   @ManyToOne(() => Credit, (credit) => credit.payment)
   @JoinColumn()
   credit: Credit;

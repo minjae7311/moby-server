@@ -13,7 +13,7 @@ type Mutation {
     toLat: Float!
     toLng: Float!
     expectingFee: Float!
-    distance: String
+    distance: String # @todo ??
     duration: String
     creditId: Int!
   ): RequestRideResponse!
