@@ -1,0 +1,8 @@
+type CancelMyRideResponse {
+  ok: Boolean
+  error: String
+}
+
+type Mutation {
+    CancelMyRide: CancelMyRideResponse!
+}
