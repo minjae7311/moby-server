@@ -1,26 +1,19 @@
 import { Resolvers } from "../../../types/resolvers";
 import privateResolver from "../../../utils/privateResolver";
-import {
-  TakeSurveyResponse,
-  TakeSurveyMutationArgs,
-} from "../../../types/graph";
+import { GetMySurveyResponse } from "../../../types/graph";
 import Ride from "../../../entities/Ride";
-import SurveyAnswered from "../../../entities/SurveyAnswered";
 
 const resolvers: Resolvers = {
-  Mutation: {
-    TakeSurvey: privateResolver(
-      async (
-        _res,
-        args: TakeSurveyMutationArgs,
-        { req }
-      ): Promise<TakeSurveyResponse> => {
+  Query: {
+    GetMySurvey: privateResolver(
+      async (_res, _args, { req }): Promise<GetMySurveyResponse> => {
         const { user } = req;
 
         if (!user.isRiding) {
           return {
             ok: false,
             error: "user-not-riding",
+            survey: null,
           };
         }
 
@@ -34,33 +27,24 @@ const resolvers: Resolvers = {
             return {
               ok: false,
               error: "ride-not-found",
+              survey: null,
             };
           }
-
-          const { answeredJson } = args;
-          await SurveyAnswered.create({
-            answeredJson,
-            ride,
-            user,
-            surveyForm: ride.vehicle.surveyForm,
-          }).save();
-
-          ride.surveyCompleted = true;
-          await ride.save();
 
           return {
             ok: true,
             error: null,
+            survey: ride.vehicle.surveyForm,
           };
         } catch (e) {
           return {
             ok: false,
             error: e.message,
+            survey: null,
           };
         }
       }
     ),
   },
 };
-
 export default resolvers;
