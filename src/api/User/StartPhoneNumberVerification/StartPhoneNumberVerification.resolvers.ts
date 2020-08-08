@@ -36,11 +36,7 @@ const resolvers: Resolvers = {
             newVerification.save();
           }
         }
-
-        /**
-         * 
-         * @todo 실패했을때 처리해주기?
-         */
+        
         await sendVerificationSMS(newVerification.payload, newVerification.key);
 
         return {

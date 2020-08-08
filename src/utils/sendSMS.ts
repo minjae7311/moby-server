@@ -10,7 +10,6 @@ const NHN_SEND_NUMBER = process.env.NHN_SEND_NUMBER;
 /**
  *
  *
- * @todo 카드에서 리퀘스트 하는거랑 해서 따로 빼기 -> 하면 안될듯. res 형태가 달라서..
  * @param option
  */
 const sendRequest = async (option: any) => {

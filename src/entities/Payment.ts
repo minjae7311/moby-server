@@ -52,12 +52,6 @@ class Payment extends BaseEntity {
 
   @UpdateDateColumn()
   updatedAt: string;
-
-  //   @BeforeInsert()
-  //   @BeforeUpdate()
-  /**
-   * @todo update date
-   */
 }
 
 export default Payment;

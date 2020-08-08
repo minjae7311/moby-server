@@ -30,9 +30,6 @@ const resolvers: Resolvers = {
           };
         } else {
           try {
-            /**
-             * @todo find or create
-             */
             const from = await Place.create({
               address: args.fromAddress,
               lat: args.fromLat,

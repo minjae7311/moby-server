@@ -48,9 +48,6 @@ class Ride extends BaseEntity {
   @ManyToOne(() => Driver, (driver) => driver.rides)
   driver: Driver;
 
-  /**
-   * @todo hadle these things
-   */
   @Column({ type: "text", nullable: true })
   requestedDate: string;
 
