@@ -3,7 +3,7 @@ type Payment {
   ride: Ride!
   credit: Credit
   price: Float!
-  isCancelled: Boolean!
+  status: String
   reason: String
   date: String
   imp_uid: String

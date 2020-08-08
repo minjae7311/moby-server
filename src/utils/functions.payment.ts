@@ -62,7 +62,7 @@ export const cancelPayment = async (
   const response: any = await sendRequest(options);
 
   if (response.code == 0) {
-    payment.isCancelled = true;
+    payment.status = "CANCELLED";
     await payment.save();
 
     return {
@@ -143,6 +143,7 @@ export const requestPayment = async (
   if (response.code == 0) {
     const imp_uid = response.response.imp_uid;
     payment.imp_uid = imp_uid;
+    payment.status = "PAYED";
     await payment.save();
 
     return {

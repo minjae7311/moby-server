@@ -55,7 +55,7 @@ const resolvers: Resolvers = {
           const payment = await Payment.findOne(
             {
               ride,
-              isCancelled: false,
+              status: "PAYED",
             },
             { relations: ["credit"] }
           );

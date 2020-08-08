@@ -6,3 +6,8 @@ export type rideStatus =
   | "CANCELED"
   | "REQUESTING"
   | "ONROUTE";
+
+  export type paymentStatus =
+  | "CREATED" // waiting
+  | "PAYED"
+  | "CANCELLED"

@@ -7,8 +7,8 @@ import {
   Column,
   ManyToOne,
   JoinColumn,
-//   BeforeInsert,
-//   BeforeUpdate,
+  //   BeforeInsert,
+  //   BeforeUpdate,
 } from "typeorm";
 import Ride from "./Ride";
 import Credit from "./Credit";
@@ -31,15 +31,19 @@ class Payment extends BaseEntity {
   @Column({ type: "double precision", default: 0 })
   price: number;
 
-  @Column({ type: "boolean", default: false })
-  isCancelled: boolean;
+  @Column({
+    type: "text",
+    enum: ["CREATED", "PAYED", "CANCELLED"],
+    default: "CREATED"
+  })
+  status: string;
 
   @Column({ type: "text", nullable: true })
   reason: string;
 
   @Column({ type: "text", nullable: true })
   date: string;
-  
+
   @Column({ type: "text", nullable: true })
   imp_uid: string;
 
