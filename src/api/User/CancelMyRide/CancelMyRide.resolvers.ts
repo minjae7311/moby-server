@@ -23,6 +23,7 @@ const resolvers: Resolvers = {
 
           if (ride) {
             ride.status = "CANCELED";
+            ride.cancelledDate = new Date().toLocaleString();
 
             pubSub.publish("rideStatusUpdating", {
               SubscribeMyRide: ride,

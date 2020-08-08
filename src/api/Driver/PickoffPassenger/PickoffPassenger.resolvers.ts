@@ -75,6 +75,7 @@ const resolvers: Resolvers = {
             }).save();
 
             ride.finalFee = price;
+            ride.finishedDate = new Date().toLocaleString();
             ride.save();
 
             const paymentResult = await requestPayment(newPayment, "final");

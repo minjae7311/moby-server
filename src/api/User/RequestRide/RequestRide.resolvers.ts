@@ -50,6 +50,7 @@ const resolvers: Resolvers = {
               to,
               passenger: user,
               findingDistance: 10,
+              requestedDate: new Date().toLocaleString(),
             }).save();
 
             const newPayment = await Payment.create({

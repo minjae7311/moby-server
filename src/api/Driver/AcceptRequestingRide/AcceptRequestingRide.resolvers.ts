@@ -54,6 +54,7 @@ const resolvers: Resolvers = {
           ride.driver = driver;
           ride.status = "ACCEPTED";
           ride.vehicle = driver.vehicle;
+          ride.acceptedDate = new Date().toLocaleString();
           ride.distanceBetween = getDistance(
             ride.from.lat,
             ride.from.lng,
