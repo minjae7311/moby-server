@@ -13,38 +13,44 @@ const resolvers: Resolvers = {
           const ride = await Ride.findOne(
             {
               passenger: user,
-              status: "REQUESTING",
             },
             {
               relations: ["payment", "payment.credit"],
-              order: { updatedAt: "DESC" },
+              order: { createdAt: "DESC" },
             }
           );
 
           if (ride) {
-            ride.status = "CANCELED";
-            ride.cancelledDate = new Date().toLocaleString();
+            if (ride.status == "REQUESTING" || ride.status == "ACCEPTED") {
+              ride.status = "CANCELED";
+              ride.cancelledDate = new Date().toLocaleString();
 
-            pubSub.publish("rideStatusUpdating", {
-              SubscribeMyRide: ride,
-            });
+              pubSub.publish("rideStatusUpdating", {
+                SubscribeMyRide: ride,
+              });
 
-            ride.save();
+              ride.save();
 
-            const cancelResult = await cancelPayment(ride.payment[0]);
+              const cancelResult = await cancelPayment(ride.payment[0]);
 
-            user.isRiding = false;
-            await user.save();
+              user.isRiding = false;
+              await user.save();
 
-            if (cancelResult.ok) {
-              return {
-                ok: true,
-                error: null,
-              };
+              if (cancelResult.ok) {
+                return {
+                  ok: true,
+                  error: null,
+                };
+              } else {
+                return {
+                  ok: false,
+                  error: "payment-cancel-failed",
+                };
+              }
             } else {
               return {
                 ok: false,
-                error: "payment-cancel-failed",
+                error: "ride-not-requesting-or-accepted",
               };
             }
           } else {

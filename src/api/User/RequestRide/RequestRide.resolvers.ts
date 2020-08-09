@@ -10,6 +10,7 @@ import cleanNullArgs from "../../../utils/cleanNullArg";
 import Payment from "../../../entities/Payment";
 import Credit from "../../../entities/Credit";
 import { requestPayment } from "../../../utils/functions.payment";
+import { handleFindingDistance } from "../../../utils/handleFindingDistance";
 
 const resolvers: Resolvers = {
   Mutation: {
@@ -62,6 +63,8 @@ const resolvers: Resolvers = {
 
               user.isRiding = true;
               user.save();
+
+              handleFindingDistance(newRide, pubSub);
 
               return {
                 ok: true,
