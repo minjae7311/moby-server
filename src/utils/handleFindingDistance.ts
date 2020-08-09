@@ -20,7 +20,6 @@ export const handleFindingDistance = async (ride: Ride, pubSub: PubSub) => {
   let first = true;
 
   for (let i = 0; i < LOOP_LIMIT; ++i) {
-    console.log("\n\n\n\n", i, "\n\n\n\n\n");
     await delay();
 
     if (first) {
