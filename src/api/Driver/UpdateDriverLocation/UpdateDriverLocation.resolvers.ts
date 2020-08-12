@@ -10,7 +10,7 @@ const resolvers: Resolvers = {
     UpdateDriverLocation: async (
       _res,
       args: UpdateDriverLocationMutationArgs,
-      { _req }
+      { _req, pubSub }
     ): Promise<UpdateDriverLocationResponse> => {
       /**
        * @todo 드라이버 다른 방식으로 가져오기.
@@ -24,27 +24,34 @@ const resolvers: Resolvers = {
           ok: false,
           error: "driver-not-found",
         };
-      } else {
-        try {
-          driver.lat = args.lat;
-          driver.lng = args.lng;
+      }
 
-          await driver.save();
+      if (!driver.workingOn) {
+        return {
+          ok: false,
+          error: "not-working-now",
+        };
+      }
 
-          /**
-           * @todo pubsub
-           */
+      try {
+        driver.lat = args.lat;
+        driver.lng = args.lng;
 
-          return {
-            ok: true,
-            error: null,
-          };
-        } catch (e) {
-          return {
-            ok: false,
-            error: e.message,
-          };
-        }
+        pubSub.publish("driverLocationUpdating", {
+          SubscribeNearByDrivers: driver,
+        });
+
+        await driver.save();
+
+        return {
+          ok: true,
+          error: null,
+        };
+      } catch (e) {
+        return {
+          ok: false,
+          error: e.message,
+        };
       }
     },
   },

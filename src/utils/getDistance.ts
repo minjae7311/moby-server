@@ -23,5 +23,14 @@ export const getDistance = (
           Math.cos(fromLngRads - toLngRads)
     ) * RADIUS;
 
+  console.log(`\n\ninput..\n
+    fromLatRads : ${fromLatRads}\n
+    fromLngRads : ${fromLngRads}\n
+    toLatRads : ${toLatRads}\n
+    toLngRads : ${toLngRads}\n
+    \n\n
+    distance: ${distance}
+    `);
+
   return distance;
 };
