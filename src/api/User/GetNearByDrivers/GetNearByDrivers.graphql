@@ -5,8 +5,5 @@ type GetNearByDriversResponse {
 }
 
 type Query {
-  GetNearByDrivers(
-    lat: Float!
-    lng: Float!
-  ): GetNearByDriversResponse!
+  GetNearByDrivers(lat: Float!, lng: Float!): GetNearByDriversResponse!
 }

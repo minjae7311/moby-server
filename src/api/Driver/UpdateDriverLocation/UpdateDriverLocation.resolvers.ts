@@ -31,6 +31,10 @@ const resolvers: Resolvers = {
 
           await driver.save();
 
+          /**
+           * @todo pubsub
+           */
+
           return {
             ok: true,
             error: null,
