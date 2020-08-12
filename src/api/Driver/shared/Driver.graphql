@@ -3,6 +3,7 @@ type Driver {
   lat: Float
   lng: Float
   isDriving: Boolean!
+  workingOn: Boolean!
   rides: [Ride]
   vehicle: Vehicle
   createdAt: String!

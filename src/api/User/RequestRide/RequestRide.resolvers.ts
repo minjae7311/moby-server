@@ -12,6 +12,8 @@ import Credit from "../../../entities/Credit";
 import { requestPayment } from "../../../utils/functions.payment";
 import { handleFindingDistance } from "../../../utils/handleFindingDistance";
 
+const FIND_DRIVER_DISTANCE = 10;
+
 const resolvers: Resolvers = {
   Mutation: {
     RequestRide: privateResolver(
@@ -47,7 +49,7 @@ const resolvers: Resolvers = {
               from,
               to,
               passenger: user,
-              findingDistance: 10,
+              findingDistance: FIND_DRIVER_DISTANCE,
               requestedDate: new Date().toLocaleString(),
             }).save();
 

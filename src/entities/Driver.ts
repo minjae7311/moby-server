@@ -25,6 +25,9 @@ class Driver extends BaseEntity {
   @Column({ type: "boolean", nullable: false, default: false })
   isDriving: boolean;
 
+  @Column({ type: "boolean", nullable: false, default: false })
+  workingOn: boolean;
+
   @OneToMany(() => Ride, (ride) => ride.driver)
   rides: Ride[];
 

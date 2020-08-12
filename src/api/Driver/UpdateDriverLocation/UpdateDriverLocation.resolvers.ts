@@ -12,6 +12,9 @@ const resolvers: Resolvers = {
       args: UpdateDriverLocationMutationArgs,
       { _req }
     ): Promise<UpdateDriverLocationResponse> => {
+      /**
+       * @todo 드라이버 다른 방식으로 가져오기.
+       */
       const driver = await Driver.findOne({
         id: args.driverId,
       });

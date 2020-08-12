@@ -4,6 +4,7 @@ import { cancelPayment } from "./functions.payment";
 
 const WAIT_TIME = 10000; // 10 sec
 const LOOP_LIMIT = 3;
+const FIND_DRIVER_DISTANCE = 10;
 
 const delay = () => {
   return new Promise((resolve) =>
@@ -32,7 +33,7 @@ export const handleFindingDistance = async (ride: Ride, pubSub: PubSub) => {
       await ride.reload();
 
       if (ride.status == "REQUESTING") {
-        ride.findingDistance += 10;
+        ride.findingDistance += FIND_DRIVER_DISTANCE;
         ride.save();
 
         pubSub.publish("rideRequesting", { SubscribeNewRide: ride });
