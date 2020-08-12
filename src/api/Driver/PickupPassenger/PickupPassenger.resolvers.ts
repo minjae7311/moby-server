@@ -15,7 +15,7 @@ const resolvers: Resolvers = {
       /**
        * @todo 나중엔 드라이버를 토큰으로 가져오기.
        */
-      // const driver:Driver = req.user;
+      // const driver: Driver = req.user;
 
       const ride = await Ride.findOne(
         { id: args.rideId },

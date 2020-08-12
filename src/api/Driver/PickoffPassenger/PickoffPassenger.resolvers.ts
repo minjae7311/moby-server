@@ -24,7 +24,7 @@ const resolvers: Resolvers = {
 
       const ride = await Ride.findOne(
         { id: args.rideId },
-        { relations: ["passenger", "vehicle"] }
+        { relations: ["passenger", "vehicle", "driver"] }
       );
 
       if (!ride) {
@@ -51,6 +51,9 @@ const resolvers: Resolvers = {
 
           ride.passenger.isRiding = false;
           ride.passenger.save();
+
+          ride.driver.isDriving = false;
+          ride.driver.save();
 
           const payment = await Payment.findOne(
             {

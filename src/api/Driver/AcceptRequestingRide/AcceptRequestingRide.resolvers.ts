@@ -23,6 +23,27 @@ const resolvers: Resolvers = {
         { relations: ["vehicle"] }
       );
 
+      if (!driver) {
+        return {
+          ok: false,
+          error: "driver-not-found",
+        };
+      }
+
+      if (driver.isDriving) {
+        return {
+          ok: false,
+          error: "already-driving",
+        };
+      }
+
+      if (!driver.workingOn) {
+        return {
+          ok: false,
+          error: "not-working-now",
+        };
+      }
+
       const ride = await Ride.findOne(
         { id: args.rideId },
         {
@@ -34,13 +55,6 @@ const resolvers: Resolvers = {
         return {
           ok: false,
           error: "ride-not-found",
-        };
-      }
-
-      if (!driver) {
-        return {
-          ok: false,
-          error: "driver-not-found",
         };
       }
 
@@ -67,6 +81,9 @@ const resolvers: Resolvers = {
           });
 
           await ride.save();
+
+          driver.isDriving = true;
+          await driver.save();
 
           return {
             ok: true,
