@@ -1,10 +1,7 @@
 import Ride from "../entities/Ride";
 import { PubSub } from "graphql-yoga";
+import { cancelPayment } from "./functions.payment";
 
-/**
- * @todo test when accepted ride
- * @param {Ride} ride
- */
 const WAIT_TIME = 10000; // 10 sec
 const LOOP_LIMIT = 3;
 
@@ -16,6 +13,13 @@ const delay = () => {
   );
 };
 
+/**
+ * @todo 중간에 accepted 되었을때 테스트.
+ * @todo CancelMyRide와 코드 중복되지 않도록 리팩토링?
+ *
+ * @param {Ride} ride
+ * @param {PubSub} pubSub
+ */
 export const handleFindingDistance = async (ride: Ride, pubSub: PubSub) => {
   let first = true;
 
@@ -36,5 +40,42 @@ export const handleFindingDistance = async (ride: Ride, pubSub: PubSub) => {
         return;
       }
     }
+  }
+
+  await delay();
+  const rideReloaded = await Ride.findOne(
+    {
+      id: ride.id,
+    },
+    { relations: ["payment", "passenger", "driver"] }
+  );
+
+  if (!rideReloaded) {
+    console.log("\n\n\nRide not found.\n\n\n\n");
+    return;
+  }
+
+  if (rideReloaded.status != "REQUESTING") {
+    console.log("\n\n\nRide is not requesting.\n\n\n\n");
+    return;
+  } else {
+    console.log("\n\n\n\n\n", rideReloaded, "\n\n\n\n\n");
+
+    rideReloaded.status = "CANCELED";
+    rideReloaded.cancelledDate = new Date().toLocaleString();
+
+    rideReloaded.passenger.isRiding = false;
+    await rideReloaded.passenger.save();
+
+    pubSub.publish("rideStatusUpdating", {
+      SubscribeMyRide: rideReloaded,
+    });
+
+    rideReloaded.save();
+
+    /**
+     * @todo payment isnt;
+     */
+    await cancelPayment(rideReloaded.payment[0]);
   }
 };
