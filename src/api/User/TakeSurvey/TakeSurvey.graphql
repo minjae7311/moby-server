@@ -4,5 +4,5 @@ type TakeSurveyResponse {
 }
 
 type Mutation {
-  TakeSurvey(answeredJson: JSON): TakeSurveyResponse!
+  TakeSurvey(rideId: Int!, answeredJson: JSON): TakeSurveyResponse!
 }

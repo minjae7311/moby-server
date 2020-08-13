@@ -65,10 +65,7 @@ const resolvers: Resolvers = {
 
           const credit = payment!.credit;
           const cancelResult = await cancelPayment(payment!);
-          const discountPrice = ride.vehicle.discount;
-          const price = ride.surveyCompleted
-            ? args.finalFee - discountPrice
-            : args.finalFee;
+          const price = args.finalFee;
 
           if (cancelResult.ok) {
             const newPayment = await Payment.create({

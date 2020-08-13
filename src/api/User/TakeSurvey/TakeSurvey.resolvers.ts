@@ -26,7 +26,7 @@ const resolvers: Resolvers = {
 
         try {
           const ride = await Ride.findOne(
-            { passenger: user, status: "ONROUTE" },
+            { id: args.rideId },
             { relations: ["vehicle", "vehicle.surveyForm"] }
           );
 
