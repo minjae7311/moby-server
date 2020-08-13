@@ -1,25 +1,24 @@
 import { Resolvers } from "../../../types/resolvers";
 import privateResolver from "../../../utils/privateResolver";
-import { GetMySurveyResponse } from "../../../types/graph";
+import {
+  GetMySurveyResponse,
+  GetMySurveyQueryArgs,
+} from "../../../types/graph";
 import Ride from "../../../entities/Ride";
 
 const resolvers: Resolvers = {
   Query: {
     GetMySurvey: privateResolver(
-      async (_res, _args, { req }): Promise<GetMySurveyResponse> => {
-        const { user } = req;
-
-        if (!user.isRiding) {
-          return {
-            ok: false,
-            error: "user-not-riding",
-            survey: null,
-          };
-        }
+      async (
+        _res,
+        args: GetMySurveyQueryArgs,
+        { req }
+      ): Promise<GetMySurveyResponse> => {
+        // const { user } = req;
 
         try {
           const ride = await Ride.findOne(
-            { passenger: user, status: "ONROUTE" },
+            { id: args.rideId },
             { relations: ["vehicle", "vehicle.surveyForm"] }
           );
 

@@ -5,5 +5,5 @@ type GetMySurveyResponse {
 }
 
 type Query {
-  GetMySurvey: GetMySurveyResponse!
+  GetMySurvey(rideId: Int!): GetMySurveyResponse!
 }

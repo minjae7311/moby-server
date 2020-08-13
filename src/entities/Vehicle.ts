@@ -31,6 +31,10 @@ class Vehicle extends BaseEntity {
   @Column({ type: "text", nullable: false })
   carNumber: string;
 
+  /**
+   * @todo column available
+   */
+
   @CreateDateColumn()
   createdAt: string;
 
