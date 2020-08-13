@@ -1,0 +1,9 @@
+type StartWorkResponse {
+  ok: Boolean!
+  error: String
+}
+
+# @todo driver with resolver?
+type Mutation {
+  StartWork(driverId: Int!): StartWorkResponse!
+}
