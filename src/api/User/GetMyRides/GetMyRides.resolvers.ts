@@ -13,6 +13,9 @@ const resolvers: Resolvers = {
           const rides = await Ride.find({
             where: { passenger: user },
             relations: ["vehicle", "vehicle.surveyForm"],
+            order: {
+              createdAt: "DESC",
+            },
           });
 
           if (rides.length > 0) {
