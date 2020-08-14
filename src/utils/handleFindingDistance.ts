@@ -15,7 +15,6 @@ const delay = () => {
 };
 
 /**
- * @todo 중간에 accepted 되었을때 테스트.
  * @todo CancelMyRide와 코드 중복되지 않도록 리팩토링?
  *
  * @param {Ride} ride
@@ -74,9 +73,6 @@ export const handleFindingDistance = async (ride: Ride, pubSub: PubSub) => {
 
     rideReloaded.save();
 
-    /**
-     * @todo payment isnt;
-     */
     await cancelPayment(rideReloaded.payment[0]);
   }
 };
