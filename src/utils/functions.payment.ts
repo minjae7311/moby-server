@@ -208,13 +208,13 @@ export const verifyCredit = async (
       : response.response.card_name;
     credit.card_name = response.response.card_name;
 
-    const newCredit = await credit.save();
+    await credit.save();
 
     return {
       ok: true,
       error: null,
       code: response.code,
-      credit: newCredit,
+      credit,
     };
   } else {
     return {
