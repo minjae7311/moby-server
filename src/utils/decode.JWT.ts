@@ -12,11 +12,9 @@ const decodeJWT = async (token: string): Promise<User | undefined> => {
       }
     );
 
-
-    
-
     return user;
   } catch (error) {
+    console.error("\nDECODE JSON TOKEN ERROR : ", error, "\n");
     return undefined;
   }
 };
