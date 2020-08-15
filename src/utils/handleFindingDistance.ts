@@ -4,6 +4,9 @@ import { cancelPayment } from "./functions.payment";
 
 const WAIT_TIME = 10000; // 10 sec
 const LOOP_LIMIT = 3;
+/**
+ * @static
+ */
 const FIND_DRIVER_DISTANCE = 10;
 
 const delay = () => {
@@ -51,16 +54,13 @@ export const handleFindingDistance = async (ride: Ride, pubSub: PubSub) => {
   );
 
   if (!rideReloaded) {
-    console.log("\n\n\nRide not found.\n\n\n\n");
     return;
   }
 
   if (rideReloaded.status != "REQUESTING") {
-    console.log("\n\n\nRide is not requesting.\n\n\n\n");
+
     return;
   } else {
-    console.log("\n\n\n\n\n", rideReloaded, "\n\n\n\n\n");
-
     rideReloaded.status = "CANCELED";
     rideReloaded.cancelledDate = new Date().toLocaleString();
 
