@@ -36,7 +36,13 @@ class App {
    */
   private middlewares = (): void => {
     this.app.express.use(cors());
-    this.app.express.use(logger("combined"));
+    this.app.express.use(
+      logger("combined", {
+        skip: (req, res) => {
+          return res.statusCode < 400;
+        },
+      })
+    );
     this.app.express.use(helmet());
     this.app.express.use(this.jwt);
   };
