@@ -41,6 +41,8 @@ const appOptions: Options = {
 };
 
 const handleAppStart = () => {
+  console.log("\n\n\n\n\n\nSTART APP..");
+  console.info(new Date().toLocaleString());
   console.log(`Listening on port ${PORT}`);
 };
 
