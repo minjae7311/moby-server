@@ -33,6 +33,9 @@ class SurveyAnswered extends BaseEntity {
   @Column({ type: "jsonb" })
   answeredJson: JSON;
 
+  @Column({ type: "boolean", default: false })
+  paybacked: boolean;
+
   @CreateDateColumn()
   createdAt: string;
 

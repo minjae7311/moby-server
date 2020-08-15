@@ -6,6 +6,7 @@ type SurveyAnswered {
   ride: Ride!
   surveyForm: SurveyForm!
   answeredJson: JSON!
+  paybacked: Boolean
   createdAt: String!
   updatedAt: String
 }
