@@ -41,12 +41,13 @@ const resolvers: Resolvers = {
 
             const verifyCreditResult = await verifyCredit(newCredit, args.pwd);
             if (verifyCreditResult.ok && verifyCreditResult.credit) {
-
               return {
                 ok: true,
                 error: null,
               };
             } else {
+              await newCredit.remove();
+
               return {
                 ok: false,
                 error: verifyCreditResult.error,
