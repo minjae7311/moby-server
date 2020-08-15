@@ -70,6 +70,9 @@ class Ride extends BaseEntity {
   })
   status: rideStatus;
 
+  /**
+   * @todo change to column
+   */
   @ManyToOne(() => Vehicle, { nullable: true })
   @JoinColumn()
   vehicle: Vehicle;
