@@ -23,6 +23,10 @@ const resolvers: Resolvers = {
           { relations: ["user"] }
         );
 
+        if (existingVerification) {
+          await existingVerification.remove();
+        }
+
         const newVerification = await Verification.create({
           payload: phoneNumber,
           target: "PHONE",
@@ -32,11 +36,10 @@ const resolvers: Resolvers = {
         if (existingVerification) {
           if (existingVerification.user) {
             newVerification.user = existingVerification.user;
-            await existingVerification.remove();
             newVerification.save();
           }
         }
-        
+
         await sendVerificationSMS(newVerification.payload, newVerification.key);
 
         return {
