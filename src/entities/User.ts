@@ -26,6 +26,9 @@ class User extends BaseEntity {
   id: number;
 
   @Column({ type: "text", nullable: true })
+  bankAccount: string;
+
+  @Column({ type: "text", nullable: true })
   fullName: string;
 
   /**
