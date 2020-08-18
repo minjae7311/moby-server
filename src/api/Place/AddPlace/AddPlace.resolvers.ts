@@ -11,37 +11,38 @@ const resolvers: Resolvers = {
       _req
     ): Promise<AddPlaceResponse> => {
       const { lat, lng } = args;
-      const existingPlace = await Place.findOne({
-        lat,
-        lng,
-      });
 
-      if (existingPlace) {
-        return {
-          ok: true,
-          error: null,
-          placeId: existingPlace.id,
-        };
-      } else {
-        try {
-          const notNullArgs = cleanNullArgs(args);
+      try {
+        const existingPlace = await Place.findOne({
+          lat,
+          lng,
+        });
 
-          const newPlace = await Place.create({
-            ...notNullArgs,
-          }).save();
-
+        if (existingPlace) {
           return {
             ok: true,
             error: null,
-            placeId: newPlace.id,
-          };
-        } catch (e) {
-          return {
-            ok: false,
-            error: e.message,
-            placeId: null,
+            placeId: existingPlace.id,
           };
         }
+
+        const notNullArgs = cleanNullArgs(args);
+
+        const newPlace = await Place.create({
+          ...notNullArgs,
+        }).save();
+
+        return {
+          ok: true,
+          error: null,
+          placeId: newPlace.id,
+        };
+      } catch (e) {
+        return {
+          ok: false,
+          error: e.message,
+          placeId: null,
+        };
       }
     },
   },

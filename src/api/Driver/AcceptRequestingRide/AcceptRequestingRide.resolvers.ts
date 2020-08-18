@@ -44,57 +44,57 @@ const resolvers: Resolvers = {
         };
       }
 
-      const ride = await Ride.findOne(
-        { id: args.rideId },
-        {
-          relations: ["passenger", "vehicle", "from", "driver"],
-        }
-      );
+      try {
+        const ride = await Ride.findOne(
+          { id: args.rideId },
+          {
+            relations: ["passenger", "vehicle", "from", "driver"],
+          }
+        );
 
-      if (!ride) {
-        return {
-          ok: false,
-          error: "ride-not-found",
-        };
-      }
-
-      if (ride.status != "REQUESTING") {
-        return {
-          ok: false,
-          error: "ride-is-not-requesting",
-        };
-      } else {
-        try {
-          ride.driver = driver;
-          ride.status = "ACCEPTED";
-          ride.vehicle = driver.vehicle;
-          ride.acceptedDate = new Date().toLocaleString();
-          ride.distanceBetween = getDistance(
-            ride.from.lat,
-            ride.from.lng,
-            ride.driver.lat,
-            ride.driver.lng
-          );
-
-          pubSub.publish("rideStatusUpdating", {
-            SubscribeMyRide: ride,
-          });
-
-          await ride.save();
-
-          driver.isDriving = true;
-          await driver.save();
-
-          return {
-            ok: true,
-            error: null,
-          };
-        } catch (e) {
+        if (!ride) {
           return {
             ok: false,
-            error: e.message,
+            error: "ride-not-found",
           };
         }
+
+        if (ride.status != "REQUESTING") {
+          return {
+            ok: false,
+            error: "ride-is-not-requesting",
+          };
+        }
+
+        ride.driver = driver;
+        ride.status = "ACCEPTED";
+        ride.vehicle = driver.vehicle;
+        ride.acceptedDate = new Date().toLocaleString();
+        ride.distanceBetween = getDistance(
+          ride.from.lat,
+          ride.from.lng,
+          ride.driver.lat,
+          ride.driver.lng
+        );
+
+        pubSub.publish("rideStatusUpdating", {
+          SubscribeMyRide: ride,
+        });
+
+        await ride.save();
+
+        driver.isDriving = true;
+        await driver.save();
+
+        return {
+          ok: true,
+          error: null,
+        };
+      } catch (e) {
+        return {
+          ok: false,
+          error: e.message,
+        };
       }
     },
   },

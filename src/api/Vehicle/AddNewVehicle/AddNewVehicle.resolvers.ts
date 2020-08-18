@@ -14,13 +14,17 @@ const resolvers: Resolvers = {
       args: AddNewVehicleMutationArgs
     ): Promise<AddNewVehicleResponse> => {
       const notNullArgs = cleanNullArgs(args);
-      const surveyForm = await SurveyForm.findOne({
-        id: args.surveyFormId!,
-      });
 
       try {
+        const surveyForm = await SurveyForm.findOne({
+          id: args.surveyFormId!,
+        });
+
         if (surveyForm) {
-          const vehicle = await Vehicle.create({ ...notNullArgs, surveyForm }).save();
+          const vehicle = await Vehicle.create({
+            ...notNullArgs,
+            surveyForm,
+          }).save();
 
           return {
             ok: true,

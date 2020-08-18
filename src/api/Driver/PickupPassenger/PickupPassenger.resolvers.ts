@@ -17,45 +17,45 @@ const resolvers: Resolvers = {
        */
       // const driver: Driver = req.user;
 
-      const ride = await Ride.findOne(
-        { id: args.rideId },
-        {
-          relations: ["passenger", "vehicle", "vehicle.surveyForm"],
-        }
-      );
+      try {
+        const ride = await Ride.findOne(
+          { id: args.rideId },
+          {
+            relations: ["passenger", "vehicle", "vehicle.surveyForm"],
+          }
+        );
 
-      if (!ride) {
-        return {
-          ok: false,
-          error: "ride-not-found",
-        };
-      }
-
-      if (ride.status != "ACCEPTED") {
-        return {
-          ok: false,
-          error: "ride-is-not-accepted",
-        };
-      } else {
-        try {
-          ride.status = "ONROUTE";
-
-          pubSub.publish("rideStatusUpdating", {
-            SubscribeMyRide: ride,
-          });
-
-          await ride.save();
-
-          return {
-            ok: true,
-            error: null,
-          };
-        } catch (e) {
+        if (!ride) {
           return {
             ok: false,
-            error: e.message,
+            error: "ride-not-found",
           };
         }
+
+        if (ride.status != "ACCEPTED") {
+          return {
+            ok: false,
+            error: "ride-is-not-accepted",
+          };
+        }
+
+        ride.status = "ONROUTE";
+
+        pubSub.publish("rideStatusUpdating", {
+          SubscribeMyRide: ride,
+        });
+
+        await ride.save();
+
+        return {
+          ok: true,
+          error: null,
+        };
+      } catch (e) {
+        return {
+          ok: false,
+          error: e.message,
+        };
       }
     },
   },

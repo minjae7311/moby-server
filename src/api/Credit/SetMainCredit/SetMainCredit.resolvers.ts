@@ -15,38 +15,39 @@ const resolvers: Resolvers = {
         { req }
       ): Promise<SetMainCreditResponse> => {
         const { user } = req;
-        const credit = await Credit.findOne({
-          id: args.creditId,
-        });
 
-        if (!credit) {
-          return {
-            ok: false,
-            error: "credit-not-found",
-          };
-        } else {
-          try {
-            const creditList = user.credit;
-            creditList.forEach((credit) => {
-              if (credit.isMain == true) {
-                credit.isMain = false;
-                credit.save();
-              }
-            });
+        try {
+          const credit = await Credit.findOne({
+            id: args.creditId,
+          });
 
-            credit.isMain = true;
-            await credit.save();
-
-            return {
-              ok: true,
-              error: null,
-            };
-          } catch (e) {
+          if (!credit) {
             return {
               ok: false,
-              error: e.message,
+              error: "credit-not-found",
             };
           }
+
+          const creditList = user.credit;
+          creditList.forEach((credit) => {
+            if (credit.isMain == true) {
+              credit.isMain = false;
+              credit.save();
+            }
+          });
+
+          credit.isMain = true;
+          await credit.save();
+
+          return {
+            ok: true,
+            error: null,
+          };
+        } catch (e) {
+          return {
+            ok: false,
+            error: e.message,
+          };
         }
       }
     ),
