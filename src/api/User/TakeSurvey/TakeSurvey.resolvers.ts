@@ -17,13 +17,6 @@ const resolvers: Resolvers = {
       ): Promise<TakeSurveyResponse> => {
         const { user } = req;
 
-        if (!user.isRiding) {
-          return {
-            ok: false,
-            error: "user-not-riding",
-          };
-        }
-
         try {
           const ride = await Ride.findOne(
             { id: args.rideId },
@@ -34,6 +27,20 @@ const resolvers: Resolvers = {
             return {
               ok: false,
               error: "ride-not-found",
+            };
+          }
+
+          if (ride.passenger != user) {
+            return {
+              ok: false,
+              error: "no-auth-to-this-ride",
+            };
+          }
+
+          if (ride.surveyCompleted) {
+            return {
+              ok: false,
+              error: "survey-completed-already",
             };
           }
 
