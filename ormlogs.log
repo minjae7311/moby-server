@@ -1,4 +1,0 @@
-[2020-08-19T08:34:48.280Z][FAILED QUERY]: SELECT "Interests"."id" AS "Interests_id", "Interests"."name" AS "Interests_name", "Interests"."createdAt" AS "Interests_createdAt", "Interests"."updatedAt" AS "Interests_updatedAt" FROM "interests" "Interests" WHERE "Interests"."id" = $1 LIMIT 1 -- PARAMETERS: [null]
-[2020-08-19T08:34:48.280Z][QUERY ERROR]: error: invalid input syntax for integer: "NaN"
-[2020-08-19T08:37:05.016Z][FAILED QUERY]: SELECT "Interests"."id" AS "Interests_id", "Interests"."name" AS "Interests_name", "Interests"."createdAt" AS "Interests_createdAt", "Interests"."updatedAt" AS "Interests_updatedAt" FROM "interests" "Interests" WHERE "Interests"."id" = $1 LIMIT 1 -- PARAMETERS: [null]
-[2020-08-19T08:37:05.016Z][QUERY ERROR]: error: invalid input syntax for integer: "NaN"
