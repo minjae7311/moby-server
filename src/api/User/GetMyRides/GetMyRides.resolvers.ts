@@ -12,7 +12,7 @@ const resolvers: Resolvers = {
         try {
           const rides = await Ride.find({
             where: { passenger: user },
-            relations: ["vehicle", "vehicle.surveyForm"],
+            relations: ["from", "to", "vehicle", "vehicle.surveyForm"],
             order: {
               createdAt: "DESC",
             },
