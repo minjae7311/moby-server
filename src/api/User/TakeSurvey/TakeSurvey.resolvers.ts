@@ -20,7 +20,7 @@ const resolvers: Resolvers = {
         try {
           const ride = await Ride.findOne(
             { id: args.rideId },
-            { relations: ["vehicle", "vehicle.surveyForm"] }
+            { relations: ["passenger", "vehicle", "vehicle.surveyForm"] }
           );
 
           if (!ride) {
@@ -30,7 +30,7 @@ const resolvers: Resolvers = {
             };
           }
 
-          if (ride.passenger != user) {
+          if (ride.passenger.id != user.id) {
             return {
               ok: false,
               error: "no-auth-to-this-ride",
