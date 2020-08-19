@@ -1,7 +1,6 @@
 type Interests {
   id: Int!
   name: String!
-  user: [User]
   createdAt: String!
   updatedAt: String
 }

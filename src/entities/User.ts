@@ -10,7 +10,7 @@ import {
   OneToOne,
   Unique,
   OneToMany,
-  // JoinTable,
+  JoinTable,
 } from "typeorm";
 import Interests from "./Interests";
 import Verification from "./Verification";
@@ -59,7 +59,8 @@ class User extends BaseEntity {
   @Column({ type: "boolean", default: false })
   isRiding: boolean;
 
-  @ManyToMany((type) => Interests, (interests) => interests.user)
+  @ManyToMany((type) => Interests)
+  @JoinTable()
   interests: Interests[];
 
   @OneToMany(() => Credit, (credit) => credit.user)

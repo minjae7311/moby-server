@@ -5,9 +5,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   Column,
-  ManyToMany,
 } from "typeorm";
-import User from "./User";
 
 @Entity()
 class Interests extends BaseEntity {
@@ -16,9 +14,6 @@ class Interests extends BaseEntity {
 
   @Column()
   name: string;
-
-  @ManyToMany((type) => User, (user) => user.interests)
-  user: User[];
 
   @CreateDateColumn()
   createdAt: string;
