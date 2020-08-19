@@ -22,6 +22,7 @@ const resolvers: Resolvers = {
           user.gender = args.gender;
           user.birthDate = args.birthDate;
           user.job = args.job;
+          user.bankAccount = args.bankAccount;
 
           await user.save();
 

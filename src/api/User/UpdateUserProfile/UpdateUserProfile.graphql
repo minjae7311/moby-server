@@ -10,5 +10,6 @@ type Mutation {
     gender: String!
     birthDate: String!
     job: String!
+    bankAccount: String!
   ): UpdateUserProfileResponse!
 }
