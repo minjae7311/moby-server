@@ -15,7 +15,7 @@ const resolvers: Resolvers = {
               passenger: user,
               status: "REQUESTING",
             },
-            { order: { updatedAt: "DESC" } }
+            { relations: ["from", "to"], order: { updatedAt: "DESC" } }
           );
 
           if (ride) {
