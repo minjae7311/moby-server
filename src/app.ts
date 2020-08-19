@@ -5,6 +5,8 @@ import helmet from "helmet";
 import logger from "morgan";
 import schema from "./schema";
 import decodeJWT from "./utils/decode.JWT";
+import path from "path";
+import fs from "fs";
 
 class App {
   public app: GraphQLServer;
@@ -35,12 +37,18 @@ class App {
    * import middlewares
    */
   private middlewares = (): void => {
+    const accessLogStream = fs.createWriteStream(
+      path.join(__dirname, "access.log"),
+      { flags: "a" }
+    );
+
     this.app.express.use(cors());
     this.app.express.use(
       logger("combined", {
         skip: (req, res) => {
           return res.statusCode < 400;
         },
+        stream: accessLogStream,
       })
     );
     this.app.express.use(helmet());
