@@ -22,7 +22,6 @@ const resolvers: Resolvers = {
 
           inputArgs.forEach((key) => {
             user[key] = args[key];
-            console.log(key, args[key]);
           });
 
           await user.save();

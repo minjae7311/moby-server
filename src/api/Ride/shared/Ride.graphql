@@ -15,7 +15,7 @@ type Ride {
   surveyCompleted: Boolean!
   vehicle: Vehicle
   distanceBetween: Float
-  findingDistance: Float
+  # findingDistance: Float
   createdAt: String!
   updatedAt: String
 }

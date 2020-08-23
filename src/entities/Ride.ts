@@ -39,8 +39,8 @@ class Ride extends BaseEntity {
   @Column({ type: "double precision", nullable: true })
   distanceBetween: number;
 
-  @Column({ type: "double precision", nullable: true })
-  findingDistance: number;
+  // @Column({ type: "double precision", nullable: true })
+  // findingDistance: number;
 
   @ManyToOne(() => User, (user) => user.rides)
   passenger: User;
