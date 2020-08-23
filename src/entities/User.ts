@@ -48,6 +48,9 @@ class User extends BaseEntity {
   gender: string;
 
   @Column({ type: "text", nullable: true })
+  pushToken: string;
+
+  @Column({ type: "text", nullable: true })
   birthDate: string;
 
   @Column({ type: "text", nullable: true })
