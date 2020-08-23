@@ -68,9 +68,6 @@ const resolvers: Resolvers = {
           SubscribeMyRide: ride,
         });
 
-        /**
-         * @todo paymnet
-         */
         const newPayment = await Payment.create({
           ride,
           price: ride.expectingFee,
