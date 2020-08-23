@@ -17,8 +17,10 @@ type Driver {
   profilePhotoUrl: String
   phoneNumber: String
   verifiedPhoneNumber: Boolean
-  gender: String
+  gender: Boolean
   birthDate: String
+
+  accepted: Boolean
 
   createdAt: String!
   updatedAt: String
