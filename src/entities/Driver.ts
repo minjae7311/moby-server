@@ -40,22 +40,19 @@ class Driver extends BaseEntity {
   @ManyToOne(() => Vehicle, { nullable: true })
   vehicle: Vehicle;
 
+  /**
+   * @todo
+   */
   @Column({ type: "text", nullable: false })
   loginId: string;
 
   @Column({ type: "text", nullable: false })
   loginPw: string;
 
-  @CreateDateColumn()
-  createdAt: string;
-
-  @UpdateDateColumn()
-  updatedAt: string;
-
   @Column({ type: "boolean", nullable: false, default: false })
   privateTaxi: boolean;
 
-  @Column({ type: "text", nullable: false })
+  @Column({ type: "text", nullable: true })
   company: string;
 
   @Column({ type: "text", nullable: false })
@@ -70,21 +67,27 @@ class Driver extends BaseEntity {
   /**
    * @todo default photoUrl
    */
-  @Column({ type: "text", default: "DEFAULT_PHOTO_URL" })
+  @Column({ type: "text", nullable: false, default: "DEFAULT_PHOTO_URL" })
   profilePhotoUrl: string;
 
   @Unique(["phoneNumber"])
-  @Column({ type: "text" })
+  @Column({ type: "text", nullable: false })
   phoneNumber: string;
 
   @Column({ type: "boolean", default: false })
   verifiedPhoneNumber: string;
 
-  @Column({ type: "boolean" })
+  @Column({ type: "boolean", default: true })
   gender: string;
 
   @Column({ type: "text" })
   birthDate: string;
+
+  @CreateDateColumn()
+  createdAt: string;
+
+  @UpdateDateColumn()
+  updatedAt: string;
 
   @BeforeInsert()
   @BeforeUpdate()
