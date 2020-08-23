@@ -6,11 +6,9 @@ import {
   UpdateDateColumn,
   Column,
   ManyToOne,
-  OneToMany,
   JoinColumn,
 } from "typeorm";
 import User from "./User";
-import Payment from "./Payment";
 
 @Entity()
 class Credit extends BaseEntity {
@@ -35,9 +33,6 @@ class Credit extends BaseEntity {
 
   @Column({ type: "boolean", nullable: false, default: false })
   isMain: boolean;
-
-  @OneToMany(() => Payment, (payment) => payment.credit)
-  payment: Payment[];
 
   @CreateDateColumn()
   createdAt: string;

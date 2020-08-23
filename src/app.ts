@@ -63,12 +63,12 @@ class App {
     const token = req.get("X-JWT");
 
     if (token) {
-      const user = await decodeJWT(token);
+      const person = await decodeJWT(token);
 
-      if (user) {
-        req.user = user;
+      if (person) {
+        req.user = req.driver = person;
       } else {
-        req.user = undefined;
+        req.user = req.driver = undefined;
       }
     }
 

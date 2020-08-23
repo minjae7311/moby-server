@@ -24,7 +24,7 @@ class Payment extends BaseEntity {
   /**
    * @todo fk error on delete credit
    */
-  @ManyToOne(() => Credit, (credit) => credit.payment)
+  @ManyToOne(() => Credit)
   @JoinColumn()
   credit: Credit;
 
@@ -34,7 +34,7 @@ class Payment extends BaseEntity {
   @Column({
     type: "text",
     enum: ["CREATED", "PAYED", "CANCELLED"],
-    default: "CREATED"
+    default: "CREATED",
   })
   status: string;
 
