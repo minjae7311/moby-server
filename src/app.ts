@@ -66,9 +66,9 @@ class App {
       const person = await decodeJWT(token);
 
       if (person) {
-        req.user = req.driver = person;
+        req.user = person;
       } else {
-        req.user = req.driver = undefined;
+        req.user = undefined;
       }
     }
 
