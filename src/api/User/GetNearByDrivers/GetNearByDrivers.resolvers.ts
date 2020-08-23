@@ -24,10 +24,13 @@ const resolver: Resolvers = {
 
       try {
         const drivers = await getRepository(Driver).find({
-          workingOn: true,
-          isDriving: false,
-          lat: Between(userLat - 0.05, userLat + 0.05),
-          lng: Between(userLng - 0.05, userLng + 0.05),
+          where: {
+            workingOn: true,
+            isDriving: false,
+            lat: Between(userLat - 0.05, userLat + 0.05),
+            lng: Between(userLng - 0.05, userLng + 0.05),
+          },
+          relations: ["vehicle"],
         });
 
         const filteredDrivers = drivers.filter((driver) => {
