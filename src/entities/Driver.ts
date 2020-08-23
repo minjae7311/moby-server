@@ -40,9 +40,6 @@ class Driver extends BaseEntity {
   @ManyToOne(() => Vehicle, { nullable: true })
   vehicle: Vehicle;
 
-  /**
-   * @todo
-   */
   @Column({ type: "text", nullable: false })
   loginId: string;
 

@@ -3,7 +3,6 @@ type EndWorkResponse {
   error: String
 }
 
-# @todo driver with resolver?
 type Mutation {
-  EndWork(driverId: Int!): EndWorkResponse!
+  EndWork: EndWorkResponse!
 }

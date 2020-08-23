@@ -1,43 +1,36 @@
 import { Resolvers } from "../../../types/resolvers";
-import Driver from "../../../entities/Driver";
-import { EndWorkResponse, EndWorkMutationArgs } from "../../../types/graph";
+import { EndWorkResponse } from "../../../types/graph";
+import driverPrivateResolver from "../../../utils/driverPrivateResolver";
 
 const resolvers: Resolvers = {
   Mutation: {
-    EndWork: async (
-      _res,
-      args: EndWorkMutationArgs,
-      _req
-    ): Promise<EndWorkResponse> => {
-      /**
-       * @todo 드라이버 다른 방식으로 가져오기.
-       */
-      const driver = await Driver.findOne({
-        id: args.driverId,
-      });
+    EndWork: driverPrivateResolver(
+      async (_res, _args, { req }): Promise<EndWorkResponse> => {
+        const { driver } = req;
 
-      if (!driver) {
-        return {
-          ok: false,
-          error: "driver-not-found",
-        };
+        if (!driver) {
+          return {
+            ok: false,
+            error: "driver-not-found",
+          };
+        }
+
+        try {
+          driver.workingOn = false;
+          await driver.save();
+
+          return {
+            ok: true,
+            error: null,
+          };
+        } catch (e) {
+          return {
+            ok: false,
+            error: e.message,
+          };
+        }
       }
-
-      try {
-        driver.workingOn = false;
-        await driver.save();
-
-        return {
-          ok: true,
-          error: null,
-        };
-      } catch (e) {
-        return {
-          ok: false,
-          error: e.message,
-        };
-      }
-    },
+    ),
   },
 };
 

@@ -15,8 +15,6 @@ const resolvers: Resolvers = {
       ): Promise<UpdateDriverLocationResponse> => {
         const { driver } = req;
 
-        console.log(driver);
-
         if (!driver.workingOn) {
           return {
             ok: false,

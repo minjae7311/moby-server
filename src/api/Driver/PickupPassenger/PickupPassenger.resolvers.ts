@@ -4,60 +4,67 @@ import {
   PickupPassengerResponse,
   PickupPassengerMutationArgs,
 } from "../../../types/graph";
+import driverPrivateResolver from "../../../utils/driverPrivateResolver";
 
 const resolvers: Resolvers = {
   Mutation: {
-    PickupPassenger: async (
-      _res,
-      args: PickupPassengerMutationArgs,
-      { req, pubSub }
-    ): Promise<PickupPassengerResponse> => {
-      /**
-       * @todo 나중엔 드라이버를 토큰으로 가져오기.
-       */
-      // const driver: Driver = req.user;
+    PickupPassenger: driverPrivateResolver(
+      async (
+        _res,
+        args: PickupPassengerMutationArgs,
+        { req, pubSub }
+      ): Promise<PickupPassengerResponse> => {
+        const { driver } = req;
 
-      try {
-        const ride = await Ride.findOne(
-          { id: args.rideId },
-          {
-            relations: ["passenger", "vehicle", "vehicle.surveyForm"],
+        try {
+          const ride = await Ride.findOne(
+            { id: args.rideId },
+            {
+              relations: ["passenger", "vehicle", "vehicle.surveyForm"],
+            }
+          );
+
+          if (!ride) {
+            return {
+              ok: false,
+              error: "ride-not-found",
+            };
           }
-        );
 
-        if (!ride) {
+          if (ride.driver.id != driver.id) {
+            return {
+              ok: false,
+              error: "not-driver-of-this-ride",
+            };
+          }
+
+          if (ride.status != "ACCEPTED") {
+            return {
+              ok: false,
+              error: "ride-is-not-accepted",
+            };
+          }
+
+          ride.status = "ONROUTE";
+
+          pubSub.publish("rideStatusUpdating", {
+            SubscribeMyRide: ride,
+          });
+
+          await ride.save();
+
+          return {
+            ok: true,
+            error: null,
+          };
+        } catch (e) {
           return {
             ok: false,
-            error: "ride-not-found",
+            error: e.message,
           };
         }
-
-        if (ride.status != "ACCEPTED") {
-          return {
-            ok: false,
-            error: "ride-is-not-accepted",
-          };
-        }
-
-        ride.status = "ONROUTE";
-
-        pubSub.publish("rideStatusUpdating", {
-          SubscribeMyRide: ride,
-        });
-
-        await ride.save();
-
-        return {
-          ok: true,
-          error: null,
-        };
-      } catch (e) {
-        return {
-          ok: false,
-          error: e.message,
-        };
       }
-    },
+    ),
   },
 };
 
