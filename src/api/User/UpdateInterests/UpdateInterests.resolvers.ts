@@ -29,7 +29,6 @@ const resolvers: Resolvers = {
           user.interests = interests;
           await user.save();
 
-          console.log(user);
           return {
             ok: true,
             error: null,

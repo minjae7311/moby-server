@@ -16,7 +16,6 @@ const resolvers = {
           _context
         ) => {
           const { lat: userLat, lng: userLng } = args;
-          console.log(userLat, userLng, "\n\n\n\n\n");
           const {
             SubscribeNearByDrivers: { lat, lng },
           } = payload;

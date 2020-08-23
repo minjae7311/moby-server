@@ -34,8 +34,6 @@ const resolvers: Resolvers = {
               relations: ["vehicle"],
             });
 
-            console.log(paybacks);
-
             const amount = paybacks.reduce((acc, cur) => {
               acc += cur.vehicle.discount;
 

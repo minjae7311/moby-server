@@ -15,8 +15,6 @@ const resolvers = {
             SubscribeNewRide: { driver },
           } = payload;
 
-          console.log(driver, args.driverId);
-
           return driver.id === args.driverId;
         }
       ),

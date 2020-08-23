@@ -12,7 +12,6 @@ const resolvers: Resolvers = {
       try {
         const interests = await Interests.find();
 
-        console.log(interests);
         return {
           ok: true,
           error: null,

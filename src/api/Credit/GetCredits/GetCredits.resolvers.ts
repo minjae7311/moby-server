@@ -8,8 +8,6 @@ const resolvers: Resolvers = {
       async (_res, _args, { req }): Promise<GetCreditsResponse> => {
         const { user } = req;
 
-        console.log(user.credit);
-
         if (user) {
           return {
             ok: true,

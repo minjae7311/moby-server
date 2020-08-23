@@ -37,8 +37,6 @@ const resolver: Resolvers = {
           );
         });
 
-        console.log(`${drivers}\n\n\n${filteredDrivers}`);
-
         return {
           ok: true,
           error: null,
