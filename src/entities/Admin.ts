@@ -17,10 +17,10 @@ class Admin extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: "text" })
+  @Column({ type: "text", nullable: false })
   loginId: string;
 
-  @Column({ type: "text" })
+  @Column({ type: "text", nullable: false })
   loginPw: string;
 
   @Column({ type: "text" })

@@ -7,9 +7,15 @@ import {
   Column,
   OneToMany,
   ManyToOne,
+  BeforeUpdate,
+  BeforeInsert,
+  Unique,
 } from "typeorm";
 import Ride from "./Ride";
 import Vehicle from "./Vehicle";
+import bcrypt from "bcrypt";
+
+const BCRYPT_ROUNDS = 10;
 
 @Entity()
 class Driver extends BaseEntity {
@@ -34,11 +40,68 @@ class Driver extends BaseEntity {
   @ManyToOne(() => Vehicle, { nullable: true })
   vehicle: Vehicle;
 
+  @Column({ type: "text", nullable: false })
+  loginId: string;
+
+  @Column({ type: "text", nullable: false })
+  loginPw: string;
+
   @CreateDateColumn()
   createdAt: string;
 
   @UpdateDateColumn()
   updatedAt: string;
+
+  @Column({ type: "boolean", nullable: false, default: false })
+  privateTaxi: boolean;
+
+  @Column({ type: "text", nullable: false })
+  company: string;
+
+  @Column({ type: "text", nullable: false })
+  driveLicenseNumber: string;
+
+  @Column({ type: "text", nullable: false })
+  taxiLicenseNumber: string;
+
+  @Column({ type: "text", nullable: false })
+  fullName: string;
+
+  /**
+   * @todo default photoUrl
+   */
+  @Column({ type: "text", default: "DEFAULT_PHOTO_URL" })
+  profilePhotoUrl: string;
+
+  @Unique(["phoneNumber"])
+  @Column({ type: "text" })
+  phoneNumber: string;
+
+  @Column({ type: "boolean", default: false })
+  verifiedPhoneNumber: string;
+
+  @Column({ type: "boolean" })
+  gender: string;
+
+  @Column({ type: "text" })
+  birthDate: string;
+
+  @BeforeInsert()
+  @BeforeUpdate()
+  async savePassword(): Promise<void> {
+    if (this.loginPw) {
+      const hashedPassword = await this.hashPassword(this.loginPw);
+      this.loginPw = hashedPassword;
+    }
+  }
+
+  public comparePassword(password: string): Promise<boolean> {
+    return bcrypt.compare(password, this.loginPw);
+  }
+
+  private hashPassword(password: string): Promise<string> {
+    return bcrypt.hash(password, BCRYPT_ROUNDS);
+  }
 }
 
 export default Driver;
