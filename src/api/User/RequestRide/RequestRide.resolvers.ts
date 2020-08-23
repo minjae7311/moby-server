@@ -114,8 +114,8 @@ const resolvers: Resolvers = {
 
             return {
               ok: true,
-              error: "testing",
-              ride: null,
+              error: null,
+              ride: newRide,
             };
           } catch (e) {
             return {

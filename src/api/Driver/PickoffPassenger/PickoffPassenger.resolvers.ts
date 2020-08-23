@@ -10,6 +10,7 @@ import {
 } from "../../../utils/functions.payment";
 import Payment from "../../../entities/Payment";
 import driverPrivateResolver from "../../../utils/driverPrivateResolver";
+import { sendPushAndroid } from "../../../utils/sendPushNotification";
 
 const resolvers: Resolvers = {
   Mutation: {
@@ -24,7 +25,7 @@ const resolvers: Resolvers = {
         try {
           const ride = await Ride.findOne(
             { id: args.rideId },
-            { relations: ["passenger", "vehicle", "driver"] }
+            { relations: ["driver", "passenger", "vehicle"] }
           );
 
           if (!ride) {
@@ -88,6 +89,13 @@ const resolvers: Resolvers = {
 
             const paymentResult = await requestPayment(newPayment, "final");
             if (paymentResult.ok) {
+              await sendPushAndroid(
+                ride.passenger.pushToken,
+                "탑승이 종료되었습니다..",
+                "설문조사 하셨나요? 잊지말고 페이백 받으세요F",
+                "Home"
+              );
+
               return {
                 ok: true,
                 error: null,

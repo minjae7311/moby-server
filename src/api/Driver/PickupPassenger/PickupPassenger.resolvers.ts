@@ -5,6 +5,7 @@ import {
   PickupPassengerMutationArgs,
 } from "../../../types/graph";
 import driverPrivateResolver from "../../../utils/driverPrivateResolver";
+import { sendPushAndroid } from "../../../utils/sendPushNotification";
 
 const resolvers: Resolvers = {
   Mutation: {
@@ -20,7 +21,12 @@ const resolvers: Resolvers = {
           const ride = await Ride.findOne(
             { id: args.rideId },
             {
-              relations: ["passenger", "vehicle", "vehicle.surveyForm"],
+              relations: [
+                "driver",
+                "passenger",
+                "vehicle",
+                "vehicle.surveyForm",
+              ],
             }
           );
 
@@ -52,6 +58,13 @@ const resolvers: Resolvers = {
           });
 
           await ride.save();
+
+          await sendPushAndroid(
+            ride.passenger.pushToken,
+            "탑승했습니다.",
+            "즐거운 여행되세요 바디F",
+            "OnTheWay"
+          );
 
           return {
             ok: true,

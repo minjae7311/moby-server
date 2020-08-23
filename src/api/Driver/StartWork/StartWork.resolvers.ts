@@ -5,8 +5,10 @@ import driverPrivateResolver from "../../../utils/driverPrivateResolver";
 const resolvers: Resolvers = {
   Mutation: {
     StartWork: driverPrivateResolver(
-      async (_res, _args, req): Promise<StartWorkResponse> => {
+      async (_res, _args, { req }): Promise<StartWorkResponse> => {
         const { driver } = req;
+
+        console.log(driver);
 
         try {
           driver.workingOn = true;

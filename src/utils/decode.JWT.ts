@@ -7,8 +7,6 @@ const decodeJWT = async (token: string) => {
     const decoded: any = jwt.verify(token, process.env.JWT_TOKEN);
     const { id, deviceId } = decoded;
 
-    console.log(id, deviceId);
-
     if (deviceId === "driver") {
       const driver = await Driver.findOne(
         { id, accepted: true },

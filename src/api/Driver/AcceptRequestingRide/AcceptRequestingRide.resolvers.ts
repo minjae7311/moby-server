@@ -8,6 +8,7 @@ import { getDistance } from "../../../utils/getDistance";
 import Payment from "../../../entities/Payment";
 import { requestPayment } from "../../../utils/functions.payment";
 import driverPrivateResolver from "../../../utils/driverPrivateResolver";
+import { sendPushAndroid } from "../../../utils/sendPushNotification";
 
 const resolvers: Resolvers = {
   Mutation: {
@@ -67,12 +68,18 @@ const resolvers: Resolvers = {
           const paymentResult = await requestPayment(newPayment, "initial");
 
           if (paymentResult.ok) {
-            pubSub.publish("rideRequesting", { SubscribeNewRide: ride });
-
             await ride.save();
 
             driver.isDriving = true;
             driver.save();
+
+            console.log("SENDING!");
+            await sendPushAndroid(
+              ride.passenger.pushToken,
+              "기사가 이동 중입니다.",
+              "기사가 이동하고 있어요바디",
+              "ComingDriver"
+            );
 
             return {
               ok: true,
