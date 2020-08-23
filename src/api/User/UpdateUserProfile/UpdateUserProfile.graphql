@@ -5,11 +5,12 @@ type UpdateUserProfileResponse {
 
 type Mutation {
   UpdateUserProfile(
-    fullName: String!
-    profilePhotoUrl: String!
-    gender: String!
-    birthDate: String!
-    job: String!
-    bankAccount: String!
+    fullName: String
+    profilePhotoUrl: String
+    gender: String
+    birthDate: String
+    job: String
+    pushToken: String
+    bankAccount: String
   ): UpdateUserProfileResponse!
 }

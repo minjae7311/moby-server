@@ -5,6 +5,7 @@ import {
   UpdateUserProfileResponse,
 } from "../../../types/graph";
 import privateResolver from "../../../utils/privateResolver";
+import cleanNullArgs from "../../../utils/cleanNullArg";
 
 const resolvers: Resolvers = {
   Mutation: {
@@ -17,12 +18,12 @@ const resolvers: Resolvers = {
         const user: User = req.user;
 
         try {
-          user.fullName = args.fullName;
-          user.profilePhotoUrl = args.profilePhotoUrl;
-          user.gender = args.gender;
-          user.birthDate = args.birthDate;
-          user.job = args.job;
-          user.bankAccount = args.bankAccount;
+          const inputArgs = Object.keys(cleanNullArgs(args));
+
+          inputArgs.forEach((key) => {
+            user[key] = args[key];
+            console.log(key, args[key]);
+          });
 
           await user.save();
 
