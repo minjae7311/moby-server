@@ -15,6 +15,7 @@ type User {
   rides: [Ride]
   verification: Verification
   verifiedPhoneNumber: Boolean!
+  pushToken: String
   createdAt: String!
   updatedAt: String
 }
