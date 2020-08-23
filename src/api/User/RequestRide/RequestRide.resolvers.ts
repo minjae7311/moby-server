@@ -4,15 +4,12 @@ import {
   RequestRideResponse,
   RequestRideMutationArgs,
 } from "../../../types/graph";
-import Ride from "../../../entities/Ride";
-import Place from "../../../entities/Place";
-import cleanNullArgs from "../../../utils/cleanNullArg";
-// import Payment from "../../../entities/Payment";
-// import Credit from "../../../entities/Credit";
-// import { requestPayment } from "../../../utils/functions.payment";
-import { handleFindingDistance } from "../../../utils/handleFindingDistance";
 import Driver from "../../../entities/Driver";
 import { Between } from "typeorm";
+import { getDistance } from "../../../utils/getDistance";
+import Place from "../../../entities/Place";
+import cleanNullArgs from "../../../utils/cleanNullArg";
+import Ride from "../../../entities/Ride";
 
 const resolvers: Resolvers = {
   Mutation: {
@@ -43,22 +40,58 @@ const resolvers: Resolvers = {
               relations: ["vehicle"],
             });
 
-            const mappedDrivers = drvierList.map((driver) => {
+            /// Filtering drivers with vehicle
+            const mappedDrivers = drvierList.filter((driver) => {
               return driver.vehicle.company === args.company;
             });
 
-            console.log(mappedDrivers);
+            if (mappedDrivers.length === 0) {
+              return {
+                ok: false,
+                error: "no-drivers-nearby",
+                ride: null,
+              };
+            }
 
-            const from = await Place.create({
-              address: args.fromAddress,
-              lat: args.fromLat,
-              lng: args.fromLng,
-            }).save();
-            const to = await Place.create({
-              address: args.toAddress,
-              lat: args.toLat,
-              lng: args.toLng,
-            }).save();
+            /// Sort driver with distance from where user is, asc.
+            mappedDrivers.sort((a: Driver, b: Driver) => {
+              if (
+                getDistance(a.lat, a.lng, args.fromLat, args.fromLng) <
+                getDistance(b.lat, b.lng, args.fromLat, args.fromLng)
+              ) {
+                return -1;
+              } else if (
+                getDistance(a.lat, a.lng, args.fromLat, args.fromLng) >
+                getDistance(b.lat, b.lng, args.fromLat, args.fromLng)
+              ) {
+                return 1;
+              } else {
+                return 0;
+              }
+            });
+
+            const driver = mappedDrivers[0];
+
+            const ret = await Promise.all([
+              Place.create({
+                address: args.fromAddress,
+                lat: args.fromLat,
+                lng: args.fromLng,
+              }).save(),
+              Place.create({
+                address: args.toAddress,
+                lat: args.toLat,
+                lng: args.toLng,
+              }).save(),
+            ]);
+
+            const from = ret.filter((place) => {
+              return place.lat === args.fromLat && place.lng === args.fromLng;
+            })[0];
+
+            const to = ret.filter((place) => {
+              return place.lat === args.toLat && place.lng === args.toLng;
+            })[0];
 
             const newRide = await Ride.create({
               ...notNullArgs,
@@ -66,18 +99,19 @@ const resolvers: Resolvers = {
               to,
               passenger: user,
               requestedDate: new Date().toLocaleString(),
+              driver,
+              vehicle: driver.vehicle,
             }).save();
-            pubSub.publish("rideRequesting", { SubscribeNewRide: newRide });
+
+            pubSub.publish("assignNewRide", { SubscribeNewRide: newRide });
 
             user.isRiding = true;
             user.save();
 
-            handleFindingDistance(newRide, pubSub);
-
             return {
               ok: true,
-              error: null,
-              ride: newRide,
+              error: "testing",
+              ride: null,
             };
           } catch (e) {
             return {

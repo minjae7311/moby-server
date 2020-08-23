@@ -1,23 +1,23 @@
 import { withFilter } from "graphql-yoga";
-import Driver from "../../../entities/Driver";
-import { getDistance } from "../../../utils/getDistance";
+import { SubscribeNewRideSubscriptionArgs } from "../../../types/graph";
 
 const resolvers = {
   Subscription: {
     SubscribeNewRide: {
       subscribe: withFilter(
-        (_res, _args, { pubSub }) => pubSub.asyncIterator("rideRequesting"),
-        async (payload, _args, { context }) => {
-          const currentDriver: Driver = context.currentDriver;
+        (_res, _args, { pubSub }) => pubSub.asyncIterator("assignNewRide"),
+        async (
+          payload,
+          args: SubscribeNewRideSubscriptionArgs,
+          { context }
+        ) => {
           const {
-            SubscribeNewRide: { from, findingDistance },
+            SubscribeNewRide: { driver },
           } = payload;
 
-          await currentDriver.reload();
-          const { lat, lng } = currentDriver;
-          const cur_distance = getDistance(from.lat, from.lng, lat, lng);
+          console.log(driver, args.driverId);
 
-          return cur_distance <= findingDistance;
+          return driver.id === args.driverId;
         }
       ),
     },
