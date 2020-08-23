@@ -1,3 +1,0 @@
-::1 - - [23/Aug/2020:04:46:34 +0000] "POST /graphql HTTP/1.1" 400 - "http://localhost:4000/playground" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36"
-::1 - - [23/Aug/2020:07:06:39 +0000] "POST /graphql HTTP/1.1" 400 - "http://localhost:4000/playground" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36"
-::1 - - [23/Aug/2020:12:30:47 +0000] "POST /graphql HTTP/1.1" 400 - "http://localhost:4000/playground" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36"

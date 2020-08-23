@@ -5,7 +5,6 @@ type UpdateDriverLocationResponse {
 
 type Mutation {
   UpdateDriverLocation(
-    driverId: Int!
     lat: Float!
     lng: Float!
   ): UpdateDriverLocationResponse!
