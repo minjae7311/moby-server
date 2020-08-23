@@ -15,6 +15,7 @@ import User from "./User";
 import Driver from "./Driver";
 import { rideStatus } from "../types/types";
 import Vehicle from "./Vehicle";
+import Credit from "./Credit";
 
 @Entity()
 class Ride extends BaseEntity {
@@ -29,6 +30,9 @@ class Ride extends BaseEntity {
 
   @OneToMany(() => Payment, (payment) => payment.ride)
   payment: Payment[];
+
+  @ManyToOne(() => Credit)
+  credit: Credit;
 
   @Column({ type: "double precision", nullable: true })
   expectingFee: number;

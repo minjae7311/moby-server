@@ -10,6 +10,7 @@ import { getDistance } from "../../../utils/getDistance";
 import Place from "../../../entities/Place";
 import cleanNullArgs from "../../../utils/cleanNullArg";
 import Ride from "../../../entities/Ride";
+import Credit from "../../../entities/Credit";
 
 const resolvers: Resolvers = {
   Mutation: {
@@ -93,11 +94,14 @@ const resolvers: Resolvers = {
               return place.lat === args.toLat && place.lng === args.toLng;
             })[0];
 
+            const credit = await Credit.findOne({ id: args.creditId });
+
             const newRide = await Ride.create({
               ...notNullArgs,
               from,
               to,
               passenger: user,
+              credit,
               requestedDate: new Date().toLocaleString(),
               driver,
               vehicle: driver.vehicle,

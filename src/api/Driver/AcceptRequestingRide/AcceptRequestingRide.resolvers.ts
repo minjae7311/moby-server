@@ -6,6 +6,8 @@ import {
 import Driver from "../../../entities/Driver";
 import Ride from "../../../entities/Ride";
 import { getDistance } from "../../../utils/getDistance";
+import Payment from "../../../entities/Payment";
+import { requestPayment } from "../../../utils/functions.payment";
 
 const resolvers: Resolvers = {
   Mutation: {
@@ -24,51 +26,36 @@ const resolvers: Resolvers = {
       );
 
       if (!driver) {
-        return {
-          ok: false,
-          error: "driver-not-found",
-        };
+        return { ok: false, error: "driver-not-found" };
       }
 
       if (driver.isDriving) {
-        return {
-          ok: false,
-          error: "already-driving",
-        };
+        return { ok: false, error: "already-driving" };
       }
 
       if (!driver.workingOn) {
-        return {
-          ok: false,
-          error: "not-working-now",
-        };
+        return { ok: false, error: "not-working-now" };
       }
 
       try {
         const ride = await Ride.findOne(
           { id: args.rideId },
-          {
-            relations: ["passenger", "vehicle", "from", "driver"],
-          }
+          { relations: ["passenger", "vehicle", "from", "driver", "credit"] }
         );
 
         if (!ride) {
-          return {
-            ok: false,
-            error: "ride-not-found",
-          };
+          return { ok: false, error: "ride-not-found" };
         }
 
         if (ride.status != "REQUESTING") {
-          return {
-            ok: false,
-            error: "ride-is-not-requesting",
-          };
+          return { ok: false, error: "ride-is-not-requesting" };
         }
 
-        ride.driver = driver;
+        if (ride.driver.id != driver.id) {
+          return { ok: false, error: "not-driver-of-this-ride" };
+        }
+
         ride.status = "ACCEPTED";
-        ride.vehicle = driver.vehicle;
         ride.acceptedDate = new Date().toLocaleString();
         ride.distanceBetween = getDistance(
           ride.from.lat,
@@ -81,15 +68,35 @@ const resolvers: Resolvers = {
           SubscribeMyRide: ride,
         });
 
-        await ride.save();
+        /**
+         * @todo paymnet
+         */
+        const newPayment = await Payment.create({
+          ride,
+          price: ride.expectingFee,
+          credit: ride.credit,
+        }).save();
 
-        driver.isDriving = true;
-        await driver.save();
+        const paymentResult = await requestPayment(newPayment, "initial");
 
-        return {
-          ok: true,
-          error: null,
-        };
+        if (paymentResult.ok) {
+          pubSub.publish("rideRequesting", { SubscribeNewRide: ride });
+
+          await ride.save();
+
+          driver.isDriving = true;
+          driver.save();
+
+          return {
+            ok: true,
+            error: null,
+          };
+        } else {
+          return {
+            ok: false,
+            error: paymentResult.error,
+          };
+        }
       } catch (e) {
         return {
           ok: false,
