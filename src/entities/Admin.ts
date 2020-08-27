@@ -1,3 +1,5 @@
+/** @format */
+
 import {
   Entity,
   BaseEntity,
@@ -23,7 +25,7 @@ class Admin extends BaseEntity {
   @Column({ type: "text", nullable: false })
   loginPw: string;
 
-  @Column({ type: "text" })
+  @Column({ type: "text", nullable: true })
   name: string;
 
   @CreateDateColumn()

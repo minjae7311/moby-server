@@ -2,7 +2,7 @@ type Admin {
   id: Int!
   loginId: String!
   loginPw: String!
-  name: String!
+  name: String
   createdAt: String!
   updatedAt: String
 }
