@@ -1,3 +1,5 @@
+/** @format */
+
 import cors from "cors";
 import { GraphQLServer, PubSub } from "graphql-yoga";
 import { NextFunction, Response } from "express";
@@ -37,18 +39,15 @@ class App {
    * import middlewares
    */
   private middlewares = (): void => {
-    const accessLogStream = fs.createWriteStream(
-      path.join(__dirname, "access.log"),
-      { flags: "a" }
-    );
-
-    this.app.express.use(cors());
+    this.app.express.use("*", cors());
     this.app.express.use(
       logger("combined", {
         skip: (req, res) => {
           return res.statusCode < 400;
         },
-        stream: accessLogStream,
+        stream: fs.createWriteStream(path.join(__dirname, "access.log"), {
+          flags: "a",
+        }),
       })
     );
     this.app.express.use(helmet());
@@ -65,9 +64,9 @@ class App {
     if (token) {
       const person = await decodeJWT(token);
 
-
       if (person) {
-        if (person.flag == "driver") req.driver = person.driver;
+        if (person.flag === "driver") req.driver = person.driver;
+        else if (person.flag === "admin") req.admin = person.admin;
         else req.user = person.user;
       } else {
         req.user = undefined;

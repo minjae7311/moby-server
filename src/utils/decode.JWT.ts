@@ -1,6 +1,9 @@
+/** @format */
+
 import jwt from "jsonwebtoken";
 import User from "../entities/User";
 import Driver from "../entities/Driver";
+import Admin from "../entities/Admin";
 
 const decodeJWT = async (token: string) => {
   try {
@@ -14,6 +17,10 @@ const decodeJWT = async (token: string) => {
       );
 
       return { driver, flag: "driver" };
+    } else if (deviceId === "admin") {
+      const admin = await Admin.findOne({ id });
+
+      return { admin, flag: "admin" };
     } else {
       const user = await User.findOne(
         { id, deviceId },

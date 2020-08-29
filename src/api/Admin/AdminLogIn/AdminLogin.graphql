@@ -3,6 +3,7 @@
 type AdminLoginResponse {
   ok: Boolean!
   error: String
+  token: String
 }
 
 type Mutation {

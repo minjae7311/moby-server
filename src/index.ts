@@ -1,3 +1,5 @@
+/** @format */
+
 import { Options } from "graphql-yoga";
 import app from "./app";
 import dotenv from "dotenv";
@@ -25,10 +27,12 @@ const appOptions: Options = {
 
       const currentDriver = person?.driver;
       const currentUser = person?.user;
+      const currentAdmin = person?.admin;
 
       return {
         currentDriver,
         currentUser,
+        currentAdmin,
       };
     },
   },

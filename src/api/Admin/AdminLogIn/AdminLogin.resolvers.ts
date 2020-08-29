@@ -2,7 +2,11 @@
 
 import { Resolvers } from "../../../types/resolvers";
 import Admin from "../../../entities/Admin";
-import { AdminLoginResponse, AdminLoginMutationArgs } from "../../../types/graph";
+import {
+  AdminLoginResponse,
+  AdminLoginMutationArgs,
+} from "../../../types/graph";
+import createJWT from "../../../utils/create.JWT";
 
 const resolvers: Resolvers = {
   Mutation: {
@@ -12,37 +16,39 @@ const resolvers: Resolvers = {
       _req
     ): Promise<AdminLoginResponse> => {
       const { loginId, loginPw } = args;
-      console.log(loginId, loginPw);
 
       try {
         const admin = await Admin.findOne({ loginId });
-        console.log(admin);
 
         if (!admin) {
           return {
             ok: false,
             error: "no-admin-found",
+            token: null,
           };
         }
 
         const validPassword = await admin.comparePassword(loginPw);
-        console.log(validPassword);
+        const token = createJWT(admin.id, "admin");
 
         if (validPassword) {
           return {
             ok: true,
-            error: "success",
+            error: null,
+            token,
           };
         } else {
           return {
             ok: false,
             error: "wrong-password",
+            token: null,
           };
         }
       } catch (e) {
         return {
           ok: true,
           error: e.message,
+          token: null,
         };
       }
     },
