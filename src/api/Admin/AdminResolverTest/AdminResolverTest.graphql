@@ -1,0 +1,10 @@
+# @format
+
+type AdminResolverTestResponse {
+  ok: Boolean!
+  error: String
+}
+
+type Mutation {
+  AdminResolverTest: AdminResolverTestResponse!
+}

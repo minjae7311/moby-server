@@ -13,9 +13,12 @@ const resolvers: Resolvers = {
     AdminLogin: async (
       _res,
       args: AdminLoginMutationArgs,
-      _req
+      req
     ): Promise<AdminLoginResponse> => {
       const { loginId, loginPw } = args;
+
+      console.log(req);
+      console.log(loginId, loginPw, "\n\n");
 
       try {
         const admin = await Admin.findOne({ loginId });
