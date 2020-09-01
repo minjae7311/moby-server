@@ -44,8 +44,21 @@ const handleAppStart = () => {
   console.log(`Listening on port ${PORT}`);
 };
 
-createConnection(ConnectionOptions)
-  .then(() => {
-    app.start(appOptions, handleAppStart);
-  })
-  .catch((error) => console.log(error));
+// createConnection(ConnectionOptions)
+//   .then(() => {
+//     app.start(appOptions, handleAppStart);
+//   })
+//   .catch((error) => console.log(error));
+
+const appStart = () => {
+  return new Promise((resolve, reject) => {
+    createConnection(ConnectionOptions).then((connection) => {
+      const { entityMetadatas } = connection;
+      resolve(entityMetadatas);
+
+      app.start(appOptions, handleAppStart);
+    });
+  });
+};
+
+export const entities = appStart();

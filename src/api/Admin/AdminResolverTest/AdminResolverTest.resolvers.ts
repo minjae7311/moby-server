@@ -3,6 +3,7 @@
 import { Resolvers } from "../../../types/resolvers";
 import adminPrivateResolvers from "../../../utils/adminPrivateResolvers";
 import { AdminResolverTestResponse } from "../../../types/graph";
+import { entities } from "../../..";
 
 const resolvers: Resolvers = {
   Mutation: {
@@ -12,6 +13,7 @@ const resolvers: Resolvers = {
 
         console.log(admin);
 
+        console.log(entities);
         return {
           ok: true,
           error: "testing",
