@@ -61,4 +61,4 @@ const appStart = () => {
   });
 };
 
-export const entities = appStart();
+export const entities: any = appStart();

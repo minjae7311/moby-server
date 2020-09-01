@@ -13,7 +13,11 @@ const resolvers: Resolvers = {
 
         console.log(admin);
 
-        console.log(entities);
+        const data = await entities;
+        data.forEach((d) => {
+          console.log(d.name);
+        });
+
         return {
           ok: true,
           error: "testing",
