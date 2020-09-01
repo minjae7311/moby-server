@@ -6,7 +6,7 @@ const adminPrivateResolvers = (resolverFunction) => async (
   context,
   info
 ) => {
-  if (!context.req.driver) {
+  if (!context.req.admin) {
     // if user not exist
     throw new Error("No JWT. I refuse to proceed.");
   }

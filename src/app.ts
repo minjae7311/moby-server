@@ -69,6 +69,7 @@ class App {
         else if (person.flag === "admin") req.admin = person.admin;
         else req.user = person.user;
       } else {
+        req.admin = undefined;
         req.user = undefined;
         req.driver = undefined;
       }
