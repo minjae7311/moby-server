@@ -1,0 +1,11 @@
+# @format
+
+type GetMenuListResponse {
+  ok: Boolean!
+  error: String
+  entityNames: [String]
+}
+
+type Mutation {
+  GetMenuList: GetMenuListResponse!
+}
