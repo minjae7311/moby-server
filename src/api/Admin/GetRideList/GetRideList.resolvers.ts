@@ -3,52 +3,54 @@
 import { Resolvers } from "../../../types/resolvers";
 import adminPrivateResolvers from "../../../utils/adminPrivateResolvers";
 import {
-  GetUserListMutationArgs,
-  GetUserListResponse,
+  GetRideListMutationArgs,
+  GetRideListResponse,
 } from "../../../types/graph";
-import User from "../../../entities/User";
+import Ride from "../../../entities/Ride";
 
 const resolvers: Resolvers = {
   Mutation: {
-    GetUserList: adminPrivateResolvers(
+    GetRideList: adminPrivateResolvers(
       async (
         _res,
-        args: GetUserListMutationArgs,
+        args: GetRideListMutationArgs,
         { req }
-      ): Promise<GetUserListResponse> => {
+      ): Promise<GetRideListResponse> => {
         const { admin } = req;
         /**
          * @todo add order
          */
         const { take, page } = args;
 
-        console.log(admin.id, "Getting user lists...");
+        console.log(admin.id, "getting ride lists.");
 
         try {
-          const users = await User.find({
+          const rides = await Ride.find({
             skip: (page - 1) * take,
             take,
             relations: [
-              "interests",
+              "from",
+              "to",
+              "payment",
               "credit",
-              "verification",
-              //   "favPlace",
-              "rides",
+              "passenger",
+              "driver",
+              "vehicle",
             ],
           });
 
-          console.log(users);
+          console.log(rides);
 
           return {
             ok: true,
             error: null,
-            users,
+            rides,
           };
         } catch (e) {
           return {
             ok: false,
             error: e.message,
-            users: null,
+            rides: null,
           };
         }
       }
