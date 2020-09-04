@@ -1,0 +1,11 @@
+# @format
+
+type GetDriverListResponse {
+  ok: Boolean!
+  error: String
+  drivers: [Driver]
+}
+
+type Mutation {
+  GetDriverList(take: Int!, page: Int!, order: String): GetDriverListResponse!
+}
