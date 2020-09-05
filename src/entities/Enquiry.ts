@@ -1,3 +1,5 @@
+/** @format */
+
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -14,7 +16,7 @@ class Enquiry extends BaseEntity {
   id: number;
 
   @ManyToOne((type) => User, { nullable: false })
-  user: string;
+  user: User;
 
   @Column({ type: "text", nullable: false })
   questionTitle: string;

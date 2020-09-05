@@ -6,6 +6,6 @@ type GetUserListResponse {
   users: [User]
 }
 
-type Mutation {
+type Query {
   GetUserList(take: Int!, page: Int!, order: String): GetUserListResponse!
 }

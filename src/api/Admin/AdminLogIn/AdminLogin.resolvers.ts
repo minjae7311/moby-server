@@ -17,7 +17,6 @@ const resolvers: Resolvers = {
     ): Promise<AdminLoginResponse> => {
       const { loginId, loginPw } = args;
 
-      console.log(req);
       console.log(loginId, loginPw, "\n\n");
 
       try {

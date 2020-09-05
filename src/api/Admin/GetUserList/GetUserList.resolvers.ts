@@ -3,17 +3,17 @@
 import { Resolvers } from "../../../types/resolvers";
 import adminPrivateResolvers from "../../../utils/adminPrivateResolvers";
 import {
-  GetUserListMutationArgs,
+  GetUserListQueryArgs,
   GetUserListResponse,
 } from "../../../types/graph";
 import User from "../../../entities/User";
 
 const resolvers: Resolvers = {
-  Mutation: {
+  Query: {
     GetUserList: adminPrivateResolvers(
       async (
         _res,
-        args: GetUserListMutationArgs,
+        args: GetUserListQueryArgs,
         { req }
       ): Promise<GetUserListResponse> => {
         const { admin } = req;

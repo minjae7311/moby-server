@@ -1,4 +1,4 @@
-type Enquriy {
+type Enquiry {
   id: Int!
   user: User!
   questionTitle: String!
