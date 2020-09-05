@@ -1,0 +1,11 @@
+# @format
+
+type GetUserDetailResponse {
+  ok: Boolean!
+  error: String
+  user: User
+}
+
+type Query {
+  GetUserDetail(id: Int!): GetUserDetailResponse!
+}

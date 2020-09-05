@@ -28,13 +28,6 @@ const resolvers: Resolvers = {
           const users = await User.find({
             skip: (page - 1) * take,
             take,
-            relations: [
-              "interests",
-              "credit",
-              "verification",
-              //   "favPlace",
-              "rides",
-            ],
           });
 
           console.log(users);
