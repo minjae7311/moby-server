@@ -20,7 +20,7 @@ const resolvers: Resolvers = {
           const answeredSurvey = await SurveyAnswered.find({
             skip: (page - 1) * take,
             take,
-            relations: ["user", "ride"],
+            relations: ["user", "ride", "surveyForm"],
           });
 
           return {
