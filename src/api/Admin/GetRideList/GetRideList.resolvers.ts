@@ -28,15 +28,15 @@ const resolvers: Resolvers = {
           const rides = await Ride.find({
             skip: (page - 1) * take,
             take,
-            relations: [
-              "from",
-              "to",
-              "payment",
-              "credit",
-              "passenger",
-              "driver",
-              "vehicle",
-            ],
+            // relations: [
+            //   "from",
+            //   "to",
+            //   "payment",
+            //   "credit",
+            //   "passenger",
+            //   "driver",
+            //   "vehicle",
+            // ],
           });
 
           console.log(rides);

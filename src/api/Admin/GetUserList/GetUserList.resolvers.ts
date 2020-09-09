@@ -30,8 +30,6 @@ const resolvers: Resolvers = {
             take,
           });
 
-          console.log(users);
-
           return {
             ok: true,
             error: null,

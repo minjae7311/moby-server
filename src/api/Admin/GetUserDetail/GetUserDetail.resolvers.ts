@@ -22,7 +22,14 @@ const resolvers: Resolvers = {
           const user = await User.findOne(
             { id },
             {
-              relations: ["interests", "credit", "verification", "rides"],
+              relations: [
+                "interests",
+                "credit",
+                "verification",
+                "rides",
+                "rides.from",
+                "rides.to",
+              ],
             }
           );
 
