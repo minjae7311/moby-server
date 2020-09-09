@@ -9,7 +9,7 @@ import {
 } from "../../../types/graph";
 
 const resolvers: Resolvers = {
-  Mutation: {
+  Query: {
     GetDriverList: adminPrivateResolvers(
       async (
         _res,
@@ -30,8 +30,6 @@ const resolvers: Resolvers = {
             take,
             relations: ["rides", "vehicle"],
           });
-
-          console.log(drivers);
 
           return {
             ok: true,
