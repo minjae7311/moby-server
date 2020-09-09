@@ -1,0 +1,11 @@
+# @format
+
+type GetEnquiriesResponse {
+  ok: Boolean!
+  error: String
+  enquiries: [Enquiry]
+}
+
+type Query {
+  GetEnquiries: GetEnquiriesResponse!
+}

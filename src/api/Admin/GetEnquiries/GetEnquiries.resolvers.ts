@@ -2,26 +2,26 @@
 
 import { Resolvers } from "../../../types/resolvers";
 import adminPrivateResolvers from "../../../utils/adminPrivateResolvers";
-import { GetEnquriesResponse } from "../../../types/graph";
+import { GetEnquiriesResponse } from "../../../types/graph";
 import Enquiry from "../../../entities/Enquiry";
 
 const resolvers: Resolvers = {
   Query: {
-    GetEnquries: adminPrivateResolvers(
-      async (_res, _args, { req }): Promise<GetEnquriesResponse> => {
+    GetEnquiries: adminPrivateResolvers(
+      async (_res, _args, { req }): Promise<GetEnquiriesResponse> => {
         try {
-          const enquries = await Enquiry.find({ relations: ["user"] });
+          const enquiries = await Enquiry.find({ relations: ["user"] });
 
           return {
             ok: true,
             error: null,
-            enquries,
+            enquiries,
           };
         } catch (e) {
           return {
             ok: false,
             error: e.message,
-            enquries: null,
+            enquiries: null,
           };
         }
       }

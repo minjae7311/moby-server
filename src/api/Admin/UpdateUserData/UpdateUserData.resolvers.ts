@@ -24,7 +24,10 @@ const resolvers: Resolvers = {
           const user = await User.findOne({ id: data.id });
 
           if (user) {
-            Object.keys(user).forEach((key) => (user[key] = data[key]));
+            Object.keys(user).forEach((key) => {
+              if (key !== "updatedAt" && key !== "createdAt")
+                user[key] = data[key];
+            });
 
             await user.save();
 
