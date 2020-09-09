@@ -1,0 +1,9 @@
+type GetAnsweredSurveyListResponse {
+  ok: Boolean!
+  error: String
+  answeredSurvey: [SurveyAnswered]
+}
+
+type Query {
+  GetAnsweredSurveyList(page: Int!, take: Int!): GetAnsweredSurveyListResponse!
+}

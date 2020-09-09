@@ -1,42 +1,38 @@
-/** @format */
-
 import { Resolvers } from "../../../types/resolvers";
 import adminPrivateResolvers from "../../../utils/adminPrivateResolvers";
 import {
-  GetEnquiriesResponse,
-  GetEnquiriesQueryArgs,
+  GetAnsweredSurveyListQueryArgs,
+  GetAnsweredSurveyListResponse,
 } from "../../../types/graph";
-import Enquiry from "../../../entities/Enquiry";
+import SurveyAnswered from "../../../entities/SurveyAnswered";
 
 const resolvers: Resolvers = {
   Query: {
-    GetEnquiries: adminPrivateResolvers(
+    GetAnsweredSurveyList: adminPrivateResolvers(
       async (
         _res,
-        args: GetEnquiriesQueryArgs,
+        args: GetAnsweredSurveyListQueryArgs,
         { req }
-      ): Promise<GetEnquiriesResponse> => {
+      ): Promise<GetAnsweredSurveyListResponse> => {
         const { take, page } = args;
 
         try {
-          const enquiries = await Enquiry.find({
+          const answeredSurvey = await SurveyAnswered.find({
             skip: (page - 1) * take,
             take,
-            relations: ["user"],
+            relations: ["user", "ride"],
           });
-
-          console.log(enquiries);
 
           return {
             ok: true,
             error: null,
-            enquiries,
+            answeredSurvey,
           };
         } catch (e) {
           return {
             ok: false,
             error: e.message,
-            enquiries: null,
+            answeredSurvey: null,
           };
         }
       }
