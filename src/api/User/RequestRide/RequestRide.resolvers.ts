@@ -102,7 +102,7 @@ const resolvers: Resolvers = {
               to,
               passenger: user,
               credit,
-              requestedDate: new Date().toLocaleString(),
+              requestedDate: String(new Date().getTime()),
               driver,
               vehicle: driver.vehicle,
             }).save();
