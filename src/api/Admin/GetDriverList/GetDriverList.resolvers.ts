@@ -5,7 +5,7 @@ import adminPrivateResolvers from "../../../utils/adminPrivateResolvers";
 import Driver from "../../../entities/Driver";
 import {
   GetDriverListResponse,
-  GetDriverListMutationArgs,
+  GetDriverListQueryArgs,
 } from "../../../types/graph";
 
 const resolvers: Resolvers = {
@@ -13,7 +13,7 @@ const resolvers: Resolvers = {
     GetDriverList: adminPrivateResolvers(
       async (
         _res,
-        args: GetDriverListMutationArgs,
+        args: GetDriverListQueryArgs,
         { req }
       ): Promise<GetDriverListResponse> => {
         const { admin } = req;
@@ -28,7 +28,7 @@ const resolvers: Resolvers = {
           const drivers = await Driver.find({
             skip: (page - 1) * take,
             take,
-            relations: ["rides", "vehicle"],
+            // relations: ["rides", "vehicle"],
           });
 
           return {

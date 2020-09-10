@@ -1,0 +1,9 @@
+type GetDriverDetailResponse {
+  ok: Boolean!
+  error: String
+  driver: Driver
+}
+
+type Query {
+  GetDriverDetail(id: Int!): GetDriverDetailResponse!
+}
