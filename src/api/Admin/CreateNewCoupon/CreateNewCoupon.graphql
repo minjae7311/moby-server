@@ -1,0 +1,9 @@
+type CreateNewCouponResponse {
+  ok: Boolean!
+  error: String
+  code: String
+}
+
+type Mutation {
+  CreateNewCoupon(code: String, expiry: String): CreateNewCouponResponse!
+}

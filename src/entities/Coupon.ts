@@ -14,7 +14,7 @@ class Coupon extends BaseEntity {
   id: number;
 
   @Column({ type: "text", nullable: false })
-  key: string;
+  code: string;
 
   @Column({ type: "text", nullable: true })
   expiry: string;

@@ -1,6 +1,6 @@
 type Coupon {
   id: Int!
-  key: String!
+  code: String!
   expiry: String
   expired: Boolean!
   users: [User]
