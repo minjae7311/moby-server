@@ -1,0 +1,11 @@
+# @format
+
+type GetPaymentListResponse {
+  ok: Boolean!
+  error: String
+  payments: [Payment]
+}
+
+type Mutation {
+  GetPaymentList(take: Int!, page: Int!, order: String): GetPaymentListResponse!
+}

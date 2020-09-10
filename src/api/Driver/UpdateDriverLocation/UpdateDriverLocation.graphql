@@ -1,0 +1,11 @@
+type UpdateDriverLocationResponse {
+  ok: Boolean!
+  error: String
+}
+
+type Mutation {
+  UpdateDriverLocation(
+    lat: Float!
+    lng: Float!
+  ): UpdateDriverLocationResponse!
+}

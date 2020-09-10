@@ -1,0 +1,8 @@
+type StartWorkResponse {
+  ok: Boolean!
+  error: String
+}
+
+type Mutation {
+  StartWork: StartWorkResponse!
+}

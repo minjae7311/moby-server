@@ -1,0 +1,15 @@
+scalar JSON
+
+type SurveyForm {
+  id: Int!
+  formTitle: String
+  contentsJson: JSON!
+  createdAt: String!
+  updatedAt: String
+}
+
+# @todo
+# targetAgeFrom: Int
+# targetAgeTo: Int
+# targetGender: Boolean
+# ...

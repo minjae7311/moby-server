@@ -1,0 +1,21 @@
+type DriverSignUpResponse {
+  ok: Boolean!
+  error: String
+  token: String
+}
+
+type Mutation {
+  DriverSignUp(
+    loginId: String!
+    loginPw: String!
+    privateTaxi: Boolean!
+    company: String
+    driveLicenseNumber: String!
+    taxiLicenseNumber: String!
+    fullName: String!
+    profilePhotoUrl: String!
+    phoneNumber: String!
+    gender: Boolean!
+    birthDate: String!
+  ): DriverSignUpResponse!
+}

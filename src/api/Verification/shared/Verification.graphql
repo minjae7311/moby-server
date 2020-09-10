@@ -1,0 +1,11 @@
+type Verification {
+  id: Int!
+  target: String! # login method
+  payload: String!
+  key: String!
+  verified: Boolean!
+  user: User
+  expired: Boolean!
+  createdAt: String!
+  updatedAt: String
+}

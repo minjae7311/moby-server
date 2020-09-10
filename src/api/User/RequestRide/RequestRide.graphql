@@ -1,0 +1,21 @@
+type RequestRideResponse {
+  ok: Boolean!
+  error: String
+  ride: Ride
+}
+
+type Mutation {
+  RequestRide(
+    fromAddress: String!
+    fromLat: Float!
+    fromLng: Float!
+    toAddress: String!
+    toLat: Float!
+    toLng: Float!
+    expectingFee: Float!
+    company: String! # newly added
+    distance: String # @todo ??
+    duration: String
+    creditId: Int!
+  ): RequestRideResponse!
+}

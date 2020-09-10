@@ -1,0 +1,14 @@
+type GetMyPaybackResponse {
+  ok: Boolean!
+  error: String
+  amount: Float
+}
+
+type Query {
+  GetMyPayback(
+    userId: Int!
+    from: String
+    to: String
+    includePaybacked: Boolean
+  ): GetMyPaybackResponse!
+}

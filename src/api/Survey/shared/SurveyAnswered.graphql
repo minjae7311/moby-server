@@ -1,0 +1,12 @@
+scalar JSON
+
+type SurveyAnswered {
+  id: Int!
+  user: User!
+  ride: Ride!
+  surveyForm: SurveyForm!
+  answeredJson: JSON!
+  paybacked: Boolean
+  createdAt: String!
+  updatedAt: String
+}

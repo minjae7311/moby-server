@@ -1,0 +1,12 @@
+type AddNewSurveyFormResponse {
+  ok: Boolean!
+  error: String
+  surveyForm: SurveyForm
+}
+
+type Mutation {
+  AddNewSurveyForm(
+    contentsJson: JSON!
+    formTitle: String
+  ): AddNewSurveyFormResponse!
+}

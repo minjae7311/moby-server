@@ -1,0 +1,8 @@
+type CreateInterestsResponse {
+  ok: Boolean!
+  error: String
+}
+
+type Mutation {
+  CreateInterests(name: String!): CreateInterestsResponse
+}

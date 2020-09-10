@@ -1,0 +1,10 @@
+type Enquiry {
+  id: Int!
+  user: User!
+  questionTitle: String!
+  questionContent: String!
+  answerTitle: String
+  answerContent: String
+  createdAt: String!
+  updatedAt: String
+}

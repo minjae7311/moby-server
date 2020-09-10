@@ -1,0 +1,15 @@
+type AddNewVehicleResponse {
+  ok: Boolean!
+  error: String
+  vehicle: Vehicle
+}
+
+type Mutation {
+  AddNewVehicle(
+    discount: Float
+    surveyFormId: Int!
+    company: String
+    carType: String!
+    carNumber: String!
+  ): AddNewVehicleResponse!
+}
