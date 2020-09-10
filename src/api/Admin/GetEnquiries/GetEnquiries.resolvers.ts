@@ -2,47 +2,41 @@
 
 import { Resolvers } from "../../../types/resolvers";
 import adminPrivateResolvers from "../../../utils/adminPrivateResolvers";
-import Driver from "../../../entities/Driver";
 import {
-  GetDriverListResponse,
-  GetDriverListQueryArgs,
+  GetEnquiriesResponse,
+  GetEnquiriesQueryArgs,
 } from "../../../types/graph";
+import Enquiry from "../../../entities/Enquiry";
 
 const resolvers: Resolvers = {
   Query: {
-    GetDriverList: adminPrivateResolvers(
+    GetEnquiries: adminPrivateResolvers(
       async (
         _res,
-        args: GetDriverListQueryArgs,
+        args: GetEnquiriesQueryArgs,
         { req }
-      ): Promise<GetDriverListResponse> => {
-        const { admin } = req;
-        /**
-         * @todo add order
-         */
+      ): Promise<GetEnquiriesResponse> => {
         const { take, page } = args;
 
-        console.log(admin.id, "getting ride lists.");
-
         try {
-          const drivers = await Driver.find({
+          const enquiries = await Enquiry.find({
             skip: (page - 1) * take,
             take,
-            relations: ["rides", "vehicle"],
+            relations: ["user"],
           });
 
-          console.log(drivers);
+          console.log(enquiries);
 
           return {
             ok: true,
             error: null,
-            drivers,
+            enquiries,
           };
         } catch (e) {
           return {
             ok: false,
             error: e.message,
-            drivers: null,
+            enquiries: null,
           };
         }
       }

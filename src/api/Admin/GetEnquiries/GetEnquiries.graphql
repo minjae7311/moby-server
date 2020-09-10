@@ -1,0 +1,9 @@
+type GetEnquiriesResponse {
+  ok: Boolean!
+  error: String
+  enquiries: [Enquiry]
+}
+
+type Query {
+  GetEnquiries(page: Int!, take: Int!): GetEnquiriesResponse!
+}

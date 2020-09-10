@@ -6,6 +6,6 @@ type GetDriverListResponse {
   drivers: [Driver]
 }
 
-type Mutation {
+type Query {
   GetDriverList(take: Int!, page: Int!, order: String): GetDriverListResponse!
 }
