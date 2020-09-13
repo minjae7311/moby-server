@@ -5,5 +5,5 @@ type GetAnsweredSurveyListResponse {
 }
 
 type Query {
-  GetAnsweredSurveyList(page: Int!, take: Int!): GetAnsweredSurveyListResponse!
+  GetAnsweredSurveyList: GetAnsweredSurveyListResponse!
 }
