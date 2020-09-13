@@ -47,7 +47,7 @@ const resolvers: Resolvers = {
           }
 
           ride.status = "ACCEPTED";
-          ride.acceptedDate = String(new Date().getTime();
+          ride.acceptedDate = String(new Date().getTime());
           ride.distanceBetween = getDistance(
             ride.from.lat,
             ride.from.lng,
