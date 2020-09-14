@@ -54,16 +54,16 @@ class User extends BaseEntity {
 	@JoinTable()
 	interests: Interests[];
 
-	@OneToMany(() => Credit, (credit) => credit.user, { onDelete: "SET NULL" })
+	@OneToMany(() => Credit, (credit) => credit.user, { onDelete: "SET NULL", onUpdate: "CASCADE" })
 	credit: Credit[];
 
-	@OneToOne((type) => Verification, (verification) => verification.user, { onDelete: "SET NULL" })
+	@OneToOne((type) => Verification, (verification) => verification.user, { onDelete: "SET NULL", onUpdate: "CASCADE" })
 	verification: Verification;
 
-	@ManyToMany(() => Place, { onDelete: "SET NULL" })
+	@ManyToMany(() => Place, { onDelete: "SET NULL", onUpdate: "CASCADE" })
 	favPlace: Place[];
 
-	@OneToMany(() => Ride, (ride) => ride.passenger, { onDelete: "SET NULL" })
+	@OneToMany(() => Ride, (ride) => ride.passenger, { onDelete: "SET NULL", onUpdate: "CASCADE" })
 	rides: Ride[];
 
 	@CreateDateColumn()

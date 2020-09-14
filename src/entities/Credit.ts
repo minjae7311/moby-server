@@ -6,7 +6,7 @@ class Credit extends BaseEntity {
 	@PrimaryGeneratedColumn()
 	id: number;
 
-	@ManyToOne(() => User, (user) => user.credit, { onDelete: "SET NULL" })
+	@ManyToOne(() => User, (user) => user.credit, { onDelete: "SET NULL", onUpdate: "CASCADE" })
 	@JoinColumn()
 	user: User;
 

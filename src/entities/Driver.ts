@@ -22,10 +22,10 @@ class Driver extends BaseEntity {
 	@Column({ type: "boolean", nullable: false, default: false })
 	workingOn: boolean;
 
-	@OneToMany(() => Ride, (ride) => ride.driver, { onDelete: "SET NULL" })
+	@OneToMany(() => Ride, (ride) => ride.driver, { onDelete: "SET NULL", onUpdate: "CASCADE" })
 	rides: Ride[];
 
-	@ManyToOne(() => Vehicle, { onDelete: "SET NULL" })
+	@ManyToOne(() => Vehicle, { onDelete: "SET NULL", onUpdate: "CASCADE" })
 	vehicle: Vehicle;
 
 	@Column({ type: "text", nullable: false })

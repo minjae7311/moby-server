@@ -16,7 +16,7 @@ class SurveyAnswered extends BaseEntity {
 	@JoinColumn()
 	ride: Ride;
 
-	@ManyToOne(() => SurveyForm, { onDelete: "SET NULL" })
+	@ManyToOne(() => SurveyForm, { onDelete: "SET NULL", onUpdate: "CASCADE" })
 	@JoinColumn()
 	surveyForm: SurveyForm;
 

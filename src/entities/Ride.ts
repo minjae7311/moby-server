@@ -18,10 +18,10 @@ class Ride extends BaseEntity {
 	@ManyToOne(() => Place)
 	to: Place;
 
-	@OneToMany(() => Payment, (payment) => payment.ride, { onDelete: "SET NULL" })
+	@OneToMany(() => Payment, (payment) => payment.ride, { onDelete: "SET NULL", onUpdate: "CASCADE" })
 	payment: Payment[];
 
-	@ManyToOne(() => Credit, { onDelete: "SET NULL" })
+	@ManyToOne(() => Credit, { onDelete: "SET NULL", onUpdate: "CASCADE" })
 	credit: Credit;
 
 	@Column({ type: "double precision", nullable: true })
@@ -36,10 +36,10 @@ class Ride extends BaseEntity {
 	// @Column({ type: "double precision", nullable: true })
 	// findingDistance: number;
 
-	@ManyToOne(() => User, (user) => user.rides, { onDelete: "SET NULL" })
+	@ManyToOne(() => User, (user) => user.rides, { onDelete: "SET NULL", onUpdate: "CASCADE" })
 	passenger: User;
 
-	@ManyToOne(() => Driver, (driver) => driver.rides, { onDelete: "SET NULL" })
+	@ManyToOne(() => Driver, (driver) => driver.rides, { onDelete: "SET NULL", onUpdate: "CASCADE" })
 	driver: Driver;
 
 	@Column({ type: "text", nullable: true })
@@ -64,7 +64,7 @@ class Ride extends BaseEntity {
 	})
 	status: rideStatus;
 
-	@ManyToOne(() => Vehicle, { onDelete: "SET NULL" })
+	@ManyToOne(() => Vehicle, { onDelete: "SET NULL", onUpdate: "CASCADE" })
 	@JoinColumn()
 	vehicle: Vehicle;
 

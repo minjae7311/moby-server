@@ -12,7 +12,7 @@ class Notification extends BaseEntity {
 	@Column({ type: "text" })
 	html: string;
 
-	@ManyToOne(() => Admin, { onDelete: "SET NULL" })
+	@ManyToOne(() => Admin, { onDelete: "SET NULL", onUpdate: "CASCADE" })
 	author: Admin;
 
 	@CreateDateColumn()

@@ -15,7 +15,7 @@ class Coupon extends BaseEntity {
 	@Column({ type: "boolean", default: false })
 	expired: boolean;
 
-	@ManyToMany(() => User, { onDelete: "SET NULL" })
+	@ManyToMany(() => User, { onDelete: "SET NULL", onUpdate: "CASCADE" })
 	users: User[];
 
 	@CreateDateColumn()

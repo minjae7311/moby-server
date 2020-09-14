@@ -9,7 +9,7 @@ class Vehicle extends BaseEntity {
 	@Column({ type: "double precision", default: 0 })
 	discount: number;
 
-	@ManyToOne(() => SurveyForm, { onDelete: "SET NULL" })
+	@ManyToOne(() => SurveyForm, { onDelete: "SET NULL", onUpdate: "CASCADE" })
 	@JoinColumn()
 	surveyForm: SurveyForm;
 
