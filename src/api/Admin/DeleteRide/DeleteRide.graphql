@@ -1,0 +1,8 @@
+type DeleteRideResponse {
+	ok: Boolean!
+	error: String
+}
+
+type Mutation {
+	DeleteRide(rideId: Int!): DeleteRideResponse!
+}
