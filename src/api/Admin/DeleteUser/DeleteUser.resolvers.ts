@@ -10,7 +10,7 @@ const resolvers: Resolvers = {
 				const { userId } = args;
 
 				try {
-					const user = await User.findOne({ id: userId }, { relations: [""] });
+					const user = await User.findOne({ id: userId });
 
 					if (!user) {
 						return {
@@ -18,6 +18,8 @@ const resolvers: Resolvers = {
 							error: "not-found",
 						};
 					}
+
+					await user.softRemove();
 
 					return {
 						ok: true,

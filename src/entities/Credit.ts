@@ -1,4 +1,4 @@
-import { Entity, BaseEntity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, Column, ManyToOne, JoinColumn } from "typeorm";
+import { Entity, BaseEntity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, Column, ManyToOne, JoinColumn, DeleteDateColumn } from "typeorm";
 import User from "./User";
 
 @Entity()
@@ -30,6 +30,9 @@ class Credit extends BaseEntity {
 
 	@UpdateDateColumn()
 	updatedAt: string;
+
+	@DeleteDateColumn()
+	deletedAt: string;
 
 	get first4numbers(): string {
 		return this.card_number.slice(0, 4);

@@ -1,4 +1,4 @@
-import { Entity, BaseEntity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToMany } from "typeorm";
+import { Entity, BaseEntity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToMany, DeleteDateColumn } from "typeorm";
 import User from "./User";
 
 @Entity()
@@ -23,6 +23,9 @@ class Coupon extends BaseEntity {
 
 	@CreateDateColumn()
 	updatedAt: string;
+
+	@DeleteDateColumn()
+	deletedAt: string;
 }
 
 export default Coupon;

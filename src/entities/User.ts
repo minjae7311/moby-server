@@ -1,5 +1,5 @@
 // import { IsEmail } from "class-validator";
-import { Entity, BaseEntity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToMany, OneToOne, Unique, OneToMany, JoinTable } from "typeorm";
+import { Entity, BaseEntity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToMany, OneToOne, Unique, OneToMany, JoinTable, DeleteDateColumn } from "typeorm";
 import Interests from "./Interests";
 import Verification from "./Verification";
 import Credit from "./Credit";
@@ -71,6 +71,9 @@ class User extends BaseEntity {
 
 	@UpdateDateColumn()
 	updatedAt: string;
+
+	@DeleteDateColumn()
+	deletedAt: string;
 }
 
 export default User;

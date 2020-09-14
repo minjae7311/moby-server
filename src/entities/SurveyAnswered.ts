@@ -1,4 +1,4 @@
-import { Entity, BaseEntity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, Column, ManyToOne, JoinColumn, OneToOne } from "typeorm";
+import { Entity, BaseEntity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, Column, ManyToOne, JoinColumn, OneToOne, DeleteDateColumn } from "typeorm";
 import User from "./User";
 import Ride from "./Ride";
 import SurveyForm from "./SurveyForm";
@@ -31,6 +31,9 @@ class SurveyAnswered extends BaseEntity {
 
 	@UpdateDateColumn()
 	updatedAt: string;
+
+	@DeleteDateColumn()
+	deletedAt: string;
 }
 
 export default SurveyAnswered;

@@ -1,4 +1,4 @@
-import { Entity, BaseEntity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, Column, OneToMany, ManyToOne, JoinColumn } from "typeorm";
+import { Entity, BaseEntity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, Column, OneToMany, ManyToOne, JoinColumn, DeleteDateColumn } from "typeorm";
 import Payment from "./Payment";
 import Place from "./Place";
 import User from "./User";
@@ -73,6 +73,9 @@ class Ride extends BaseEntity {
 
 	@UpdateDateColumn()
 	updatedAt: string;
+
+	@DeleteDateColumn()
+	deletedAt: string;
 }
 
 export default Ride;

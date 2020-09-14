@@ -1,4 +1,4 @@
-import { Entity, BaseEntity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, Column, OneToMany, ManyToOne, BeforeUpdate, BeforeInsert, Unique } from "typeorm";
+import { Entity, BaseEntity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, Column, OneToMany, ManyToOne, BeforeUpdate, BeforeInsert, Unique, DeleteDateColumn } from "typeorm";
 import Ride from "./Ride";
 import Vehicle from "./Vehicle";
 import bcrypt from "bcrypt";
@@ -76,6 +76,9 @@ class Driver extends BaseEntity {
 
 	@UpdateDateColumn()
 	updatedAt: string;
+
+	@DeleteDateColumn()
+	deletedAt: string;
 
 	@BeforeInsert()
 	@BeforeUpdate()

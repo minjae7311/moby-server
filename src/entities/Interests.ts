@@ -1,25 +1,21 @@
-import {
-  Entity,
-  BaseEntity,
-  PrimaryGeneratedColumn,
-  CreateDateColumn,
-  UpdateDateColumn,
-  Column,
-} from "typeorm";
+import { Entity, BaseEntity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, Column, DeleteDateColumn } from "typeorm";
 
 @Entity()
 class Interests extends BaseEntity {
-  @PrimaryGeneratedColumn()
-  id: number;
+	@PrimaryGeneratedColumn()
+	id: number;
 
-  @Column()
-  name: string;
+	@Column()
+	name: string;
 
-  @CreateDateColumn()
-  createdAt: string;
+	@CreateDateColumn()
+	createdAt: string;
 
-  @UpdateDateColumn()
-  updatedAt: string;
+	@UpdateDateColumn()
+	updatedAt: string;
+
+	@DeleteDateColumn()
+	deletedAt: string;
 }
 
 export default Interests;

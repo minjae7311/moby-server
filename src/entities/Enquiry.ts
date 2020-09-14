@@ -1,6 +1,6 @@
 /** @format */
 
-import { Entity, PrimaryGeneratedColumn, BaseEntity, Column, ManyToOne, CreateDateColumn } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, BaseEntity, Column, ManyToOne, CreateDateColumn, DeleteDateColumn } from "typeorm";
 import User from "./User";
 
 @Entity()
@@ -28,6 +28,9 @@ class Enquiry extends BaseEntity {
 
 	@CreateDateColumn()
 	updatedAt: string;
+
+	@DeleteDateColumn()
+	deletedAt: string;
 }
 
 export default Enquiry;
