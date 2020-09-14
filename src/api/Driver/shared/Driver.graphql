@@ -1,27 +1,25 @@
 type Driver {
-  id: Int!
-  loginId: String!
-  loginPw: String!
-  lat: Float
-  lng: Float
-  isDriving: Boolean!
-  workingOn: Boolean!
-  rides: [Ride]
-  vehicle: Vehicle
-
-  privateTaxi: Boolean!
-  company: String # todo: make company table?
-  driveLicenseNumber: String!
-  taxiLicenseNumber: String!
-  fullName: String!
-  profilePhotoUrl: String
-  phoneNumber: String
-  verifiedPhoneNumber: Boolean
-  gender: Boolean
-  birthDate: String
-
-  accepted: Boolean
-
-  createdAt: String!
-  updatedAt: String
+	id: Int!
+	loginId: String!
+	loginPw: String!
+	lat: Float
+	lng: Float
+	isDriving: Boolean!
+	workingOn: Boolean!
+	rides: [Ride]
+	vehicle: Vehicle
+	privateTaxi: Boolean!
+	company: String # todo: make company table?
+	driveLicenseNumber: String!
+	taxiLicenseNumber: String!
+	fullName: String!
+	profilePhotoUrl: String
+	phoneNumber: String
+	verifiedPhoneNumber: Boolean
+	gender: Boolean
+	birthDate: String
+	accepted: Boolean
+	createdAt: String!
+	updatedAt: String
+	deletedAt: String
 }

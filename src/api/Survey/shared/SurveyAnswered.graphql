@@ -9,4 +9,6 @@ type SurveyAnswered {
   paybacked: Boolean
   createdAt: String!
   updatedAt: String
+	deletedAt: String
+
 }

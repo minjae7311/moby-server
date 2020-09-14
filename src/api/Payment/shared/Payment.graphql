@@ -1,12 +1,13 @@
 type Payment {
-  id: Int!
-  ride: Ride!
-  credit: Credit
-  price: Float!
-  status: String
-  reason: String
-  date: String
-  imp_uid: String
-  createdAt: String!
-  updatedAt: String
+	id: Int!
+	ride: Ride!
+	credit: Credit
+	price: Float!
+	status: String
+	reason: String
+	date: String
+	imp_uid: String
+	createdAt: String!
+	updatedAt: String
+	deletedAt: String
 }

@@ -1,11 +1,12 @@
 scalar JSON
 
 type SurveyForm {
-  id: Int!
-  formTitle: String
-  contentsJson: JSON!
-  createdAt: String!
-  updatedAt: String
+	id: Int!
+	formTitle: String
+	contentsJson: JSON!
+	createdAt: String!
+	updatedAt: String
+	deletedAt: String
 }
 
 # @todo
