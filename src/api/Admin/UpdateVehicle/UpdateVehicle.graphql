@@ -1,0 +1,10 @@
+scalar JSON
+
+type UpdateVehicleResponse {
+	ok: Boolean!
+	error: String
+}
+
+type Mutation {
+	UpdateVehicle(data: JSON): UpdateVehicleResponse!
+}
