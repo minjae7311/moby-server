@@ -1,46 +1,36 @@
-import {
-  Entity,
-  BaseEntity,
-  PrimaryGeneratedColumn,
-  CreateDateColumn,
-  UpdateDateColumn,
-  Column,
-  ManyToOne,
-  JoinColumn,
-  OneToOne,
-} from "typeorm";
+import { Entity, BaseEntity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, Column, ManyToOne, JoinColumn, OneToOne } from "typeorm";
 import User from "./User";
 import Ride from "./Ride";
 import SurveyForm from "./SurveyForm";
 
 @Entity()
 class SurveyAnswered extends BaseEntity {
-  @PrimaryGeneratedColumn()
-  id: number;
+	@PrimaryGeneratedColumn()
+	id: number;
 
-  @ManyToOne(() => User)
-  @JoinColumn()
-  user: User;
+	@ManyToOne(() => User)
+	@JoinColumn()
+	user: User;
 
-  @OneToOne(() => Ride)
-  @JoinColumn()
-  ride: Ride;
+	@OneToOne(() => Ride)
+	@JoinColumn()
+	ride: Ride;
 
-  @ManyToOne(() => SurveyForm)
-  @JoinColumn()
-  surveyForm: SurveyForm;
+	@ManyToOne(() => SurveyForm, { onDelete: "SET NULL" })
+	@JoinColumn()
+	surveyForm: SurveyForm;
 
-  @Column({ type: "jsonb" })
-  answeredJson: JSON;
+	@Column({ type: "jsonb" })
+	answeredJson: JSON;
 
-  @Column({ type: "boolean", default: false })
-  paybacked: boolean;
+	@Column({ type: "boolean", default: false })
+	paybacked: boolean;
 
-  @CreateDateColumn()
-  createdAt: string;
+	@CreateDateColumn()
+	createdAt: string;
 
-  @UpdateDateColumn()
-  updatedAt: string;
+	@UpdateDateColumn()
+	updatedAt: string;
 }
 
 export default SurveyAnswered;

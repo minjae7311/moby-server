@@ -37,7 +37,7 @@ class Verification extends BaseEntity {
   @Column({ type: "boolean", default: false })
   expired: boolean;
 
-  @OneToOne((type) => User, (user) => user.verification)
+  @OneToOne((type) => User, (user) => user.verification, { onDelete: "SET NULL" })
   @JoinColumn()
   user: User;
 

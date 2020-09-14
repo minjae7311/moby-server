@@ -1,0 +1,9 @@
+type AddUserResponse {
+	ok: Boolean!
+	error: String
+	user: User
+}
+
+type Mutation {
+	AddUser(bankAccount: String, fullName: String, profilePhotoUrl: String, phoneNumber: String, gender: String, pushToken: String, birthDate: String, job: String, deviceId: String): AddUserResponse!
+}

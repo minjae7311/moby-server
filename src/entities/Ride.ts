@@ -1,14 +1,4 @@
-import {
-  Entity,
-  BaseEntity,
-  PrimaryGeneratedColumn,
-  CreateDateColumn,
-  UpdateDateColumn,
-  Column,
-  OneToMany,
-  ManyToOne,
-  JoinColumn,
-} from "typeorm";
+import { Entity, BaseEntity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, Column, OneToMany, ManyToOne, JoinColumn } from "typeorm";
 import Payment from "./Payment";
 import Place from "./Place";
 import User from "./User";
@@ -19,73 +9,70 @@ import Credit from "./Credit";
 
 @Entity()
 class Ride extends BaseEntity {
-  @PrimaryGeneratedColumn()
-  id: number;
+	@PrimaryGeneratedColumn()
+	id: number;
 
-  @ManyToOne(() => Place)
-  from: Place;
+	@ManyToOne(() => Place)
+	from: Place;
 
-  @ManyToOne(() => Place)
-  to: Place;
+	@ManyToOne(() => Place)
+	to: Place;
 
-  @OneToMany(() => Payment, (payment) => payment.ride)
-  payment: Payment[];
+	@OneToMany(() => Payment, (payment) => payment.ride, { onDelete: "SET NULL" })
+	payment: Payment[];
 
-  @ManyToOne(() => Credit)
-  credit: Credit;
+	@ManyToOne(() => Credit, { onDelete: "SET NULL" })
+	credit: Credit;
 
-  @Column({ type: "double precision", nullable: true })
-  expectingFee: number;
+	@Column({ type: "double precision", nullable: true })
+	expectingFee: number;
 
-  @Column({ type: "double precision", nullable: true })
-  finalFee: number;
+	@Column({ type: "double precision", nullable: true })
+	finalFee: number;
 
-  @Column({ type: "double precision", nullable: true })
-  distanceBetween: number;
+	@Column({ type: "double precision", nullable: true })
+	distanceBetween: number;
 
-  // @Column({ type: "double precision", nullable: true })
-  // findingDistance: number;
+	// @Column({ type: "double precision", nullable: true })
+	// findingDistance: number;
 
-  @ManyToOne(() => User, (user) => user.rides)
-  passenger: User;
+	@ManyToOne(() => User, (user) => user.rides, { onDelete: "SET NULL" })
+	passenger: User;
 
-  @ManyToOne(() => Driver, (driver) => driver.rides)
-  driver: Driver;
+	@ManyToOne(() => Driver, (driver) => driver.rides, { onDelete: "SET NULL" })
+	driver: Driver;
 
-  @Column({ type: "text", nullable: true })
-  requestedDate: string;
+	@Column({ type: "text", nullable: true })
+	requestedDate: string;
 
-  @Column({ type: "text", nullable: true })
-  acceptedDate: string;
+	@Column({ type: "text", nullable: true })
+	acceptedDate: string;
 
-  @Column({ type: "text", nullable: true })
-  finishedDate: string;
+	@Column({ type: "text", nullable: true })
+	finishedDate: string;
 
-  @Column({ type: "text", nullable: true })
-  cancelledDate: string;
+	@Column({ type: "text", nullable: true })
+	cancelledDate: string;
 
-  @Column({ type: "boolean", nullable: false, default: false })
-  surveyCompleted: boolean;
+	@Column({ type: "boolean", nullable: false, default: false })
+	surveyCompleted: boolean;
 
-  @Column({
-    type: "text",
-    enum: ["ACCEPTED", "FINISHED", "CANCELED", "REQUESTING", "ONROUTE"],
-    default: "REQUESTING",
-  })
-  status: rideStatus;
+	@Column({
+		type: "text",
+		enum: ["ACCEPTED", "FINISHED", "CANCELED", "REQUESTING", "ONROUTE"],
+		default: "REQUESTING",
+	})
+	status: rideStatus;
 
-  /**
-   * @todo change to column
-   */
-  @ManyToOne(() => Vehicle, { nullable: true })
-  @JoinColumn()
-  vehicle: Vehicle;
+	@ManyToOne(() => Vehicle, { onDelete: "SET NULL" })
+	@JoinColumn()
+	vehicle: Vehicle;
 
-  @CreateDateColumn()
-  createdAt: string;
+	@CreateDateColumn()
+	createdAt: string;
 
-  @UpdateDateColumn()
-  updatedAt: string;
+	@UpdateDateColumn()
+	updatedAt: string;
 }
 
 export default Ride;

@@ -18,13 +18,13 @@ class Payment extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => Ride, (ride) => ride.payment)
+  @ManyToOne(() => Ride, (ride) => ride.payment, { onDelete: "SET NULL" })
   ride: Ride;
 
   /**
    * @todo fk error on delete credit
    */
-  @ManyToOne(() => Credit)
+  @ManyToOne(() => Credit, { onDelete: "SET NULL" })
   @JoinColumn()
   credit: Credit;
 
