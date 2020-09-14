@@ -1,0 +1,8 @@
+type DeleteDriverResponse {
+	ok: Boolean!
+	error: String
+}
+
+type Mutation {
+	DeleteDriver(driverId: Int!): DeleteDriverResponse!
+}

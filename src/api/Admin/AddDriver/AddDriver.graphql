@@ -1,0 +1,24 @@
+type AddDriverResponse {
+	ok: Boolean
+	error: String
+	driver: Driver
+}
+
+type Mutation {
+	AddDriver(
+		lat: Int
+		lng: Int
+		loginId: String
+		loginPw: String
+		privateTaxi: Boolean
+		company: String
+		driveLicenseNumber: String
+		taxiLicenseNumber: String
+		fullName: String
+		profilePhotoUrl: String
+		phoneNumber: String
+		gender: Boolean
+		accepted: Boolean
+		birthDate: String
+	): AddDriverResponse!
+}
