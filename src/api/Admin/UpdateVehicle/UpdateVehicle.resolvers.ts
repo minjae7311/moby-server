@@ -8,11 +8,12 @@ const resolvers: Resolvers = {
 		UpdateVehicle: adminPrivateResolvers(
 			async (_res, args: UpdateVehicleMutationArgs, { req }): Promise<UpdateVehicleResponse> => {
 				const { admin } = req;
+				const { data } = args;
 
 				console.log(admin.id, "Updating Vehicle");
 
 				try {
-					const { data } = args;
+					console.log(data);
 
 					const vehicle = await Vehicle.findOne({ id: data.id });
 
@@ -22,6 +23,8 @@ const resolvers: Resolvers = {
 						});
 
 						await vehicle.save();
+
+						console.log(vehicle);
 
 						return {
 							ok: true,
