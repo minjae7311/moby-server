@@ -62,8 +62,8 @@ class Driver extends BaseEntity {
 	@Column({ type: "boolean", default: false })
 	verifiedPhoneNumber: boolean;
 
-	@Column({ type: "boolean", default: true })
-	gender: boolean;
+	@Column({ type: "text" })
+	gender: string;
 
 	@Column({ type: "boolean", default: false })
 	accepted: boolean;

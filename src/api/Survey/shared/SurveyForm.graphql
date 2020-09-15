@@ -8,9 +8,3 @@ type SurveyForm {
 	updatedAt: String
 	deletedAt: String
 }
-
-# @todo
-# targetAgeFrom: Int
-# targetAgeTo: Int
-# targetGender: Boolean
-# ...
