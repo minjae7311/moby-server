@@ -3,6 +3,7 @@ import adminPrivateResolvers from "../../../utils/adminPrivateResolvers";
 import { AddDriverMutationArgs, AddDriverResponse } from "../../../types/graph";
 import cleanNullArgs from "../../../utils/cleanNullArg";
 import Driver from "../../../entities/Driver";
+import Vehicle from "../../../entities/Vehicle";
 
 const resolvers: Resolvers = {
 	Mutation: {
@@ -11,7 +12,8 @@ const resolvers: Resolvers = {
 				const notNullArgs = cleanNullArgs(args);
 
 				try {
-					const driver = await Driver.create({ ...notNullArgs, verifiedPhoneNumber: true }).save();
+					const vehicle = await Vehicle.create({ discount: 1000, company: "ADMIN", carType: "ADMIN", carNumber: "ADMIN" }).save();
+					const driver = await Driver.create({ ...notNullArgs, verifiedPhoneNumber: true, vehicle }).save();
 
 					if (!driver) {
 						return {
