@@ -1,0 +1,8 @@
+type PaybackSurveyResponse {
+	ok: Boolean!
+	error: String
+}
+
+type Mutation {
+	PaybackSurvey(surveyId: Int!): PaybackSurveyResponse!
+}
