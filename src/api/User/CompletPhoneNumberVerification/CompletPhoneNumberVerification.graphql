@@ -1,0 +1,14 @@
+type CompletPhoneNumberVerificationResponse {
+  ok: Boolean!
+  error: String
+  token: String
+  isExistingUser: Boolean
+}
+
+type Mutation {
+  CompletPhoneNumberVerification(
+    phoneNumber: String!
+    key: String!
+    deviceId: String!
+  ): CompletPhoneNumberVerificationResponse!
+}

@@ -1,0 +1,11 @@
+# @format
+
+type GetUserListResponse {
+  ok: Boolean!
+  error: String
+  users: [User]
+}
+
+type Query {
+  GetUserList(take: Int!, page: Int!, order: String): GetUserListResponse!
+}

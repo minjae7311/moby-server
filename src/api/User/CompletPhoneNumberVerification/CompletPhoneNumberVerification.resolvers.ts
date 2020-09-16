@@ -1,0 +1,101 @@
+import { Resolvers } from "../../../types/resolvers";
+import {
+  CompletPhoneNumberVerificationResponse,
+  CompletPhoneNumberVerificationMutationArgs,
+} from "../../../types/graph";
+import Verification from "../../../entities/Verification";
+import createJWT from "../../../utils/create.JWT";
+import User from "../../../entities/User";
+
+const resolvers: Resolvers = {
+  Mutation: {
+    CompletPhoneNumberVerification: async (
+      _,
+      args: CompletPhoneNumberVerificationMutationArgs
+    ): Promise<CompletPhoneNumberVerificationResponse> => {
+      const { phoneNumber, key, deviceId } = args;
+
+      try {
+        // find verifications with phone number
+        const verification = await Verification.findOne(
+          {
+            payload: phoneNumber,
+            key,
+          },
+          { relations: ["user"] }
+        );
+
+        // valid key
+        if (verification) {
+          if (verification.expired) {
+            return {
+              ok: false,
+              error: "verification-expired",
+              token: null,
+              isExistingUser: null,
+            };
+          }
+
+          verification.verified = true;
+          verification.expired = true;
+
+          // user exists
+          if (verification.user) {
+            verification.user.deviceId = deviceId;
+            verification.user.verifiedPhoneNumber = true;
+
+            verification.save();
+
+            await verification.user.save();
+
+            const token = createJWT(verification.user.id, deviceId);
+
+            return {
+              ok: true,
+              error: null,
+              token,
+              isExistingUser: true
+            };
+          } else {
+            // new user
+            const newUser = await User.create({
+              phoneNumber,
+              verifiedPhoneNumber: true,
+              deviceId,
+              verification,
+            }).save();
+
+            verification.user = newUser;
+            verification.save();
+
+            const token = createJWT(newUser.id, deviceId);
+
+            return {
+              ok: true,
+              error: null,
+              token,
+              isExistingUser: false,
+            };
+          }
+        } else {
+          // invalid key
+          return {
+            ok: false,
+            error: "invalid-code",
+            token: null,
+            isExistingUser:null
+          };
+        }
+      } catch (e) {
+        return {
+          ok: false,
+          error: e.message,
+          token: null,
+          isExistingUser:null
+        };
+      }
+    },
+  },
+};
+
+export default resolvers;

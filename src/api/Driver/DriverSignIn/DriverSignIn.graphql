@@ -1,0 +1,9 @@
+type DriverSignInResponse {
+  ok: Boolean!
+  error: String
+  token: String
+}
+
+type Mutation {
+  DriverSignIn(email: String!, password: String!): DriverSignInResponse!
+}

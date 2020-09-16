@@ -1,0 +1,13 @@
+node_modules
+
+/src/types/graph.d.ts
+
+/src/schema.graphql
+
+yarn-error.log
+
+yarn.lock
+
+ormlogs.log
+
+/src/access.log

@@ -1,0 +1,7 @@
+type Interests {
+	id: Int!
+	name: String!
+	createdAt: String!
+	updatedAt: String
+	deletedAt: String
+}

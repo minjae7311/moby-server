@@ -1,0 +1,9 @@
+type Notification {
+	id: Int!
+	title: String!
+	html: String!
+	author: Admin
+	createdAt: String!
+	updatedAt: String
+	deletedAt: String
+}

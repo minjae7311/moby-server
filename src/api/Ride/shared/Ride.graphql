@@ -1,0 +1,22 @@
+type Ride {
+	id: Int!
+	from: Place
+	to: Place
+	payment: [Payment]
+	expectingFee: Float
+	finalFee: Float
+	passenger: User!
+	driver: Driver
+	status: String!
+	requestedDate: String
+	acceptedDate: String
+	finishedDate: String
+	cancelledDate: String
+	surveyCompleted: Boolean!
+	vehicle: Vehicle
+	distanceBetween: Float
+	# findingDistance: Float
+	createdAt: String!
+	updatedAt: String
+	deletedAt: String
+}

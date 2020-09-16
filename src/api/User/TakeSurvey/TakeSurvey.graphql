@@ -1,0 +1,8 @@
+type TakeSurveyResponse {
+  ok: Boolean!
+  error: String
+}
+
+type Mutation {
+  TakeSurvey(rideId: Int!, answeredJson: JSON): TakeSurveyResponse!
+}

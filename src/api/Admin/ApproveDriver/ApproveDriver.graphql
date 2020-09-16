@@ -1,0 +1,8 @@
+type ApproveDriverResponse {
+	ok: Boolean
+	error: String
+}
+
+type Mutation {
+	ApproveDriver(driverId: Int!): ApproveDriverResponse!
+}

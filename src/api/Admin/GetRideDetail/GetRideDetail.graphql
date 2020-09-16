@@ -1,0 +1,11 @@
+# @format
+
+type GetRideDetailResponse {
+  ok: Boolean!
+  error: String
+  ride: Ride
+}
+
+type Query {
+  GetRideDetail(id: Int!): GetRideDetailResponse!
+}

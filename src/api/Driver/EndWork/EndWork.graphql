@@ -1,0 +1,8 @@
+type EndWorkResponse {
+  ok: Boolean!
+  error: String
+}
+
+type Mutation {
+  EndWork: EndWorkResponse!
+}

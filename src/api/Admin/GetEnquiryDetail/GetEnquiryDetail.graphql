@@ -1,0 +1,9 @@
+type GetEnquiryDetailResponse {
+  ok: Boolean!
+  error: String
+  enquiry: Enquiry
+}
+
+type Query {
+  GetEnquiryDetail(id: Int!): GetEnquiryDetailResponse!
+}

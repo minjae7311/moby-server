@@ -1,0 +1,12 @@
+type AnswerEnquiryResponse {
+  ok: Boolean!
+  error: String
+}
+
+type Mutation {
+  AnswerEnquiry(
+    id: Int!
+    answerTitle: String!
+    answerContent: String!
+  ): AnswerEnquiryResponse!
+}

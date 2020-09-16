@@ -1,0 +1,9 @@
+type GetMySurveyResponse {
+  ok: Boolean!
+  error: String
+  survey: SurveyForm
+}
+
+type Query {
+  GetMySurvey(rideId: Int!): GetMySurveyResponse!
+}

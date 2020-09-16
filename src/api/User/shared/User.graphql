@@ -1,0 +1,22 @@
+type User {
+	id: Int!
+	bankAccount: String
+	birthDate: String
+	credit: [Credit]
+	deviceId: String!
+	favPlace: [Place]
+	fullName: String
+	gender: String
+	interests: [Interests]
+	isRiding: Boolean
+	job: String
+	profilePhotoUrl: String
+	phoneNumber: String!
+	rides: [Ride]
+	verification: Verification
+	verifiedPhoneNumber: Boolean!
+	pushToken: String
+	createdAt: String!
+	updatedAt: String
+	deletedAt: String
+}

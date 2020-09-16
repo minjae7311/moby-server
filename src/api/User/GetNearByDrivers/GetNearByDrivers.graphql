@@ -1,0 +1,9 @@
+type GetNearByDriversResponse {
+  ok: Boolean!
+  error: String
+  drivers: [Driver]
+}
+
+type Query {
+  GetNearByDrivers(lat: Float!, lng: Float!): GetNearByDriversResponse!
+}
